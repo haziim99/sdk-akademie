@@ -1,29 +1,18 @@
-<<<<<<< HEAD
 name: CI/CD Pipeline
-=======
-name: CI
->>>>>>> 2f7e9e4d3daed7eb0a979212ffe2cde93bae9361
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
-<<<<<<< HEAD
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-=======
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
->>>>>>> 2f7e9e4d3daed7eb0a979212ffe2cde93bae9361
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -35,16 +24,9 @@ jobs:
       - name: Run tests
         run: npm test
 
-<<<<<<< HEAD
       - name: Deploy to Firebase
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: |
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > /tmp/service-account.json
           firebase deploy --token "$(cat /tmp/service-account.json)"
-=======
-      - name: Deploy
-        run: npm run deploy
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
->>>>>>> 2f7e9e4d3daed7eb0a979212ffe2cde93bae9361
