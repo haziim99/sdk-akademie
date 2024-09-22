@@ -1,21 +1,19 @@
 // استيراد Angular Material
 @use '@angular/material' as mat;
 
-
 @font-face {
   font-family: 'Edu AU VIC WANT Hand';
   src: url('/assets/fonts/EduAUVICWANTHand-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 700; /* قم بتحديد نطاق الأوزان إن أمكن */
+  font-weight: 100 700; /* تحديد نطاق الأوزان إن أمكن */
   font-style: normal;
-
 }
+
 @font-face {
   font-family: 'IBMPlexSansArabic';
   src: url('assets/fonts/IBMPlexSansArabic-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
-
 
 /* styles.css */
 .special-title h2 {
@@ -54,14 +52,15 @@
   text-shadow: 0 8px 20px rgba(255, 255, 255, 0.8); /* ظل نصي معزز عند التمرير */
 }
 
-
 // تضمين الأنماط الأساسية لمكونات Angular Material
 @include mat.core();
 
 // تطبيق الخط على الجسم
 body {
+  margin: 0;
   font-family: 'Titillium Web', sans-serif;
   background-color: #f5f5f5;
+  height: 100%;
 }
 
 // نمط صندوق تسجيل الدخول
@@ -128,23 +127,20 @@ body {
 }
 
 .logout-button {
-  background-color: #ff6600; // Color
-  color: white; // Text color
-  border: none; // Remove border
-  border-radius: 5px; // Rounded corners
-  padding: 10px 20px; // Padding
-  font-size: 16px; // Font size
-  cursor: pointer; // Pointer cursor
-  transition: background-color 0.3s ease; // Transition effect
+  background-color: #ff6600; // لون الزر
+  color: white; // لون النص
+  border: none; // إزالة الحدود
+  border-radius: 5px; // زوايا مدورة
+  padding: 10px 20px; // الحشو
+  font-size: 16px; // حجم الخط
+  cursor: pointer; // مؤشر المؤشر
+  transition: background-color 0.3s ease; // تأثير الانتقال
 
   &:hover {
-    background-color: #cc5200; // Darker color on hover
+    background-color: #cc5200; // لون داكن عند التمرير
   }
 
   &:focus {
-    outline: none; // Remove outline on focus
+    outline: none; // إزالة الحدود عند التركيز
   }
 }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
