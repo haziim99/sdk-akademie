@@ -1,0 +1,185 @@
+$primary-color: #ff1500; // Solid color for manipulation
+$secondary-color: #3b1e2f; // Dark Gray
+$background-color: #f1f5f9; // Light Gray Background
+$highlight-color: #ffffff; // White for cards
+$text-color: #475569; // Soft Gray for text
+$border-radius: 10px; // Softer border radius
+$padding: 16px; // Consistent padding
+$box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); // Softer shadow
+$transition-speed: 0.25s; // Quicker transitions
+$link-color: #720c03; // Red color for links
+$font-family: 'Titillium Web', sans-serif; /* تطبيق الخط */
+
+* {
+  font-family: $font-family;
+}
+
+// Course Overview Container
+.course-overview {
+  background-color: $background-color;
+  padding: $padding * 2;
+  border-radius: $border-radius;
+  max-width: 1000px;
+  margin: 40px auto;
+  box-shadow: $box-shadow;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow $transition-speed ease-in-out;
+
+  &:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  // Course Header Section
+  .course-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+
+    img {
+      max-width: 240px;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      margin-right: $padding;
+      transition: transform $transition-speed ease-in-out;
+
+      &:hover {
+        transform: scale(1.08);
+      }
+    }
+
+    .course-info {
+      h3 {
+        background: linear-gradient(45deg, $primary-color, $secondary-color);
+        -webkit-background-clip: text; // For Safari and Chrome
+        background-clip: text; // Standard property
+        color: transparent;
+        font-size: 2.5rem;
+        margin: 0;
+        transition: color $transition-speed ease-in-out;
+
+        &:hover {
+          background: $primary-color; // Using a solid color here for hover
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+      }
+
+      p {
+        color: $text-color;
+        font-size: 1.15rem;
+        margin-top: 10px;
+      }
+    }
+  }
+
+  // Course Details Section
+  .course-details {
+    background-color: $highlight-color;
+    border-radius: $border-radius;
+    padding: $padding;
+    box-shadow: $box-shadow;
+    margin-bottom: 30px;
+
+    h4 {
+      background: linear-gradient(45deg, $primary-color, $secondary-color);
+      -webkit-background-clip: text; // For Safari and Chrome
+      background-clip: text; // Standard property
+      color: transparent;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: color $transition-speed ease-in-out;
+
+      &:hover {
+        background: $primary-color; // Using a solid color here for hover
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+    }
+
+    p {
+      color: $text-color;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+  }
+
+  // Course Videos Section
+  .course-videos {
+    h5 {
+      background: linear-gradient(45deg, $primary-color, $secondary-color);
+      -webkit-background-clip: text; // For Safari and Chrome
+      background-clip: text; // Standard property
+      color: transparent;
+      font-size: 1.75rem;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: color $transition-speed ease-in-out;
+
+      &:hover {
+        background: $primary-color; // Using a solid color here for hover
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 12px;
+
+        a {
+          color: $link-color;
+          text-decoration: none;
+          font-size: 1.15rem;
+          transition: color $transition-speed ease-in-out;
+
+          &:hover {
+            color: lighten($link-color, 15%);
+          }
+        }
+      }
+    }
+  }
+
+  // Call to Action Buttons
+  .cta-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+
+    button {
+      background: $primary-color;
+      border: none;
+      color: #fff;
+      padding: 14px 24px;
+      border-radius: $border-radius;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background-color $transition-speed ease-in-out, transform $transition-speed ease-in-out;
+
+      &:hover {
+        background: lighten($primary-color, 10%); // Lighten the primary color for hover effect
+        transform: scale(1.05);
+      }
+
+      &.back-button {
+        background-color: #940000;
+        color: white;
+
+        &:hover {
+          background-color: lighten(#4a0101, 5%);
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}

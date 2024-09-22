@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1",
+    "name": "Ahmed El Masry",
+    "email": "ahmed@example.com",
+    "phone": "01012345678",
+    "profilePicture": "assets/images/ahmed.jpg",
+    "password": "password123",
+    "role": "user"
+  },
+  {
+    "id": "2",
+    "name": "Fatma Mohamed",
+    "email": "fatma@example.com",
+    "phone": "01023456789",
+    "profilePicture": "assets/images/fatma.png",
+    "password": "password456",
+    "role": "admin"
+  },
+  {
+    "id": "3",
+    "name": "Mohamed Hassan",
+    "email": "mohamed@example.com",
+    "phone": "01034567890",
+    "profilePicture": "assets/images/mohamed.jpg",
+    "password": "password789",
+    "role": "user"
+  }
+]
+

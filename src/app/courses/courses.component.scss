@@ -1,0 +1,327 @@
+
+/* General Styles */
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: #d3dce6;
+  font-family: 'Titillium Web', sans-serif;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Added for positioning */
+
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  font-family: 'Edu AU VIC WANT Hand', sans-serif;
+}
+
+.level-selection {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+
+  h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #720218;
+    font-family: 'Titillium Web', sans-serif;
+    }
+
+  .buttons {
+    display: flex;
+    gap: 1rem;
+    font-family: 'Titillium Web', sans-serif;
+
+
+    button {
+      background-color: linear-gradient(45deg, #ff1500, #d5b4ff);
+      color: black;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background-color: #130153;
+        color: #e0e0e0;
+      }
+    }
+  }
+}
+
+.view-all-courses {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  .custom-button {
+    background: linear-gradient(90deg, #ff6e61, #d5b4ff);
+    color: #ffffff;
+    border: none;
+    padding: 1rem 2rem;
+    margin-top: 3rem;
+    border-radius: 50px; /* شكل دائري */
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center; /* توسيط الأيقونة والنص */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    i {
+      margin-right: 0.5rem; /* مسافة بين الأيقونة والنص */
+      font-size: 1.5rem; /* حجم الأيقونة */
+    }
+
+    &:hover {
+      transform: translateY(-3px); /* تأثير رفع عند التحويم */
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* زيادة الظل عند التحويم */
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 99, 71, 0.5); /* حلقة تركيز */
+    }
+  }
+}
+
+.courses.blur {
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+.courses {
+  font-family: 'Titillium Web', sans-serif;
+  padding: 60px 20px;
+  background-color: #f4f4f9;
+  text-align: center;
+  width: 80%;
+  margin: auto;
+  position: relative;
+
+  h2 {
+    font-family: 'Titillium Web', sans-serif;
+    position: relative;
+    font-size: 3rem; /* Large font size for impact */
+    font-weight: 700; /* Bold text */
+    margin: 0 0 70px 0;
+    padding: 0;
+    color: #fff; /* White text color */
+    text-transform: uppercase; /* Uppercase text for emphasis */
+    letter-spacing: 2px; /* Increased letter spacing for modern look */
+    display: inline-block;
+    background: linear-gradient(90deg, #ff6f61, #d5b4ff); /* Gradient background */
+    -webkit-background-clip: text; /* Clip the background gradient to the text */
+    background-clip: text;
+    color: transparent; /* Hide the original text color */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  h2::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 50%;
+    background: radial-gradient(circle, rgb(255, 255, 255) 0%, rgba(255, 0, 0, 0) 100%);
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+    z-index: -1;
+  }
+
+  h2:hover {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+    text-shadow: 0 8px 20px rgba(255, 255, 255, 0); /* Enhanced shadow on hover */
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    button {
+      background: #ffffff;
+      border: 2px solid #ffffff;
+      color: #4a90e2;
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.3s ease, color 0.3s ease;
+
+      &.active {
+        background: linear-gradient(45deg, #ff6e6180, #d5b4ff);
+        color: #ffffff;
+      }
+
+      &:hover {
+        background: #f0f0f0;
+        border-color: #ffa1e8b5;
+      }
+    }
+  }
+
+  .course-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    justify-items: center;
+
+
+    .course {
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 350px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 1rem;
+      position: relative; /* Added for positioning */
+      font-family: 'Titillium Web', sans-serif;
+
+
+    }
+
+    .course-top {
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .course-bottom {
+      animation: fadeInUp 1s ease-out 0.3s;
+    }
+
+    .course:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .course-image {
+      width: 100%;
+      height: 200px;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-bottom: 2px solid #e0e0e0;
+      }
+    }
+
+    .course-details {
+      padding: 1rem;
+
+      h4 {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 0.5rem;
+        font-family: 'Titillium Web', sans-serif;
+        i {
+          color: #1f0058; /* لون الأيقونة للكورسات المسجلة */
+          margin-right: 0.5rem; /* مسافة بين الأيقونة والنص */
+          font-size: 1.5rem; /* حجم الأيقونة */
+        }
+      }
+
+
+      p {
+        color: #666;
+        margin-bottom: 0.5rem;
+
+        &.price {
+          font-weight: bold;
+          color: #1f0058;
+        }
+      }
+    }
+
+    .course-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .details-link,
+      .add-to-cart,
+      .contact-us {
+        color: rgb(0, 62, 91);
+        background: white;
+        border: 2px solid #ffffff;
+        padding: 0.5rem;
+        border-radius: 10px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.3s ease, color 0.3s ease;
+
+        i {
+          font-size: 1.5rem;
+        }
+
+        &:hover {
+          background: linear-gradient(45deg, #ff6e6180, #d5b4ff);
+          color: #ffffff;
+        }
+      }
+
+      .contact-us {
+        background-color: linear-gradient(45deg, #ff6e6180, #d5b4ff);
+        color: linear-gradient(45deg, #ff6e6180, #d5b4ff);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        display: flex;
+        align-items: center;
+
+        i {
+          margin-right: 0.5rem;
+          font-size: 1.2rem;
+        }
+
+        &:hover {
+          background-color: linear-gradient(45deg, #ff6e6180, #d5b4ff);
+        }
+      }
+    }
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,49 @@
+<div class="register-container">
+  <div class="form-wrapper animate__animated animate__fadeInUp">
+    <div class="form-container">
+      <h1 class="animate__animated animate__fadeIn animate__delay-1s">Join Our Community</h1>
+      <p class="subtitle animate__animated animate__fadeIn animate__delay-1s">Create your account and start learning today!</p>
+      <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="animate__animated animate__fadeIn animate__delay-1s">
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" [(ngModel)]="firstName" name="firstName" required placeholder="First Name" autocomplete="off" />
+            <i class="fas fa-user icon"></i>
+          </div>
+          <div class="input-group">
+            <input type="text" [(ngModel)]="lastName" name="lastName" required placeholder="Last Name" autocomplete="off" />
+            <i class="fas fa-user icon"></i>
+          </div>
+        </div>
+        <div class="input-group">
+          <input type="email" [(ngModel)]="email" name="email" required placeholder="Email Address" autocomplete="off" />
+          <i class="fas fa-envelope icon"></i>
+        </div>
+        <div class="input-group">
+          <input type="tel" [(ngModel)]="phone" name="phone" required placeholder="Phone Number" autocomplete="off" />
+          <i class="fas fa-phone icon"></i>
+        </div>
+        <div class="input-group">
+          <input type="password" [(ngModel)]="password" name="password" required placeholder="Set A Password" autocomplete="off" />
+          <i class="fas fa-lock icon"></i>
+        </div>
+        <div class="gender-field">
+          <p>Gender</p>
+          <div class="gender-options">
+            <label class="gender-option">
+              <input type="radio" [(ngModel)]="gender" name="gender" value="male" required>
+              <span class="gender-icon"><i class="fas fa-male"></i></span>
+              <span class="gender-text">Male</span>
+            </label>
+            <label class="gender-option">
+              <input type="radio" [(ngModel)]="gender" name="gender" value="female" required>
+              <span class="gender-icon"><i class="fas fa-female"></i></span>
+              <span class="gender-text">Female</span>
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="button button-block" [disabled]="!registerForm.form.valid">Create Account</button>
+      </form>
+      <p class="login-link animate__animated animate__fadeIn animate__delay-2s">Already have an account? <a href="#" (click)="navigateToLogin()">Log In</a></p>
+    </div>
+  </div>
+</div>

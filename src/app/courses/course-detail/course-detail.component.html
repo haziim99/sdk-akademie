@@ -1,0 +1,38 @@
+<div class="course-details">
+  <div class="course-header">
+    <img [src]="course?.imageUrl" alt="{{ course?.title }}" />
+    <div class="course-info">
+      <h2>{{ course?.title }}</h2>
+      <p>{{ course?.description }}</p>
+      <p><strong>Instructor:</strong> {{ course?.instructor }}</p>
+      <p><strong>Duration:</strong> {{ course?.duration }}</p>
+      <p><strong>Start Date:</strong> {{ course?.startDate | date }}</p>
+      <p><strong>Price:</strong> {{ course?.price | currency:'EGP':true }}</p>
+    </div>
+  </div>
+
+  <div class="course-details-section">
+    <h4 (click)="toggleVideos()" style="cursor: pointer;">
+      Course Videos
+    </h4>
+    <ul *ngIf="showVideos">
+      <li *ngFor="let video of course?.videos">
+        <a href="javascript:void(0)" (click)="selectVideo(video.url, video.title)">
+          {{ video.title }}
+        </a>
+        <!-- Container for the video player -->
+        <div *ngIf="selectedVideoTitle === video.title" #videoContainer class="video-player">
+          <video id="plyr-player" class="plyr" controls>
+            <source [src]="selectedVideoUrl" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="cta-buttons">
+    <button (click)="enrollNow()">Enroll Now</button>
+    <button (click)="goBack()">Back to Courses</button>
+  </div>
+</div>

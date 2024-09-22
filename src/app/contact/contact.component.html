@@ -1,0 +1,38 @@
+<section class="contact">
+  <h2>Contact Us</h2>
+  <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required placeholder="Your Name" ngModel>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required placeholder="Your Email" ngModel>
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone" required placeholder="Your Phone Number" ngModel>
+
+    <label for="course">Select Course</label>
+    <select id="course" name="course" required ngModel>
+      <option value="">Select a Course</option>
+      <option *ngFor="let course of courses" [value]="course.id">{{ course.title }}</option>
+    </select>
+
+    <label for="branch">Branch</label>
+    <select id="branch" name="branch" required ngModel>
+      <option value="">Select Branch</option>
+      <option value="haram">Haram, Gizah</option>
+      <option value="masr-el-gdida">Masr El Gdida, Cairo</option>
+      <option value="online">Online</option>
+    </select>
+
+    <label for="message">Message</label>
+    <textarea id="message" name="message" required placeholder="Your Message" ngModel></textarea>
+
+    <button type="submit" class="styled-button">Send</button>
+
+  </form>
+  <div class="contact-info">
+    <p><i class="fas fa-map-marker-alt"></i> Address: Cairo, Egypt</p>
+    <p><i class="fas fa-phone"></i> Phone: 0123456789</p>
+    <p><i class="fas fa-envelope"></i> Email: info.academy.com</p>
+  </div>
+</section>

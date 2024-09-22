@@ -1,0 +1,36 @@
+<div class="login-container">
+  <div class="login-form animate__animated animate__fadeInDown">
+    <h1 class="animate__animated animate__fadeIn animate__delay-1s"><i class="pi pi-user"></i> Welcome Back!</h1>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="animate__animated animate__fadeIn animate__delay-1s">
+      <div class="p-fluid">
+        <div class="p-field">
+          <span class="p-input-icon-left">
+            <i class="pi pi-envelope"></i>
+            <input id="email" type="email" pInputText [(ngModel)]="email" name="email" required email #emailInput="ngModel" placeholder="Email Address">
+          </span>
+          <small class="p-error" *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+            Please enter a valid email address.
+          </small>
+        </div>
+        <div class="p-field">
+          <span class="p-input-icon-left">
+            <i class="pi pi-lock"></i>
+            <p-password id="password" [(ngModel)]="password" name="password" [toggleMask]="true" required #passwordInput="ngModel" [feedback]="false" placeholder="Password"></p-password>
+          </span>
+          <small class="p-error" *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
+            Password is required.
+          </small>
+        </div>
+        <div class="p-field-checkbox">
+          <p-checkbox [(ngModel)]="rememberMe" [binary]="true" inputId="rememberMe" name="rememberMe"></p-checkbox>
+          <label for="rememberMe">Remember me</label>
+        </div>
+        <button pButton type="submit" label="Log In" [loading]="isLoading" [disabled]="loginForm.form.invalid" class="p-button-raised p-button-rounded"></button>
+      </div>
+    </form>
+    <div class="login-footer animate__animated animate__fadeIn animate__delay-2s">
+      <a (click)="navigateToForgetPassword()" class="forgot-password">Forgot Password?</a>
+      <p class="register-link">Don't have an account? <a routerLink="/register">Register</a></p>
+    </div>
+  </div>
+</div>

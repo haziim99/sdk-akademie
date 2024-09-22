@@ -1,0 +1,151 @@
+@font-face {
+  font-family: 'Edu AU VIC WANT Hand';
+  src: url('/assets/fonts/EduAUVICWANTHand-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 700;
+  font-style: normal;
+}
+
+.payment-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #ff1500, #d5b4ff);
+  color: #e7e7e7;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.payment-header {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(252, 249, 249, 0.7);
+}
+
+.payment-header h1 {
+  margin: 0;
+  color: rgb(112, 6, 6);
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.payment-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.payment-option {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: border-color 0.3s ease, background 0.3s ease;
+
+  &.selected {
+    border: 2px solid #fe512f;
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  img {
+    width: 60px;
+    height: auto;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+
+  p {
+    margin: 10px 0;
+  }
+
+  button {
+    background: #fe512f;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: #ff9176;
+  }
+
+  .verification-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    color: #28a745; /* Green color for checkmark */
+    visibility: hidden;
+
+    &.visible {
+      visibility: visible;
+    }
+  }
+}
+
+.payment-footer {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.proceed-btn {
+  background: linear-gradient(90deg, #ff1500, #d5b4ff);
+  border: none;
+  color: #ffffff;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.proceed-btn:hover {
+  background: #931d00;
+}
+
+.confirmation-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(90deg, #ff1500, #d5b4ff);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  text-align: center;
+
+  button {
+    background: #fe512f;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: #ff9176;
+  }
+}

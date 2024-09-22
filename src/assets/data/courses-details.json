@@ -1,0 +1,117 @@
+{
+  "courses": [
+    {
+      "id": "1",
+      "title": "A1 Normal",
+      "category": "German Language",
+      "description": "This is a standard A1 German course, ideal for beginners.",
+      "duration": "12 weeks",
+      "startDate": "2024-09-01",
+      "price": 2000
+    },
+    {
+      "id": "2",
+      "title": "A1 Intisifed Course",
+      "category": "German Language",
+      "description": "An intensive A1 course for a faster learning pace.",
+      "duration": "8 weeks",
+      "startDate": "2024-10-01",
+      "price": 10,
+      "instructor": null,
+      "imageUrl": null,
+      "videos": null
+    },
+    {
+      "id": "3",
+      "title": "A2 Course",
+      "category": "German Language",
+      "description": "A German course for A2 level students.",
+      "duration": "12 weeks",
+      "startDate": "2024-11-01",
+      "price": 3000,
+      "instructor": "Elena Fischer",
+      "imageUrl": "assets/images/a2-course.jpg",
+      "videos": [
+        {
+          "title": "Introduction to A2 Course",
+          "url": "assets/videos/intro-a2.mp4"
+        },
+        {
+          "title": "Grammar and Structure",
+          "url": "assets/videos/grammar-structure.mp4"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "B1 Course",
+      "category": "German Language",
+      "description": "A B1 level German course for intermediate learners.",
+      "duration": "12 weeks",
+      "startDate": "2024-12-01",
+      "price": 3700,
+      "instructor": "Lukas Braun",
+      "imageUrl": "assets/images/b1-course.jpg",
+      "videos": [
+        {
+          "title": "Introduction to B1 Course",
+          "url": "assets/videos/intro-b1.mp4"
+        },
+        {
+          "title": "Complex Sentences",
+          "url": "assets/videos/complex-sentences.mp4"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Conversation B1-B2",
+      "category": "German Language",
+      "description": "Advanced course focusing on conversation skills for B1-B2 levels.",
+      "duration": "8 weeks",
+      "startDate": "2025-01-01",
+      "price": 3500,
+      "instructor": "Marie Weber",
+      "imageUrl": "assets/images/conversation-b1-b2.jpg",
+      "videos": [
+        {
+          "title": "Introduction to Conversation Course",
+          "url": "assets/videos/intro-conversation.mp4"
+        },
+        {
+          "title": "Advanced Conversation Practice",
+          "url": "assets/videos/advanced-conversation.mp4"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "B2 Course",
+      "category": "German Language",
+      "description": "A B2 level German course for advanced learners.",
+      "duration": "12 weeks",
+      "startDate": "2025-02-01",
+      "price": 4500,
+      "instructor": "Sophia Klein",
+      "imageUrl": "assets/images/b2-course.jpg",
+      "videos": [
+        {
+          "title": "Introduction to B2 Course",
+          "url": "assets/videos/intro-b2.mp4"
+        },
+        {
+          "title": "Advanced Grammar",
+          "url": "assets/videos/advanced-grammar.mp4"
+        }
+      ]
+    },
+    {
+      "id": "233b",
+      "query": "\n    query IntrospectionQuery {\n      __schema {\n        \n        queryType { name }\n        mutationType { name }\n        subscriptionType { name }\n        types {\n          ...FullType\n        }\n        directives {\n          name\n          description\n          \n          locations\n          args {\n            ...InputValue\n          }\n        }\n      }\n    }\n\n    fragment FullType on __Type {\n      kind\n      name\n      description\n      \n      fields(includeDeprecated: true) {\n        name\n        description\n        args {\n          ...InputValue\n        }\n        type {\n          ...TypeRef\n        }\n        isDeprecated\n        deprecationReason\n      }\n      inputFields {\n        ...InputValue\n      }\n      interfaces {\n        ...TypeRef\n      }\n      enumValues(includeDeprecated: true) {\n        name\n        description\n        isDeprecated\n        deprecationReason\n      }\n      possibleTypes {\n        ...TypeRef\n      }\n    }\n\n    fragment InputValue on __InputValue {\n      name\n      description\n      type { ...TypeRef }\n      defaultValue\n      \n      \n    }\n\n    fragment TypeRef on __Type {\n      kind\n      name\n      ofType {\n        kind\n        name\n        ofType {\n          kind\n          name\n          ofType {\n            kind\n            name\n            ofType {\n              kind\n              name\n              ofType {\n                kind\n                name\n                ofType {\n                  kind\n                  name\n                  ofType {\n                    kind\n                    name\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  "
+    },
+    {
+      "id": "2989",
+      "query": "\n    query IntrospectionQuery {\n      __schema {\n        \n        queryType { name }\n        mutationType { name }\n        subscriptionType { name }\n        types {\n          ...FullType\n        }\n        directives {\n          name\n          description\n          \n          locations\n          args {\n            ...InputValue\n          }\n        }\n      }\n    }\n\n    fragment FullType on __Type {\n      kind\n      name\n      description\n      \n      fields(includeDeprecated: true) {\n        name\n        description\n        args {\n          ...InputValue\n        }\n        type {\n          ...TypeRef\n        }\n        isDeprecated\n        deprecationReason\n      }\n      inputFields {\n        ...InputValue\n      }\n      interfaces {\n        ...TypeRef\n      }\n      enumValues(includeDeprecated: true) {\n        name\n        description\n        isDeprecated\n        deprecationReason\n      }\n      possibleTypes {\n        ...TypeRef\n      }\n    }\n\n    fragment InputValue on __InputValue {\n      name\n      description\n      type { ...TypeRef }\n      defaultValue\n      \n      \n    }\n\n    fragment TypeRef on __Type {\n      kind\n      name\n      ofType {\n        kind\n        name\n        ofType {\n          kind\n          name\n          ofType {\n            kind\n            name\n            ofType {\n              kind\n              name\n              ofType {\n                kind\n                name\n                ofType {\n                  kind\n                  name\n                  ofType {\n                    kind\n                    name\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  "
+    }
+  ]
+}

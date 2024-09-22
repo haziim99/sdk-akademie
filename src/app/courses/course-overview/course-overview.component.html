@@ -1,0 +1,31 @@
+<div class="course-overview">
+  <div class="course-header">
+    <img [src]="course?.imageUrl" alt="{{ course?.title }}" />
+    <div class="course-info">
+      <h3>{{ course?.title }}</h3>
+      <p>{{ course?.description }}</p>
+    </div>
+  </div>
+
+  <div class="course-details">
+    <h4 (click)="toggleDetails()" style="cursor: pointer;">
+      Course Details
+    </h4>
+    <p *ngIf="showDetails">{{ course?.description }}</p>
+  </div>
+
+  <div class="course-videos">
+    <h5 (click)="toggleVideos()" style="cursor: pointer;">
+      Course Videos
+    </h5>
+    <ul *ngIf="showVideos">
+      <li *ngFor="let video of lectures">
+        <a [href]="video.url" target="_blank">{{ video.title }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="cta-buttons">
+    <button (click)="goBack()" class="back-button">Back to Your Profile</button>
+  </div>
+</div>

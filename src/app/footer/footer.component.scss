@@ -1,0 +1,102 @@
+footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  padding: 20px;
+  text-align: center;
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .footer-logo {
+      margin-bottom: 20px;
+
+      img {
+        height: 100px; /* حجم الشعار */
+      }
+    }
+
+    .footer-nav {
+      margin-bottom: 20px;
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+
+        li {
+          margin: 0 15px;
+        }
+
+        a {
+          text-decoration: none;
+          color: #333;
+          font-weight: bold;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #007bff;
+          }
+        }
+      }
+    }
+
+    .footer-social {
+      margin-bottom: 20px;
+
+      a {
+        text-decoration: none;
+        color: #333;
+        margin: 0 10px;
+        font-size: 24px;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #007bff;
+        }
+      }
+    }
+
+    .footer-bottom {
+      p {
+        margin: 5px 0;
+        color: #666;
+        font-size: 14px;
+
+        &:last-child {
+          font-size: 12px;
+        }
+      }
+
+      .designer {
+        margin-top: 15px;
+        text-align: center;
+
+        a {
+          text-decoration: none;
+          color: #502a03;
+          font-weight: bold;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #0056b3;
+          }
+        }
+
+        .designer-details {
+          margin-top: 5px;
+          font-size: 12px;
+          color: #999;
+
+          p {
+            margin: 2px 0;
+          }
+        }
+      }
+    }
+  }
+}

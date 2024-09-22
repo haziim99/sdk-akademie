@@ -1,0 +1,52 @@
+<div class="payment-container">
+  <div class="payment-header">
+    <h1>Payment Method</h1>
+  </div>
+
+  <div class="payment-content">
+    <div class="payment-options">
+      <!-- Option for Credit Card Payment -->
+      <div class="payment-option" [ngClass]="{'selected': selectedPaymentMethod === 'credit-card'}">
+        <img src="assets/icons/credit-card.svg" alt="Credit Card Icon" />
+        <h2>Credit Card</h2>
+        <p>Secure payment using your credit card. Enter your card details and billing address. Your payment will be processed securely.</p>
+        <button (click)="selectPaymentMethod('credit-card')">Select</button>
+        <div *ngIf="selectedPaymentMethod === 'credit-card'" class="verification-icon">
+          <i class="fa fa-check"></i>
+        </div>
+      </div>
+      <!-- Option for PayPal Payment -->
+      <div class="payment-option" [ngClass]="{'selected': selectedPaymentMethod === 'paypal'}">
+        <img src="assets/icons/paypal.svg" alt="PayPal Icon" />
+        <h2>PayPal</h2>
+        <p>Pay securely through PayPal. You'll be redirected to PayPal's website to complete your payment.</p>
+        <button (click)="selectPaymentMethod('paypal')">Select</button>
+        <div *ngIf="selectedPaymentMethod === 'paypal'" class="verification-icon">
+          <i class="fa fa-check"></i>
+        </div>
+      </div>
+      <!-- Option for Bank Transfer Payment -->
+      <div class="payment-option" [ngClass]="{'selected': selectedPaymentMethod === 'bank-transfer'}">
+        <img src="assets/icons/bank-transfer.svg" alt="Bank Transfer Icon" />
+        <h2>Bank Transfer</h2>
+        <p>Transfer payment directly to our bank account. Please use the reference number provided.</p>
+        <button (click)="selectPaymentMethod('bank-transfer')">Select</button>
+        <div *ngIf="selectedPaymentMethod === 'bank-transfer'" class="verification-icon">
+          <i class="fa fa-check"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="payment-footer">
+    <!-- Removed Proceed to Checkout Button -->
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="confirmation-modal" *ngIf="showConfirmation">
+    <h2>Confirm Your Payment</h2>
+    <p>You have selected <strong>{{ selectedPaymentMethod }}</strong> as your payment method. Please confirm to proceed with the checkout.</p>
+    <button (click)="confirmPayment()">Confirm</button>
+    <button (click)="cancelPayment()">Cancel</button>
+  </div>
+</div>

@@ -1,0 +1,155 @@
+$primary-color: #ff6600;
+$secondary-color: #333;
+$background-color: #f8f9fa;
+$highlight-color: #ffffff;
+$text-color: #666;
+$border-radius: 12px;
+$padding: 20px;
+$box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+$transition-speed: 0.3s;
+
+.course-details {
+  background-color: $background-color;
+  padding: $padding;
+  border-radius: $border-radius;
+  max-width: 900px;
+  margin: 20px auto;
+  box-shadow: $box-shadow;
+  position: relative;
+  overflow: hidden;
+  transition: all $transition-speed ease-in-out;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .course-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    img {
+      max-width: 220px;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      margin-right: 20px;
+      transition: transform $transition-speed ease-in-out;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    .course-info {
+      h2 {
+        color: $secondary-color;
+        font-size: 2rem;
+        margin: 0;
+        transition: color $transition-speed ease-in-out;
+
+        &:hover {
+          color: darken($secondary-color, 10%);
+        }
+      }
+
+      p {
+        color: $text-color;
+        font-size: 1.1rem;
+        margin-top: 5px;
+        line-height: 1.6;
+      }
+    }
+  }
+
+  .course-details-section {
+    background-color: $highlight-color;
+    border-radius: $border-radius;
+    padding: $padding;
+    box-shadow: $box-shadow;
+
+    h4 {
+      color: $primary-color;
+      font-size: 1.75rem;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: color $transition-speed ease-in-out;
+
+      &:hover {
+        color: darken($primary-color, 10%);
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 10px;
+
+        a {
+          color: $primary-color;
+          text-decoration: none;
+          font-size: 1.1rem;
+          transition: color $transition-speed ease-in-out;
+
+          &:hover {
+            color: darken($primary-color, 10%);
+          }
+        }
+      }
+    }
+  }
+
+  .cta-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    button {
+      background-color: $primary-color;
+      border: none;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: $border-radius;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color $transition-speed ease-in-out, transform $transition-speed ease-in-out;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+        transform: scale(1.05);
+      }
+
+      &.back-button {
+        background-color: #ccc;
+        color: #333;
+
+        &:hover {
+          background-color: #bbb;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}
+.course-details {
+  // Existing styles...
+
+  .course-details {
+    // Existing styles...
+
+    .video-player {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+      .video-js {
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+<div class="sidebar" [ngClass]="{'open': isSidebarOpen}">
+  <button class="close-btn" (click)="toggleSidebar()">&times;</button>
+  <nav>
+    <ul>
+      <li><a routerLink="/" routerLinkActive="active">{{ 'HOME' | translate }}</a></li>
+      <li><a routerLink="/courses" routerLinkActive="active">{{ 'COURSES' | translate }}</a></li>
+      <li><a routerLink="/about" routerLinkActive="active">{{ 'ABOUT' | translate }}</a></li>
+      <li><a routerLink="/contact" routerLinkActive="active">{{ 'CONTACT' | translate }}</a></li>
+      <li *ngIf="!authService.isLoggedIn()"><a routerLink="/login" routerLinkActive="active">{{ 'LOGIN' | translate }}</a></li>
+      <li *ngIf="authService.isLoggedIn()">
+        <a (click)="goToProfile()">
+          <i *ngIf="!profilePictureUrl || profilePictureUrl === 'assets/images/default-profile.jpg'" class="fa-regular fa-user"></i>
+          <img *ngIf="profilePictureUrl && profilePictureUrl !== 'assets/images/default-profile.jpg'" [src]="profilePictureUrl" alt="Profile Picture">
+          {{ (authService.isAdmin() ? 'ADMIN_DASHBOARD' : 'PROFILE') | translate }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<header>
+  <div class="logo-container">
+    <img src="assets/images/logo.png" alt="SDK Akademie Logo" class="logo">
+  </div>
+
+  <nav class="navbar">
+    <ul>
+      <li><a routerLink="/" routerLinkActive="active">{{ 'HOME' | translate }}</a></li>
+      <li><a routerLink="/courses" routerLinkActive="active">{{ 'COURSES' | translate }}</a></li>
+      <li><a routerLink="/about" routerLinkActive="active">{{ 'ABOUT' | translate }}</a></li>
+      <li><a routerLink="/contact" routerLinkActive="active">{{ 'CONTACT' | translate }}</a></li>
+    </ul>
+  </nav>
+
+  <div class="header-actions">
+    <div *ngIf="!isLoggedIn" class="auth-icons">
+      <a routerLink="/register" title="{{ 'REGISTER' | translate }}">
+        <i class="fas fa-user-plus"></i>
+      </a>
+      <a routerLink="/login" title="{{ 'LOGIN' | translate }}">
+        <i class="fas fa-sign-in-alt"></i>
+      </a>
+    </div>
+
+    <div *ngIf="isLoggedIn" class="user-profile">
+      <a routerLink="/profile" class="user-profile-link" (click)="goToProfile()">
+        <i *ngIf="!profilePictureUrl" class="fas fa-user-circle"></i>
+        <img *ngIf="profilePictureUrl" [src]="profilePictureUrl" alt="User Profile Picture" class="user-profile-image">
+      </a>
+    </div>
+
+  </div>
+</header>

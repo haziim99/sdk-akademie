@@ -1,0 +1,103 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>{{ course ? 'Edit Course' : 'Add New Course' }}</h3>
+    <form (ngSubmit)="onSave()">
+      <input
+        type="text"
+        [(ngModel)]="newCourse.title"
+        name="title"
+        placeholder="Course Title"
+        required
+      />
+      <div *ngIf="!newCourse.title.trim()" class="error-message">
+        Course title is required.
+      </div>
+
+      <select [(ngModel)]="newCourse.category" name="category" [disabled]="true">
+        <option value="German Course">German Course</option>
+      </select>
+
+      <textarea
+        [(ngModel)]="newCourse.description"
+        name="description"
+        placeholder="Description"
+        required
+      ></textarea>
+      <div *ngIf="!newCourse.description.trim()" class="error-message">
+        Course description is required.
+      </div>
+
+      <select [(ngModel)]="newCourse.duration" name="duration" required>
+        <option value="">Select Duration</option>
+        <option value="4 weeks">4 weeks</option>
+        <option value="6 weeks">6 weeks</option>
+        <option value="8 weeks">8 weeks</option>
+        <option value="12 weeks">12 weeks</option>
+      </select>
+      <div *ngIf="!newCourse.duration" class="error-message">
+        Course duration is required.
+      </div>
+
+      <select [(ngModel)]="newCourse.instructor" name="instructor" required>
+        <option value="">Select Instructor</option>
+        <option value="Frau Amira El feky">Frau Amira El feky</option>
+        <option value="Frau Asmaa Mohamed">Frau Asmaa Mohamed</option>
+        <option value="Herr Ahmed Essam">Herr Ahmed Essam</option>
+        <option value="Frau Noor Abdelrahman">Frau Noor Abdelrahman</option>
+        <option value="Herr Youssef Hassan">Herr Youssef Hassan</option>
+        <option value="Frau Sara Ali">Frau Sara Ali</option>
+      </select>
+      <div *ngIf="!newCourse.instructor" class="error-message">
+        Instructor is required.
+      </div>
+
+      <input
+        type="number"
+        [(ngModel)]="newCourse.price"
+        name="price"
+        placeholder="Price"
+        required
+        min="1"
+      />
+      <div *ngIf="newCourse.price <= 0" class="error-message">
+        Price must be greater than 0.
+      </div>
+
+      <input type="file" (change)="onFileChange($event)" accept="image/*" />
+
+      <div class="level-selection">
+        <h3>Select Course Level:</h3>
+        <div class="buttons">
+          <button
+            type="button"
+            [ngClass]="{'selected': selectedLevel === 'beginner'}"
+            (click)="selectLevel('beginner')">Beginner
+          </button>
+          <button
+            type="button"
+            [ngClass]="{'selected': selectedLevel === 'intermediate'}"
+            (click)="selectLevel('intermediate')">Intermediate
+          </button>
+          <button
+            type="button"
+            [ngClass]="{'selected': selectedLevel === 'advanced'}"
+            (click)="selectLevel('advanced')">Advanced
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="!isFormValid()" class="error-message">
+        Please fill out all required fields before submitting.
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="submit"
+          [disabled]="!isFormValid()">
+          {{ course ? 'Update Course' : 'Add Course' }}
+        </button>
+        <button type="button" (click)="onClose()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

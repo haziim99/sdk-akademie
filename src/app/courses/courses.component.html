@@ -1,0 +1,75 @@
+<div *ngIf="!levelSelected" class="overlay">
+  <div class="level-selection">
+    <h3>Please select your language proficiency level:</h3>
+    <div class="buttons">
+      <button (click)="selectLevel('beginner')">Beginner</button>
+      <button (click)="selectLevel('intermediate')">Intermediate</button>
+      <button (click)="selectLevel('advanced')">Advanced</button>
+    </div>
+  </div>
+</div>
+
+<section class="courses" [class.blur]="!levelSelected">
+  <h2>Our Courses</h2>
+
+  <!-- التحقق من تحميل الكورسات -->
+  <div *ngIf="courses.length === 0; else courseContent">
+    <p>Loading courses, please wait...</p>
+  </div>
+
+  <ng-template #courseContent>
+    <div class="tabs">
+      <button (click)="selectTab('registered')" [class.active]="selectedTab === 'registered'">Recorded Courses</button>
+      <button (click)="selectTab('attending')" [class.active]="selectedTab === 'attending'">Attending Courses</button>
+    </div>
+
+    <div *ngIf="selectedTab === 'registered'">
+      <div class="course-list">
+        <div class="course" *ngFor="let course of filteredCourses; let i = index" [ngClass]="{'course-top': i < 3, 'course-bottom': i >= 3}">
+          <div class="course-image">
+            <img [src]="course.imageUrl" alt="{{ course.title }}">
+          </div>
+          <div class="course-details">
+            <h4><i class="fa-brands fa-discourse"></i> {{ course.title }}</h4>
+            <p>{{ course.description }}</p>
+            <p class="price">Price: {{ course.price | currency:'EGP':true }}</p>
+            <div class="course-actions">
+              <a [routerLink]="['/course-details', course.id]" class="details-link">
+                <i class="fas fa-info-circle"></i> View Details
+              </a>
+              <button (click)="addToCart(course)" class="add-to-cart">
+                <i class="fas fa-shopping-cart"></i> Buy
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedTab === 'attending'">
+      <div class="course-list">
+        <div class="course" *ngFor="let course of filteredCourses; let i = index" [ngClass]="{'course-top': i < 3, 'course-bottom': i >= 3}">
+          <div class="course-image">
+            <img [src]="course.imageUrl" alt="{{ course.title }}">
+          </div>
+          <div class="course-details">
+            <h4><i class="fas fa-users"></i> {{ course.title }}</h4>
+            <p>{{ course.description }}</p>
+            <div class="course-actions">
+              <button (click)="contactUs()" class="contact-us">
+                <i class="fas fa-envelope"></i> Contact Us
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="view-all-courses" *ngIf="levelSelected">
+    <button class="custom-button" (click)="toggleCourses()">
+      <i class="fas" [ngClass]="showAll ? 'fa-book-open' : 'fa-book'"></i>
+      {{ showAll ? 'View Less Courses' : 'View All Courses' }}
+    </button>
+  </div>
+</section>

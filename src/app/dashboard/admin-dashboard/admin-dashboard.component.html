@@ -1,0 +1,62 @@
+<div class="admin-dashboard" [class.blur]="showModal">
+  <header>
+    <h1>Welcome, {{ getGenderTitle() }} {{ adminName }}</h1>
+    <button (click)="logout()">Logout</button>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a routerLink="./courses" routerLinkActive="active">Courses</a></li>
+      <li><a routerLink="./students" routerLinkActive="active">Students</a></li>
+      <li><a routerLink="./reviews" routerLinkActive="active">Reviews</a></li>
+      <li><a routerLink="./payments" routerLinkActive="active">Payments</a></li>
+      <li><a routerLink="./profile" routerLinkActive="active">Profile</a></li>
+      <li><a routerLink="./support" routerLinkActive="active">Support</a></li>
+      <li><a routerLink="./settings" routerLinkActive="active">Settings</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="dashboard-content">
+      <h2>Course Management</h2>
+
+      <div class="course-actions">
+        <button (click)="showAddCourseForm()">Add New Course</button>
+        <input type="text"
+          [(ngModel)]="searchTerm"
+          placeholder="Search courses..."
+          (input)="searchCourses()">
+      </div>
+
+      <div class="courses-list">
+        <div *ngFor="let course of filteredCourses" class="course-card">
+          <div class="course-image">
+            <img [src]="course.imageUrl || 'assets/images/default-image.jpg'" alt="{{ course.title }}">
+          </div>
+          <div class="course-info">
+            <h3>{{ course.title }}</h3>
+            <p>{{ course.description | slice:0:100 }}...</p>
+              <p><strong>Duration:</strong> {{ course.duration }}</p>
+              <p><strong>Instructor:</strong> {{ course.instructor }}</p>
+              <p><strong>Level:</strong> {{ course.level | titlecase }}</p>
+            <div class="course-footer">
+              <span class="price">{{ formatPrice(course.price) }}</span>
+              <button class="edit-button" (click)="selectCourse(course)">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <app-course-modal
+        *ngIf="showModal"
+        [course]="selectedCourse"
+        (save)="handleSave($event)"
+        (close)="showModal = false">
+      </app-course-modal>
+
+    </section>
+    <br>
+    <app-stats-overview></app-stats-overview>
+  </main>
+</div>

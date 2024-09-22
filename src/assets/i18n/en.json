@@ -1,0 +1,64 @@
+{
+  "HOME": "Home",
+  "COURSES": "Courses",
+  "ABOUT": "About",
+  "CONTACT": "Contact Us",
+  "DASHBOARD": "Dashboard",
+  "LOGOUT": "Logout",
+  "HERO": {
+    "TITLE": "Welcome to <span class='highlight'><span class='highlight-s'>S</span><span class='highlight-d'>D</span><span class='highlight-k'>K</span></span>",
+    "SUBTITLE": "The most renowned German language academy in <span class='highlight'>Egypt</span>",
+    "BUTTON": "Get Started"
+  },
+  "STUDENTS_REVIEWS_HEADER": "Our Students Reviews",
+  "WHY_SDK": {
+    "TITLE": "Why SDK?",
+    "ITEMS": {
+      "EXPERIENCED_TUTORS": {
+        "TITLE": "Experienced Tutors",
+        "DESCRIPTION": "Our academy is staffed with highly experienced and qualified tutors who are dedicated to helping you achieve your language goals."
+      },
+      "INTERACTIVE_CLASSES": {
+        "TITLE": "Interactive Online Classes",
+        "DESCRIPTION": "We offer interactive online classes that make learning engaging and effective, allowing you to study from the comfort of your home."
+      },
+      "FLEXIBLE_SCHEDULING": {
+        "TITLE": "Flexible Scheduling",
+        "DESCRIPTION": "Our flexible scheduling options allow you to fit language learning into your busy life, making it convenient for everyone."
+      },
+      "COMPREHENSIVE_MATERIALS": {
+        "TITLE": "Comprehensive Learning Materials",
+        "DESCRIPTION": "We provide comprehensive learning materials that cover all aspects of the German language, from basic to advanced levels."
+      },
+      "INTERNATIONAL_CERTIFICATION": {
+        "TITLE": "Internationally Recognized Certification",
+        "DESCRIPTION": "Our certification is recognized internationally, giving you the credentials you need to pursue further education or career opportunities."
+      }
+    }
+  },
+  "OUR_SERVICES": {
+    "TITLE": "Our Services",
+    "COURSES": {
+      "ONLINE_COURSES": {
+        "TITLE": "Online Courses",
+        "DESCRIPTION": "Interactive online courses designed for all levels of learners. Study at your own pace from anywhere in the world.",
+        "DETAILS": "View Details"
+      },
+      "OFFLINE_COURSES": {
+        "TITLE": "Offline Courses",
+        "DESCRIPTION": "In-person courses with experienced tutors in a classroom setting. Perfect for hands-on learning and immediate feedback.",
+        "DETAILS": "View Details"
+      },
+      "CONVERSATION_COURSES": {
+        "TITLE": "Conversation Courses",
+        "DESCRIPTION": "Improve your speaking skills with our conversation courses. Practice real-life scenarios and enhance your fluency.",
+        "DETAILS": "View Details"
+      },
+      "BUYING_BOOKS": {
+        "TITLE": "Buying Books",
+        "DESCRIPTION": "Access a wide range of learning materials and books to supplement your studies. Available for all proficiency levels.",
+        "DETAILS": "View Details"
+      }
+    }
+  }
+}
