@@ -56,7 +56,6 @@ export class CoursesService {
         observer.error('Course ID should not be provided for new courses');
         return;
       }
-
       this.coursesCollection.add(course).then(docRef => {
         // Set the new ID on the course
         course.id = docRef.id;

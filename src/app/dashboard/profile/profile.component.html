@@ -28,33 +28,60 @@
     </div>
 
     <!-- User's Courses List -->
-    <div class="courses-list mb-4">
-      <h3>Your Courses</h3>
-      <ul class="list-group">
-        <li *ngFor="let course of courses" class="list-group-item">
-          <strong>{{ course.title }}</strong>
-          <p>{{ course.description }}</p>
-          <p><strong>Price:</strong> {{ course.price | currency:'EGP':'symbol' }}</p>
-          <div class="course-actions">
-            <button class="btn btn-danger" (click)="deleteCourse(course.id)">Delete Course</button>
-            <button class="btn btn-primary" (click)="navigateToCourseOverview(course.id)">Go to the Course</button>
-          </div>
-        </li>
-      </ul>
-    </div>
+<div class="courses-list mb-4">
+  <h3>Your Courses</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Course Nr</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of courses">
+        <td>{{ course.id }}</td>
+        <td><strong>{{ course.title }}</strong></td>
+        <td>{{ course.description }}</td>
+        <td>{{ course.price | currency:'EGP':'symbol' }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="deleteCourse(course.id)">Delete</button>
+          <button class="btn btn-primary" (click)="navigateToCourseOverview(course.id)">View</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-    <!-- Available Courses List -->
-    <div class="available-courses mb-4">
-      <h3>Available Courses</h3>
-      <ul class="list-group">
-        <li *ngFor="let course of availableCourses" class="list-group-item">
-          <strong>{{ course.title }}</strong>
-          <p>{{ course.description }}</p>
-          <p><strong>Price:</strong> {{ course.price | currency:'EGP':'symbol' }}</p>
-          <button class="btn btn-primary" (click)="buyCourse(course.id)">Buy Course</button>
-        </li>
-      </ul>
-    </div>
+<!-- Available Courses List -->
+<div class="available-courses mb-4">
+  <h3>Available Courses</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Course Nr</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of availableCourses">
+        <td>{{ course.id }}</td>
+        <td><strong>{{ course.title }}</strong></td>
+        <td>{{ course.description }}</td>
+        <td>{{ course.price | currency:'EGP':'symbol' }}</td>
+        <td>
+          <button class="btn btn-primary" (click)="buyCourse(course.id)">Buy</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 
     <div class="profile-actions">
       <button class="btn btn-primary" (click)="editProfile()">Edit Profile</button>
