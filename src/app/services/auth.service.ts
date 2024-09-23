@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, from, of, throwError } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { StorageService } from './storage.service';
@@ -115,20 +115,25 @@ export class AuthService {
   }
 
   // تسجيل الخروج
-  logout(): void {
-    this.fireauth.signOut().then(() => {
-      this.storageService.removeItem('currentUser');
-      this.currentUserSubject.next(null);
-      console.log('User logged out and storage cleared.');
-    }).catch(error => {
-      console.error('Error during logout:', error);
-    });
+  logout(): Observable<void> {
+    return from(this.fireauth.signOut()).pipe(
+      tap(() => {
+        this.storageService.removeItem('currentUser');
+        this.currentUserSubject.next(null); // تحديث الحالة إلى null
+        console.log('User logged out and storage cleared.');
+      }),
+      catchError(error => {
+        console.error('Error during logout:', error);
+        return throwError(() => error);
+      })
+    );
   }
+
 
   // التحقق مما إذا كان المستخدم مسجل دخول
   isLoggedIn(): boolean {
     const userData = localStorage.getItem('currentUser');
-    return this.currentUserSubject.value !== null;
+    return !!this.currentUserSubject.value; // تحقق من وجود المستخدم
   }
 
   getCurrentUser(): User | null {

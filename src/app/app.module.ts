@@ -34,7 +34,6 @@ import { CourseOverviewComponent } from './courses/course-overview/course-overvi
 import { UserService } from './services/user.service';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { StatsOverviewComponent } from './dashboard/admin-dashboard/stats-overview/stats-overview.component';
-import { CourseListComponent } from './dashboard/admin-dashboard/course-list/course-list.component';
 import { StudentManagementComponent } from './dashboard/admin-dashboard/student-management/student-management.component';
 import { StudentDetailsComponent } from './dashboard/admin-dashboard/student-management/student-details/student-details.component';
 import { StudentProgressComponent } from './dashboard/admin-dashboard/student-management/student-progress/student-progress.component';
@@ -87,7 +86,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     CourseOverviewComponent,
     DashboardComponent,
     StatsOverviewComponent,
-    CourseListComponent,
     StudentManagementComponent,
     StudentDetailsComponent,
     StudentProgressComponent,

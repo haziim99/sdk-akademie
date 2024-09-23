@@ -46,13 +46,15 @@ export class AdminDashboardComponent implements OnInit {
     this.messageService.currentMessage.subscribe(message => this.message = message);
   }
 
-
-
   loadAdminInfo(): void {
     const currentUser = this.authService.getCurrentUser();
-    if (currentUser && this.authService.isAdmin()) {
-      this.adminName = currentUser.name;
-      this.adminGender = currentUser.gender;
+    if (currentUser) {
+      if (this.authService.isAdmin()) {
+        this.adminName = currentUser.name;
+        this.adminGender = currentUser.gender;
+      } else {
+        this.router.navigate(['/login']);
+      }
     } else {
       this.router.navigate(['/login']);
     }
@@ -211,10 +213,19 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+  logout(event: Event): void {
+    event.preventDefault();
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+      error: (error: any) => {
+        console.error('Logout error:', error);
+      }
+    });
   }
+
+
 
   getGenderTitle(): string {
     return this.adminGender === 'male' ? 'Herr' : 'Frau';

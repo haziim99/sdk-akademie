@@ -15,10 +15,12 @@
 /* تصميم الـ modal */
 .modal-content {
   background-color: white;
-  padding: 20px;
+  padding: 15px;
   border-radius: 8px;
-  max-width: 600px;
-  width: 100%;
+  max-width: 600px; /* الحجم الأقصى */
+  width: 80%; /* عرض نسبي */
+  max-height: 400px; /* زيادة الطول الأقصى */
+  overflow-y: auto; /* تمرير عمودي إذا لزم الأمر */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   position: relative;
   z-index: 1001;

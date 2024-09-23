@@ -333,8 +333,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   navigateToCourseOverview(courseId: string): void {
     this.router.navigate(['/course-overview', courseId]);
   }

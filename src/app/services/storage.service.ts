@@ -20,7 +20,7 @@ export class StorageService {
         localStorage.removeItem(testKey);
         return true;
       } catch (e) {
-        console.warn('localStorage is not available.');
+        console.warn('localStorage is not available:', e);
         return false;
       }
     }
@@ -32,7 +32,7 @@ export class StorageService {
     if (this.localStorageAvailable) {
       try {
         localStorage.setItem(key, value);
-        console.log(`Saved ${key}:`, value); // إضافة سجل هنا
+        console.log(`Saved ${key}:`, value);
       } catch (e) {
         console.error('Error saving to localStorage:', e);
       }
@@ -45,7 +45,7 @@ export class StorageService {
     if (this.localStorageAvailable) {
       try {
         const value = localStorage.getItem(key);
-        console.log(`Retrieved ${key}:`, value); // سجل الاسترجاع
+        console.log(`Retrieved ${key}:`, value);
         return value;
       } catch (e) {
         console.error('Error retrieving from localStorage:', e);
@@ -59,12 +59,12 @@ export class StorageService {
     if (this.localStorageAvailable) {
       try {
         localStorage.removeItem(key);
-        console.log(`Removed ${key} from localStorage`); // إضافة سجل هنا
+        console.log(`Removed ${key} from localStorage`);
       } catch (e) {
         console.error('Error removing from localStorage:', e);
       }
     } else {
-      delete this.memoryStorage[key]; // Remove from memory
+      delete this.memoryStorage[key];
     }
   }
 }

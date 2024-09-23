@@ -1,18 +1,17 @@
 <div class="admin-dashboard" [class.blur]="showModal">
   <header>
     <h1>Welcome, {{ getGenderTitle() }} {{ adminName }}</h1>
-    <button (click)="logout()">Logout</button>
+    <button (click)="logout($event)">Logout</button>
   </header>
 
   <nav>
     <ul>
-      <li><a routerLink="./courses" routerLinkActive="active">Courses</a></li>
-      <li><a routerLink="./students" routerLinkActive="active">Students</a></li>
-      <li><a routerLink="./reviews" routerLinkActive="active">Reviews</a></li>
-      <li><a routerLink="./payments" routerLinkActive="active">Payments</a></li>
-      <li><a routerLink="./profile" routerLinkActive="active">Profile</a></li>
+      <li><a routerLink="./students-management" routerLinkActive="active">Students</a></li>
+      <li><a routerLink="./stats-reviews" routerLinkActive="active">Reviews</a></li>
+      <li><a routerLink="./payments-details" routerLinkActive="active">Payments</a></li>
+      <li><a routerLink="./profile-management" routerLinkActive="active">Profile Management</a></li>
       <li><a routerLink="./support" routerLinkActive="active">Support</a></li>
-      <li><a routerLink="./settings" routerLinkActive="active">Settings</a></li>
+      <li><a routerLink="./system-settings" routerLinkActive="active">Settings</a></li>
     </ul>
   </nav>
 
