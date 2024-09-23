@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'course-overview/:id', component: CourseOverviewComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent  },
   { path: 'payment-method', component: PaymentMethodComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, NavigationEnd } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -7,7 +7,7 @@ import { PaymentService } from '../../services/payment.service';
 import { StorageService } from '../../services/storage.service';
 import { UserService } from '@/app/services/user.service';
 import { User, Course } from '../../services/user.model';
-import { filter, firstValueFrom, Observable, of } from 'rxjs';
+import { filter, firstValueFrom, Subscription, Observable } from 'rxjs';
 import { CoursesService } from '../../services/courses.service';
 import { catchError, finalize, switchMap } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -19,7 +19,8 @@ import { CloudinaryResponse } from '@/app/services/cloudinary-response.model';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
+  user$: Observable<User | null>;
   user: User | null = null;
   courses: Course[] = [];
   availableCourses: Course[] = [];
@@ -36,12 +37,11 @@ export class ProfileComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
   isUploading: boolean = false;
 
-
-
   private cloudName = 'dzmcteb1t';
   private uploadPreset = 'profile_preset';
   private userCollection: AngularFirestoreCollection<User>;
   private courseCollection: AngularFirestoreCollection<Course>;
+  private subscriptions: Subscription = new Subscription();
 
   constructor(
     private http: HttpClient,
@@ -56,56 +56,56 @@ export class ProfileComponent implements OnInit {
   ) {
     this.userCollection = this.firestore.collection('users');
     this.courseCollection = this.firestore.collection('courses');
+    this.user$ = this.authService.currentUser;
   }
 
   ngOnInit(): void {
-    if (!this.authService.isLoggedIn()) {
-      this.router.navigate(['/login']);
-      return;
-    }
-    this.loadProfileAndCourses();
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      const queryParams = this.router.url.split('?')[1];
-      if (queryParams && queryParams.includes('refresh')) {
-        this.loadProfileAndCourses();
-      }
-    });
+    this.subscriptions.add(
+      this.user$.subscribe(user => {
+        console.log('ProfileComponent - Current user:', user);
+        if (!user) {
+          this.router.navigate(['/login']);
+          return;
+        }
+        this.user = user;
+        this.profilePictureUrl = this.user.profilePicture || 'assets/images/default-profile.jpg';
+        this.loadCourses();
+      })
+    );
+
+    this.subscriptions.add(
+      this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+      ).subscribe(() => {
+        const queryParams = this.router.url.split('?')[1];
+        if (queryParams && queryParams.includes('refresh')) {
+          this.loadCourses();
+        }
+      })
+    );
   }
 
-  async loadProfileAndCourses(): Promise<void> {
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  async loadCourses(): Promise<void> {
     try {
-      // تأكد من الحصول على بيانات المستخدم بشكل صحيح
-      const userId = await firstValueFrom(this.authService.currentUser).then(user => user?.id);
-      if (!userId) {
-        this.router.navigate(['/login']);
-        return;
-      }
-
-      this.user = await this.userService.getUser(userId);
-      if (!this.user) {
-        console.error('User is null or undefined');
-        this.router.navigate(['/login']);
-        return;
-      }
-
-      this.profilePictureUrl = this.user.profilePicture || 'assets/images/default-profile.jpg';
-
       // Load user's courses
-      this.courses = this.user.courses || [];
+      this.courses = this.user?.courses || [];
 
       // Load available courses
       const allCoursesSnapshot = await firstValueFrom(this.coursesService.getCourses());
       this.availableCourses = (allCoursesSnapshot as Course[]).filter(
         course => !this.courses.some(userCourse => userCourse.id === course.id)
       );
+      console.log('Available courses:', this.availableCourses);
     } catch (error) {
-      console.error('Error loading profile and courses', error);
+      console.error('Error loading courses', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Failed to load profile or courses.',
+        text: 'Failed to load courses.',
         confirmButtonColor: '#ff6600'
       });
     }
@@ -150,7 +150,7 @@ export class ProfileComponent implements OnInit {
 
       console.log('User courses before purchase:', userCourses);
 
-      if (userCourses.some(userCourse => userCourse.id === courseId)) {
+      if (userCourses.some((userCourse: { id: string }) => userCourse.id === courseId)) {
         Swal.fire({
           icon: 'info',
           title: 'Already Purchased',
@@ -203,7 +203,7 @@ export class ProfileComponent implements OnInit {
         await userDocRef.update({ courses: updatedCourses });
 
         // Verify if the course list is updated correctly
-        await this.loadProfileAndCourses();
+        await this.loadCourses();
 
         Swal.fire({
           icon: 'success',
@@ -230,7 +230,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-
   async deleteCourse(courseId: string): Promise<void> {
     if (!this.user) return;
     Swal.fire({
@@ -245,16 +244,18 @@ export class ProfileComponent implements OnInit {
       if (result.isConfirmed) {
         try {
           const userDocRef = this.userCollection.doc(this.user!.id);
-          const userCoursesSnapshot = await userDocRef.get().toPromise();
-          console.log('User courses snapshot before deletion:', userCoursesSnapshot); // تتبع قبل الحذف
+          const userCoursesSnapshot = await firstValueFrom(userDocRef.get());
+          console.log('User courses snapshot before deletion:', userCoursesSnapshot);
           const userCourses = userCoursesSnapshot?.data()?.['courses'] || [];
           const updatedCourses = userCourses.filter((course: { id: string }) => course.id !== courseId);
 
           await userDocRef.update({ courses: updatedCourses });
 
-          await this.loadProfileAndCourses(); // Refresh profile and courses after deletion
-          this.availableCourses = await firstValueFrom(this.coursesService.getCourses());
-          console.log('Available courses after deletion:', this.availableCourses); // تتبع الكورسات المتاحة بعد الحذف
+          await this.loadCourses(); // Refresh profile and courses after deletion
+          this.availableCourses = await firstValueFrom(this.coursesService.getCourses()).then(allCourses => {
+            return (allCourses as Course[]).filter(course => !this.courses.some(userCourse => userCourse.id === course.id));
+          });
+          console.log('Available courses after deletion:', this.availableCourses);
           Swal.fire({
             icon: 'success',
             title: 'Deleted!',
@@ -290,7 +291,7 @@ export class ProfileComponent implements OnInit {
       name: this.updatedName || this.user.name,
       email: this.updatedEmail || this.user.email,
       phone: this.updatedPhone ?? this.user.phone,
-      profilePicture: this.profilePictureUrl || undefined // Use undefined instead of null
+      profilePicture: this.profilePictureUrl || undefined
     };
 
     try {
@@ -317,15 +318,22 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-
   cancelEdit(): void {
     this.isEditing = false;
   }
 
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+  async logout(): Promise<void> {
+    try {
+      await this.authService.logout();
+      this.router.navigate(['/login']).then(() => {
+        window.location.reload(); // إعادة تحميل الصفحة
+      });
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   }
+
+
 
   navigateToCourseOverview(courseId: string): void {
     this.router.navigate(['/course-overview', courseId]);
@@ -364,6 +372,7 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
+    console.log('Uploading profile picture:', file.name);
     this.uploadProfilePicture(file);
   }
 
@@ -371,21 +380,32 @@ export class ProfileComponent implements OnInit {
     this.isUploading = true;
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', this.uploadPreset); // Use the specified preset
+    formData.append('upload_preset', this.uploadPreset);
 
     try {
       const response = await firstValueFrom(this.http.post<CloudinaryResponse>(
         `https://api.cloudinary.com/v1_1/${this.cloudName}/image/upload`,
         formData
       ));
-      console.log('Cloudinary response:', response); // تتبع استجابة Cloudinary
+      console.log('Cloudinary response:', response);
 
       if (response && response.secure_url) {
         this.profilePictureUrl = response.secure_url;
+        console.log('New profile picture URL:', this.profilePictureUrl);
 
         if (this.user) {
           await this.userCollection.doc(this.user.id).update({ profilePicture: this.profilePictureUrl });
-          this.authService.updateProfilePicture(this.profilePictureUrl);
+          console.log('Profile picture updated in Firestore');
+
+          // تحديث في AuthService
+          this.authService.updateProfilePicture(this.profilePictureUrl).subscribe({
+            next: () => {
+              console.log('Profile picture updated in AuthService');
+            },
+            error: (err) => {
+              console.error('Error updating profile picture in AuthService:', err);
+            }
+          });
 
           this.user.profilePicture = this.profilePictureUrl;
           this.storageService.setItem('currentUser', JSON.stringify(this.user));
@@ -414,5 +434,15 @@ export class ProfileComponent implements OnInit {
   resetProfilePicture(): void {
     this.profilePictureUrl = 'assets/images/default-profile.jpg';
     this.fileInput.nativeElement.value = ''; // Clear file input
-  }
+    if (this.user) {
+      this.updateProfilePicture('assets/images/default-profile.jpg');
+    }
+}
+
+updateProfilePicture(url: string): void {
+  // Implement the logic to update the profile picture
+  // This might involve calling a service to update the user profile
+}
+
+
 }

@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit, NgZone  } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { User } from '../services/user.model';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // Optional: for modal dialogs
 import { ChangeDetectorRef } from '@angular/core';
-
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -21,8 +21,8 @@ export class HeaderComponent implements OnInit {
   userProfileImage: string = 'assets/images/default-profile.jpg'; // Default profile image
   user: User | null = null;
   profilePictureUrl: string | null = null;
-  isLoggedIn: boolean = false; // Add this line to define the isLoggedIn property
-
+  isLoggedIn: boolean = false; // Define isLoggedIn property
+  private subscriptions: Subscription = new Subscription();
 
   constructor(
     private router: Router,
@@ -34,17 +34,33 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.currentUser.subscribe(user => {
-      if (user) {
-        this.isLoggedIn = true;
-        this.profilePictureUrl = `${user.profilePicture}?t=${new Date().getTime()}` || 'assets/images/default-profile.jpg';
-      } else {
-        this.isLoggedIn = false;
-        this.profilePictureUrl = 'assets/images/default-profile.jpg';
-      }
-    });
+    // التحقق من وجود مستخدم مسجل الدخول في التخزين
+    const storedUser = this.authService.getCurrentUser();
+    if (storedUser) {
+      this.isLoggedIn = true;
+      this.profilePictureUrl = storedUser.profilePicture || 'assets/images/default-profile.jpg';
+    } else {
+      this.isLoggedIn = false;
+      this.profilePictureUrl = 'assets/images/default-profile.jpg';
+    }
+
+    // الاشتراك في تغيير بيانات المستخدم
+    this.subscriptions.add(
+      this.authService.currentUser.subscribe(user => {
+        if (user) {
+          this.isLoggedIn = true;
+          this.profilePictureUrl = `${user.profilePicture}?t=${new Date().getTime()}` || 'assets/images/default-profile.jpg';
+        } else {
+          this.isLoggedIn = false;
+          this.profilePictureUrl = 'assets/images/default-profile.jpg';
+        }
+      })
+    );
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe(); // إلغاء جميع الاشتراكات عند تدمير المكون
+  }
 
   async loadUserProfile(): Promise<void> {
     // تحميل بيانات المستخدم من AuthService أو من قاعدة البيانات
@@ -64,7 +80,6 @@ export class HeaderComponent implements OnInit {
       console.log('Default profile picture URL:', this.profilePictureUrl);
     }
   }
-
 
   logout(): void {
     this.authService.logout();
@@ -104,7 +119,6 @@ export class HeaderComponent implements OnInit {
     this.closeSidebar();
   }
 
-
   openMenu(event: Event): void {
     event.stopPropagation();
     this.menuOpen = !this.menuOpen;
@@ -124,8 +138,6 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-
-
   deleteProfilePic(): void {
     // Reset profile picture to default and update in backend
     console.log('Deleting profile picture. Resetting to default.');
@@ -136,5 +148,4 @@ export class HeaderComponent implements OnInit {
       this.updateProfilePicture('assets/images/default-profile.jpg');
     }
   }
-
 }

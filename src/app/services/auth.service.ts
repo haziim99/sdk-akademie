@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, BehaviorSubject, from, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, BehaviorSubject, from, of, throwError } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { StorageService } from './storage.service';
@@ -18,33 +18,38 @@ export class AuthService {
     private fireauth: AngularFireAuth,
     private storageService: StorageService
   ) {
-    const savedUser = typeof window !== 'undefined' ? storageService.getItem('currentUser') : null;
-    console.log('Saved user from storageService:', savedUser); // Add this log
-
-    this.currentUserSubject = new BehaviorSubject<User | null>(savedUser ? JSON.parse(savedUser) : null);
+    // تهيئة currentUserSubject بـ null بدلاً من الاعتماد على التخزين
+    this.currentUserSubject = new BehaviorSubject<User | null>(null);
     this.currentUser = this.currentUserSubject.asObservable();
 
-    // Subscribe to auth state changes
+    // الاشتراك في تغير حالة المصادقة
     this.fireauth.authState.subscribe(user => {
-      console.log('Auth state changed:', user); // Debugging log
+      console.log('Auth state changed:', user);
       if (user) {
-        // Create User object with proper defaults
-        const userData: User = {
-          id: user.uid,
-          name: '', // Set default or retrieve from somewhere
-          email: user.email || '',
-          phone: '', // Set default or retrieve from somewhere
-          gender: 'male', // Default or handle as needed
-          level: 'beginner', // Default or handle as needed
-          role: 'user', // Default or adjust as needed
-          courses: []
-        };
-        this.currentUserSubject.next(userData);
-        storageService.setItem('currentUser', JSON.stringify(userData));
+        // جلب بيانات المستخدم من Firestore
+        this.firestore.collection<User>('users').doc(user.uid).valueChanges().pipe(
+          map(userData => {
+            if (userData) {
+              this.currentUserSubject.next(userData);
+              this.storageService.setItem('currentUser', JSON.stringify(userData));
+              console.log('User data saved to storage:', userData);
+            } else {
+              // إذا لم يتم العثور على بيانات المستخدم في Firestore
+              this.currentUserSubject.next(null);
+              this.storageService.removeItem('currentUser');
+              console.log('No user data found in Firestore, removed from storage.');
+            }
+          }),
+          catchError(error => {
+            console.error('Error fetching user data:', error);
+            return of(null);
+          })
+        ).subscribe();
       } else {
-        // If no user, set currentUserSubject to null
+        // إذا لم يكن هناك مستخدم، تعيين currentUserSubject إلى null وإزالة بيانات التخزين
         this.currentUserSubject.next(null);
-        storageService.removeItem('currentUser');
+        this.storageService.removeItem('currentUser');
+        console.log('No user found, removed from storage.');
       }
     });
   }
@@ -53,68 +58,77 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  // Method to retrieve the current user's ID from Firebase Authentication
-  async getCurrentUserId(): Promise<string | null> {
-    try {
-      const user = await this.fireauth.currentUser;
-      console.log('Current user:', user); // Add this log
-      return user ? user.uid : null;
-    } catch (error) {
-      console.error('Error fetching current user ID:', error);
-      return null;
-    }
-  }
-
+  // تسجيل المستخدمين الجدد
   register(newUser: { name: string; email: string; phone: string; password: string; gender: 'male' | 'female'; level?: 'beginner' | 'intermediate' | 'advanced' }): Observable<{ success: boolean }> {
-    const user: User = {
-      id: this.firestore.createId(),
-      name: newUser.name || '',
-      email: newUser.email || '',
-      phone: newUser.phone || '',
-      password: newUser.password || '',
-      gender: newUser.gender || 'male',
-      level: newUser.level || 'beginner',
-      role: 'user',
-      courses: []
-    };
-
-    return from(this.firestore.collection<User>('users').doc(user.id).set(user)).pipe(
-      map(() => ({ success: true })),
-      catchError(() => of({ success: false }))
-    );
-  }
-
-  login(email: string, password: string):
-  Observable<{ success: boolean; token?: string; role?: 'user' | 'admin'; userId?: string }> {
-    return this.firestore.collection<User>
-    ('users', ref => ref.where('email', '==', email).where('password', '==', password)).get().pipe(
-      map(snapshot => {
-        const user = snapshot.docs.map(doc => doc.data()).find(u => u.email === email && u.password === password);
+    return from(this.fireauth.createUserWithEmailAndPassword(newUser.email, newUser.password)).pipe(
+      switchMap(userCredential => {
+        const user = userCredential.user;
         if (user) {
-          const token = 'dummy-token';
-          const role: 'user' | 'admin' = (user as User & { role?: 'user' | 'admin' }).role || 'user';
-          this.storageService.setItem('userToken', token);
-          this.storageService.setItem('role', role);
-          this.storageService.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-          return { success: true, token, role, userId: user.id };
+          const userData: User = {
+            id: user.uid,
+            name: newUser.name,
+            email: newUser.email,
+            phone: newUser.phone,
+            gender: newUser.gender,
+            level: newUser.level || 'beginner',
+            role: 'user',
+            courses: []
+          };
+          return from(this.firestore.collection<User>('users').doc(user.uid).set(userData)).pipe(
+            map(() => ({ success: true })),
+            catchError(() => of({ success: false }))
+          );
         } else {
-          return { success: false };
+          return of({ success: false });
         }
       }),
       catchError(() => of({ success: false }))
     );
   }
 
-  logout(): void {
-    this.storageService.removeItem('userToken');
-    this.storageService.removeItem('role');
-    this.storageService.removeItem('currentUser');
-    this.currentUserSubject.next(null);
+  // تسجيل الدخول
+  login(email: string, password: string): Observable<{ success: boolean; role?: 'user' | 'admin'; userId?: string }> {
+    return from(this.fireauth.signInWithEmailAndPassword(email, password)).pipe(
+      switchMap(userCredential => {
+        const user = userCredential.user;
+        if (user) {
+          return this.firestore.collection<User>('users').doc(user.uid).valueChanges().pipe(
+            map(userData => {
+              if (userData) {
+                this.storageService.setItem('currentUser', JSON.stringify(userData));
+                this.currentUserSubject.next(userData);
+                return { success: true, role: userData.role, userId: userData.id };
+              }
+              return { success: false };
+            }),
+            catchError(() => of({ success: false }))
+          );
+        } else {
+          return of({ success: false });
+        }
+      }),
+      catchError(err => {
+        console.error('Error during login:', err);
+        return of({ success: false });
+      })
+    );
   }
 
+  // تسجيل الخروج
+  logout(): void {
+    this.fireauth.signOut().then(() => {
+      this.storageService.removeItem('currentUser');
+      this.currentUserSubject.next(null);
+      console.log('User logged out and storage cleared.');
+    }).catch(error => {
+      console.error('Error during logout:', error);
+    });
+  }
+
+  // التحقق مما إذا كان المستخدم مسجل دخول
   isLoggedIn(): boolean {
-    return !!this.storageService.getItem('userToken');
+    const userData = localStorage.getItem('currentUser');
+    return this.currentUserSubject.value !== null;
   }
 
   getCurrentUser(): User | null {
@@ -136,7 +150,6 @@ export class AuthService {
     this.storageService.setItem('currentUser', JSON.stringify(updatedUser));
     this.currentUserSubject.next(updatedUser);
   }
-
 
   addCourseToUser(courseId: string): Observable<any> {
     const currentUser = this.getCurrentUser();
@@ -185,7 +198,8 @@ export class AuthService {
   }
 
   getUserRole(): Observable<'user' | 'admin' | null> {
-    return of(this.storageService.getItem('role') as 'user' | 'admin' | null);
+    const role = this.getCurrentUser()?.role;
+    return of(role as 'user' | 'admin' | null);
   }
 
   getUserProfile(userId: string): Observable<User | null> {
@@ -210,12 +224,13 @@ export class AuthService {
     const currentUser = this.currentUserValue;
     if (currentUser) {
       currentUser.profilePicture = newProfilePictureUrl;
-      console.log('New profile picture URL:', newProfilePictureUrl); // إضافة السجل هنا
+      console.log('New profile picture URL:', newProfilePictureUrl);
       return from(this.firestore.collection<User>('users').doc(currentUser.id).update({ profilePicture: newProfilePictureUrl })).pipe(
         map(() => {
           // تأكد من تحديث المستخدم في الـ BehaviorSubject
-          console.log('Updating current user with new profile picture'); // إضافة السجل هنا
+          console.log('Updating current user with new profile picture');
           this.currentUserSubject.next(currentUser);
+          this.storageService.setItem('currentUser', JSON.stringify(currentUser));
         }),
         catchError(error => {
           console.error('Error updating profile picture:', error);
@@ -226,6 +241,4 @@ export class AuthService {
       return throwError(() => new Error('No current user found'));
     }
   }
-
-
 }

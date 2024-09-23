@@ -25,44 +25,29 @@ export class AppComponent implements OnInit {
     private translate: TranslateService,
     @Inject(PLATFORM_ID) private platformId: object
   ) {
-    // Example in a service or component
-    if (typeof window !== 'undefined') {
-      const user = storageService.getItem('user');
-  // Proceed with using 'user'
-  }
+    // إزالة الوصول إلى مفتاح 'user' إذا لم يكن ضروريًا
   }
 
   ngOnInit(): void {
-    // Set default language
+    // تعيين اللغة الافتراضية
     this.translate.setDefaultLang('en');
     if (isPlatformBrowser(this.platformId)) {
-      const savedUser = this.storageService.getItem('user');
-      console.log('Saved user:', savedUser);
       const lang = this.storageService.getItem('lang') || 'en';
       this.storageService.setItem('lang', lang);
-
-
       this.translate.use(lang);
     } else {
-      // If SSR, default to 'en'
+      // إذا كان SSR، استخدم 'en' بشكل افتراضي
       this.translate.use('en');
     }
   }
 
   changeLanguage(lang: string): void {
     this.translate.use(lang);
-    // Use storageService only in browser
+    // استخدم storageService فقط في المتصفح
     if (isPlatformBrowser(this.platformId)) {
-      this.storageService.setItem('lang', lang); //
+      this.storageService.setItem('lang', lang);
     }
   }
 
-  getUser() {
-    return this.storageService.getItem('user');
-  }
-
-  setUser(user: string) {
-    this.storageService.setItem('user', user);
-  }
-
+  // إزالة دوال getUser و setUser إذا لم يعد هناك حاجة لمفتاح 'user'
 }
