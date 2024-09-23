@@ -11,6 +11,7 @@ import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
 import { FirebaseError } from '@firebase/util';
 import { Video } from '@/app/services/user.model';
 import { environment } from '@/environments/environment';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -213,19 +214,15 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  logout(event: Event): void {
-    event.preventDefault();
-    this.authService.logout().subscribe({
-      next: () => {
-        this.router.navigate(['/login']);
-      },
-      error: (error: any) => {
-        console.error('Logout error:', error);
-      }
-    });
+  async logout(): Promise<void> {
+    try {
+      await firstValueFrom(this.authService.logout()); // انتظار تسجيل الخروج
+      await this.router.navigate(['/login']); // التوجيه بعد تسجيل الخروج
+      window.location.reload(); // إعادة تحميل الصفحة
+    } catch (error) {
+      console.error('Logout error:', error); // معالجة الأخطاء
+    }
   }
-
-
 
   getGenderTitle(): string {
     return this.adminGender === 'male' ? 'Herr' : 'Frau';

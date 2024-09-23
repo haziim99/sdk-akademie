@@ -18,15 +18,12 @@ export class AuthService {
     private fireauth: AngularFireAuth,
     private storageService: StorageService
   ) {
-    // تهيئة currentUserSubject بـ null بدلاً من الاعتماد على التخزين
     this.currentUserSubject = new BehaviorSubject<User | null>(null);
     this.currentUser = this.currentUserSubject.asObservable();
 
-    // الاشتراك في تغير حالة المصادقة
     this.fireauth.authState.subscribe(user => {
       console.log('Auth state changed:', user);
       if (user) {
-        // جلب بيانات المستخدم من Firestore
         this.firestore.collection<User>('users').doc(user.uid).valueChanges().pipe(
           map(userData => {
             if (userData) {
@@ -34,7 +31,6 @@ export class AuthService {
               this.storageService.setItem('currentUser', JSON.stringify(userData));
               console.log('User data saved to storage:', userData);
             } else {
-              // إذا لم يتم العثور على بيانات المستخدم في Firestore
               this.currentUserSubject.next(null);
               this.storageService.removeItem('currentUser');
               console.log('No user data found in Firestore, removed from storage.');
@@ -46,7 +42,6 @@ export class AuthService {
           })
         ).subscribe();
       } else {
-        // إذا لم يكن هناك مستخدم، تعيين currentUserSubject إلى null وإزالة بيانات التخزين
         this.currentUserSubject.next(null);
         this.storageService.removeItem('currentUser');
         console.log('No user found, removed from storage.');
@@ -58,7 +53,6 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  // تسجيل المستخدمين الجدد
   register(newUser: { name: string; email: string; phone: string; password: string; gender: 'male' | 'female'; level?: 'beginner' | 'intermediate' | 'advanced' }): Observable<{ success: boolean }> {
     return from(this.fireauth.createUserWithEmailAndPassword(newUser.email, newUser.password)).pipe(
       switchMap(userCredential => {
@@ -86,7 +80,6 @@ export class AuthService {
     );
   }
 
-  // تسجيل الدخول
   login(email: string, password: string): Observable<{ success: boolean; role?: 'user' | 'admin'; userId?: string }> {
     return from(this.fireauth.signInWithEmailAndPassword(email, password)).pipe(
       switchMap(userCredential => {
@@ -114,12 +107,11 @@ export class AuthService {
     );
   }
 
-  // تسجيل الخروج
   logout(): Observable<void> {
     return from(this.fireauth.signOut()).pipe(
       tap(() => {
         this.storageService.removeItem('currentUser');
-        this.currentUserSubject.next(null); // تحديث الحالة إلى null
+        this.currentUserSubject.next(null);
         console.log('User logged out and storage cleared.');
       }),
       catchError(error => {
@@ -129,11 +121,8 @@ export class AuthService {
     );
   }
 
-
-  // التحقق مما إذا كان المستخدم مسجل دخول
   isLoggedIn(): boolean {
-    const userData = localStorage.getItem('currentUser');
-    return !!this.currentUserSubject.value; // تحقق من وجود المستخدم
+    return !!this.currentUserSubject.value;
   }
 
   getCurrentUser(): User | null {
@@ -232,7 +221,6 @@ export class AuthService {
       console.log('New profile picture URL:', newProfilePictureUrl);
       return from(this.firestore.collection<User>('users').doc(currentUser.id).update({ profilePicture: newProfilePictureUrl })).pipe(
         map(() => {
-          // تأكد من تحديث المستخدم في الـ BehaviorSubject
           console.log('Updating current user with new profile picture');
           this.currentUserSubject.next(currentUser);
           this.storageService.setItem('currentUser', JSON.stringify(currentUser));

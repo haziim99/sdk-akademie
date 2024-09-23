@@ -11,7 +11,7 @@ export class ProfileService {
   constructor(private storage: AngularFireStorage, private authService: AuthService) { }
 
   uploadProfilePicture(file: File): Observable<string> {
-    const userId = this.authService.getCurrentUserId(); // Assuming you have a method to get the current user ID
+    const userId = this.authService.getCurrentUser(); // Assuming you have a method to get the current user ID
     const filePath = `profile_pictures/${userId}/${file.name}`;
     const fileRef = this.storage.ref(filePath);
     return from(fileRef.put(file)).pipe(
@@ -20,7 +20,7 @@ export class ProfileService {
   }
 
   deleteProfilePicture(): Observable<void> {
-    const userId = this.authService.getCurrentUserId();
+    const userId = this.authService.getCurrentUser();
     const filePath = `profile_pictures/${userId}`;
     return from(this.storage.ref(filePath).delete());
   }
