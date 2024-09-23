@@ -1,1 +1,32 @@
-<p>payment-details works!</p>
+<div class="payment-details">
+  <div class="header">
+    <h2>Payment Details</h2>
+    <button class="back-button" (click)="navigateBack()">Back to Admin Dashboard</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>User Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Amount (EGP)</th>
+        <th>Method</th>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let payment of payments; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ payment.user.name }}</td>
+        <td>{{ payment.user.email }}</td>
+        <td>{{ payment.user.phone }}</td>
+        <td>{{ payment.amount }} EGP</td>
+        <td>{{ payment.method }}</td>
+        <td>{{ payment.date | date:'short' }}</td>
+        <td>{{ payment.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

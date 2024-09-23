@@ -1,0 +1,189 @@
+.users-management {
+  font-family: 'Titillium Web', sans-serif;
+  color: #333;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, #ff6e6180, #d5b4ff);
+    color: #fff;
+    position: relative;
+    z-index: 1000;
+    border-bottom: none;
+
+    h1 {
+      margin-top: 0;
+      color: #230400;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+      font-family: 'Titillium Web', sans-serif;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 3px;
+        background-color: #6f6f6f;
+        border-radius: 3px;
+      }
+    }
+
+    .back-button {
+      background-color: #d5b4ff;
+      color: #333;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s, transform 0.3s;
+
+      &:hover {
+        background-color: #ff6e6180;
+        color: #fff;
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .user-list {
+    margin: 2rem 2rem 0;
+
+    h2 {
+      margin-top: 0;
+      color: #230400;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+      font-family: 'Titillium Web', sans-serif;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 3px;
+        background-color: #6f6f6f;
+        border-radius: 3px;
+      }
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      overflow: hidden;
+
+      th, td {
+        padding: 1rem;
+        text-align: left;
+        border: 1px solid #ddd;
+        font-size: 1rem;
+
+        &:first-child {
+          width: 50px; // Fixed width for the index column
+        }
+      }
+
+      th {
+        background-color: #ff6e6180;
+        color: #fff;
+        font-weight: bold;
+      }
+
+      tbody tr {
+        &:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+
+        &:hover {
+          background-color: #f1f1f1;
+          transition: background 0.3s;
+        }
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 0.5rem; // Space between buttons
+
+        .edit-button, .delete-button {
+          background-color: #110027;
+          color: #ffffff;
+          border: none;
+          border-radius: 5px;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+          transition: background 0.3s, transform 0.3s;
+
+          &:hover {
+            background-color: #4a060080;
+            color: #fff;
+            transform: scale(1.05);
+          }
+        }
+
+        .delete-button {
+          background-color: #5a0700; // Red for delete action
+        }
+
+        .delete-button:hover {
+          background-color: darken(#a70e00, 10%);
+        }
+      }
+    }
+  }
+
+  .course-list {
+    list-style-type: none; // إزالة النقاط التقليدية
+    padding: 0; // إزالة المساحة الافتراضية
+    margin: 0; // إزالة المساحة الافتراضية
+    display: flex; // استخدام flexbox لجعلها عمودية
+    flex-direction: column; // جعل العناصر في عمود
+
+    li {
+      background-color: #f1f1f1; // لون الخلفية للعناصر
+      border: 1px solid #ddd; // إضافة حدود
+      border-radius: 5px; // زوايا دائرية
+      padding: 10px 15px; // مساحة داخلية
+      margin-bottom: 10px; // مسافة بين العناصر
+      transition: background-color 0.3s; // تأثير الانتقال
+
+      &:hover {
+        background-color: #000000; // تغيير اللون عند التمرير
+        color: #fff; // تغيير لون النص
+      }
+    }
+  }
+
+
+  .add-user-button {
+    margin: 2rem auto;
+    display: block;
+    width: 200px; // Fixed width for consistency
+    background-color: #d5b4ff;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s, transform 0.3s;
+
+    &:hover {
+      background-color: #ff6e6180;
+      color: #fff;
+      transform: scale(1.05);
+    }
+  }
+}

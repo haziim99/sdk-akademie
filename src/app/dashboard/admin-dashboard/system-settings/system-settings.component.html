@@ -1,1 +1,41 @@
-<p>system-settings works!</p>
+<div class="system-settings">
+  <h1>System Settings</h1>
+  <form (ngSubmit)="updateSettings()">
+    <div class="form-group">
+      <label for="academyName">Academy Name</label>
+      <input
+        type="text"
+        id="academyName"
+        [(ngModel)]="academyName"
+        name="academyName"
+        required
+        placeholder="Enter Academy Name"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="academyEmail">Academy Email</label>
+      <input
+        type="email"
+        id="academyEmail"
+        [(ngModel)]="academyEmail"
+        name="academyEmail"
+        required
+        placeholder="Enter Academy Email"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="paymentOptions">Payment Options</label>
+      <select
+        id="paymentOptions"
+        [(ngModel)]="selectedPaymentOption"
+        name="paymentOptions"
+      >
+        <option *ngFor="let option of paymentOptions" [value]="option">{{ option }}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Settings</button>
+  </form>
+</div>

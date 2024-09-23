@@ -1,1 +1,42 @@
-<p>profile-management works!</p>
+<div class="profile-management">
+  <div class="header">
+    <h1>Profile Management</h1>
+    <button class="back-button" (click)="navigateBack()">Back to Admin Dashboard</button>
+  </div>
+
+  <div class="profile-details">
+    <div class="profile-picture">
+      <img [src]="profilePictureUrl" alt="Profile Picture">
+      <button class="upload-button" (click)="triggerFileInput()">Change Picture</button>
+      <input type="file" #fileInput (change)="onFileSelected($event)" hidden>
+    </div>
+
+    <div class="user-info" *ngIf="!isEditing">
+      <h2>{{ user?.name }}</h2>
+      <p><strong>Email:</strong> {{ user?.email }}</p>
+      <p><strong>Phone:</strong> {{ user?.phone }}</p>
+      <p><strong>Gender:</strong> {{ getGenderTitle() }}</p>
+      <button class="edit-button" (click)="editProfile()">Edit Profile</button>
+    </div>
+
+    <div class="edit-form" *ngIf="isEditing">
+      <form (ngSubmit)="saveChanges()">
+        <label>
+          Name:
+          <input type="text" [(ngModel)]="updatedName" name="name" required>
+        </label>
+        <label>
+          Email:
+          <input type="email" [(ngModel)]="updatedEmail" name="email" required>
+        </label>
+        <label>
+          Phone:
+          <input type="text" [(ngModel)]="updatedPhone" name="phone">
+        </label>
+        <div class="form-buttons">
+          <button type="submit" class="save-button">Save</button>
+          <button type="button" class="cancel-button" (click)="cancelEdit()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,85 @@
+<!-- support.component.html -->
+<div class="support-component">
+  <!-- Header Section -->
+  <div class="support-header">
+    <h1>Customer Support</h1>
+    <div class="search-filter">
+      <input
+        type="text"
+        placeholder="Search tickets..."
+        [(ngModel)]="searchTerm"
+        (input)="filterTickets()"
+      />
+      <select [(ngModel)]="filterStatus" (change)="filterTickets()">
+        <option value="">All Statuses</option>
+        <option value="open">Open</option>
+        <option value="closed">Closed</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="support-content">
+    <!-- Ticket List -->
+    <div class="ticket-list">
+      <h2>Support Tickets</h2>
+      <ul>
+        <li
+          *ngFor="let ticket of filteredTickets"
+          (click)="selectTicket(ticket)"
+          [class.selected]="selectedTicket?.id === ticket.id"
+        >
+          <div class="ticket-info">
+            <span class="ticket-id">#{{ ticket.id }}</span>
+            <span class="ticket-subject">{{ ticket.subject }}</span>
+          </div>
+          <div class="ticket-status" [ngClass]="ticket.status">
+            {{ ticket.status | titlecase }}
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Ticket Details -->
+    <div class="ticket-details" *ngIf="selectedTicket">
+      <h2>Ticket Details</h2>
+      <div class="details-header">
+        <h3>{{ selectedTicket.subject }}</h3>
+        <span class="status" [ngClass]="selectedTicket.status">
+          {{ selectedTicket.status | titlecase }}
+        </span>
+      </div>
+      <p>{{ selectedTicket.description }}</p>
+
+      <!-- Responses -->
+      <div class="responses">
+        <h4>Responses</h4>
+        <div *ngFor="let response of selectedTicket.responses" class="response">
+          <strong>{{ response.author }}</strong>
+          <p>{{ response.message }}</p>
+          <span class="response-date">{{ response.date | date:'short' }}</span>
+        </div>
+      </div>
+
+      <!-- Reply Form -->
+      <div class="reply-form">
+        <h4>Send a Reply</h4>
+        <form (ngSubmit)="sendReply()">
+          <textarea
+            [(ngModel)]="newReply"
+            name="reply"
+            required
+            placeholder="Type your reply here..."
+          ></textarea>
+          <button type="submit" class="send-button">Send</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- No Selection Message -->
+    <div class="no-selection" *ngIf="!selectedTicket">
+      <p>Select a ticket from the list to view details.</p>
+      <button (click)="goBack()" class="btn btn-primary">Back to Admin Dashboard</button>
+    </div>
+  </div>
+</div>

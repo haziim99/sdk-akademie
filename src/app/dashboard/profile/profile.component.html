@@ -83,11 +83,136 @@
 </div>
 
 
-    <div class="profile-actions">
-      <button class="btn btn-primary" (click)="editProfile()">Edit Profile</button>
-      <button class="btn btn-danger ml-2" (click)="logout()">Logout</button>
+  <!-- Support Section -->
+  <div class="support-section mt-5">
+    <h3>Customer Support</h3>
+
+    <!-- Submit New Ticket Form -->
+    <div class="submit-ticket mb-4">
+      <h4>Submit a Support Ticket</h4>
+      <form (ngSubmit)="submitTicket()" #ticketForm="ngForm">
+        <div class="form-group">
+          <label for="subject">Subject:</label>
+          <input
+            id="subject"
+            type="text"
+            class="form-control"
+            required
+            [(ngModel)]="newTicket.subject"
+            name="subject"
+            placeholder="Enter the subject of your issue"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea
+            id="description"
+            class="form-control"
+            required
+            [(ngModel)]="newTicket.description"
+            name="description"
+            rows="5"
+            placeholder="Describe your issue in detail"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="ticketForm.invalid || isSubmitting">
+          {{ isSubmitting ? 'Submitting...' : 'Submit Ticket' }}
+        </button>
+      </form>
+    </div>
+
+    <!-- List of User's Tickets -->
+    <div class="user-tickets">
+      <h4>Your Support Tickets</h4>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Ticket Nr</th>
+            <th>Subject</th>
+            <th>Status</th>
+            <th>Last Updated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ticket of userTickets">
+            <td>#{{ ticket.id }}</td>
+            <td>{{ ticket.subject }}</td>
+            <td>
+              <span [ngClass]="{'badge badge-success': ticket.status === 'open', 'badge badge-secondary': ticket.status === 'closed'}">
+                {{ ticket.status | titlecase }}
+              </span>
+            </td>
+            <td>{{ ticket.lastUpdated | date:'short' }}</td>
+            <td>
+              <button class="btn btn-info btn-sm" (click)="viewTicket(ticket)">View</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Ticket Details Modal -->
+    <div
+      class="modal fade"
+      id="ticketModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="ticketModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ticketModalLabel">{{ selectedTicket?.subject }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeTicketModal()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Status:</strong> {{ selectedTicket?.status | titlecase }}</p>
+            <p><strong>Description:</strong></p>
+            <p>{{ selectedTicket?.description }}</p>
+
+            <hr />
+
+            <h6>Responses:</h6>
+            <div *ngFor="let response of selectedTicket?.responses" class="response mb-3">
+              <p><strong>{{ response.author }}:</strong> {{ response.message }}</p>
+              <p><small>{{ response.date | date:'short' }}</small></p>
+            </div>
+
+            <hr />
+
+            <div class="reply-section">
+              <h6>Send a Reply:</h6>
+              <form (ngSubmit)="sendReply()" #replyForm="ngForm">
+                <div class="form-group">
+                  <textarea
+                    class="form-control"
+                    required
+                    [(ngModel)]="newReply"
+                    name="reply"
+                    rows="3"
+                    placeholder="Type your reply here..."
+                  ></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="replyForm.invalid || isReplying">
+                  {{ isReplying ? 'Sending...' : 'Send Reply' }}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+  <div class="profile-actions">
+    <button class="btn btn-primary" (click)="editProfile()">Edit Profile</button>
+    <button class="btn btn-danger ml-2" (click)="logout()">Logout</button>
+  </div>
+</div>
 
   <div *ngIf="isEditing" class="edit-form mt-4">
     <h3>Edit Profile</h3>

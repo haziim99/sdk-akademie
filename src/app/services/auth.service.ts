@@ -4,6 +4,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { StorageService } from './storage.service';
+import { Router } from '@angular/router';
 import { User, Course } from './user.model';
 
 @Injectable({
@@ -13,10 +14,12 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
 
+
   constructor(
     private firestore: AngularFirestore,
     private fireauth: AngularFireAuth,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private router: Router
   ) {
     this.currentUserSubject = new BehaviorSubject<User | null>(null);
     this.currentUser = this.currentUserSubject.asObservable();
@@ -234,4 +237,30 @@ export class AuthService {
       return throwError(() => new Error('No current user found'));
     }
   }
+
+  // داخل AuthService
+  getAllUsers(): Observable<User[]> {
+    console.log('Fetching all users...'); // تسجيل عملية الجلب
+    return this.firestore.collection<User>('users', ref => ref.where('role', '==', 'user')).valueChanges().pipe(
+      map(users => {
+        console.log('Fetched users:', users); // تحقق من البيانات المسترجعة
+        return users.map(user => {
+          if (!user.courses) {
+            user.courses = [];
+          }
+          return user;
+        });
+      }),
+      catchError(error => {
+        console.error('Error fetching all users:', error);
+        return of([]); // إرجاع مصفوفة فارغة في حالة حدوث خطأ
+      })
+    );
+  }
+
+  navigateBack() {
+    // يمكن تعديل هذا السطر ليشمل المنطق المناسب لتوجيه المستخدم
+    this.router.navigate(['/admin-dashboard']);
+  }
+
 }

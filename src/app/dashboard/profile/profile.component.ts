@@ -9,10 +9,12 @@ import { UserService } from '@/app/services/user.service';
 import { User, Course } from '../../services/user.model';
 import { filter, firstValueFrom, Subscription, Observable } from 'rxjs';
 import { CoursesService } from '../../services/courses.service';
+import { SupportService, SupportTicket, SupportResponse, NewSupportTicket } from '../../services/support.service';
 import { catchError, finalize, switchMap } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { CloudinaryResponse } from '@/app/services/cloudinary-response.model';
+
 
 @Component({
   selector: 'app-profile',
@@ -37,6 +39,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
   @ViewChild('fileInput') fileInput!: ElementRef;
   isUploading: boolean = false;
 
+   // Support-related properties
+  newTicket: NewSupportTicket = {
+    subject: '',
+    description: '',
+    status: 'open',
+    responses: []
+  };
+
+  userTickets: SupportTicket[] = [];
+  selectedTicket: SupportTicket | null = null;
+  newReply: string = '';
+  isSubmitting: boolean = false;
+  isReplying: boolean = false;
+
   private cloudName = 'dzmcteb1t';
   private uploadPreset = 'profile_preset';
   private userCollection: AngularFirestoreCollection<User>;
@@ -50,6 +66,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private paymentService: PaymentService,
     private coursesService: CoursesService,
     private storageService: StorageService,
+    private supportService: SupportService,
     private router: Router,
     private storage: AngularFireStorage,
     private firestore: AngularFirestore,
@@ -70,6 +87,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.user = user;
         this.profilePictureUrl = this.user.profilePicture || 'assets/images/default-profile.jpg';
         this.loadCourses();
+        this.fetchUserTickets();
       })
     );
 
@@ -88,6 +106,143 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
+
+  // Fetch user's support tickets
+  fetchUserTickets(): void {
+    if (this.user) {
+      console.log('Fetching tickets for user:', this.user.id);
+      this.supportService.getUserTickets(this.user.id).subscribe(
+        tickets => {
+          this.userTickets = tickets;
+          console.log('Fetched tickets:', this.userTickets);
+        },
+        error => {
+          console.error('Error fetching user tickets:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to fetch support tickets.',
+            confirmButtonColor: '#ff6600'
+          });
+        }
+      );
+    }
+  }
+
+  // Submit a new support ticket
+  async submitTicket(): Promise<void> {
+    if (!this.user) return;
+
+    if (!this.newTicket.subject.trim() || !this.newTicket.description.trim()) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Incomplete Information',
+        text: 'Please provide both subject and description for your ticket.',
+        confirmButtonColor: '#ff6600'
+      });
+      return;
+    }
+
+    this.isSubmitting = true;
+
+    const ticket: SupportTicket = {
+      userId: this.user.id,
+      subject: this.newTicket.subject.trim(),
+      description: this.newTicket.description.trim(),
+      status: 'open',
+      responses: [],
+      createdAt: new Date(),
+      lastUpdated: new Date()
+    };
+
+    try {
+      await this.supportService.submitTicket(ticket);
+      Swal.fire({
+        icon: 'success',
+        title: 'Ticket Submitted',
+        text: 'Your support ticket has been submitted successfully.',
+        confirmButtonColor: '#ff6600'
+      });
+      // Reset the form
+      this.newTicket = { subject: '', description: '', status: 'open', responses: [] };
+    } catch (error) {
+      console.error('Error submitting ticket:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Submission Failed',
+        text: 'There was an error submitting your ticket. Please try again later.',
+        confirmButtonColor: '#ff6600'
+      });
+    } finally {
+      this.isSubmitting = false;
+    }
+  }
+
+  // View ticket details
+  viewTicket(ticket: SupportTicket): void {
+    this.selectedTicket = ticket;
+    // Open the modal
+    ($('#ticketModal') as any).modal('show');
+  }
+
+  // Close ticket modal
+  closeTicketModal(): void {
+    this.selectedTicket = null;
+    // Close the modal
+    ($('#ticketModal') as any).modal('hide');
+  }
+
+  // Send a reply to the selected ticket
+  async sendReply(): Promise<void> {
+    if (!this.selectedTicket || !this.newReply.trim()) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid Input',
+        text: 'Please enter a valid reply.',
+        confirmButtonColor: '#ff6600'
+      });
+      return;
+    }
+
+    this.isReplying = true;
+
+    const response: SupportResponse = {
+      author: 'Admin', // You can modify this to reflect the admin's name or role
+      message: this.newReply.trim(),
+      date: new Date()
+    };
+
+    const updatedResponses = [...this.selectedTicket.responses, response];
+    const updatedStatus = 'closed'; // Optionally, change status to 'closed' after reply
+
+    try {
+      await this.supportService.updateTicket(this.selectedTicket.id!, {
+        responses: updatedResponses,
+        status: updatedStatus
+      });
+      Swal.fire({
+        icon: 'success',
+        title: 'Reply Sent',
+        text: 'Your reply has been sent successfully.',
+        confirmButtonColor: '#ff6600'
+      });
+      // Refresh the selected ticket
+      this.fetchUserTickets();
+      this.closeTicketModal();
+      this.newReply = '';
+    } catch (error) {
+      console.error('Error sending reply:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Reply Failed',
+        text: 'There was an error sending your reply. Please try again later.',
+        confirmButtonColor: '#ff6600'
+      });
+    } finally {
+      this.isReplying = false;
+    }
+  }
+
 
   async loadCourses(): Promise<void> {
     try {

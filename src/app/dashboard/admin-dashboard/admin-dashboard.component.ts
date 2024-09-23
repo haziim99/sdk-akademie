@@ -235,6 +235,10 @@ export class AdminDashboardComponent implements OnInit {
     return `EGP ${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   }
 
+  navigateTo(route: string) {
+    this.router.navigate([route]);
+  }
+
   closeModal() {
     this.showModal = false; // إغلاق النموذج
   }

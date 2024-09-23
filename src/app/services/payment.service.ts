@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Course } from './course.model';
-
+import { Payment } from './payment.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -41,5 +41,9 @@ export class PaymentService {
       catchError(() => of({ success: false, message: 'Payment failed' }))
     );
   }
+
+  /* getPayments(): Observable<Payment[]> {
+    return this.http.get<Payment[]>(`${this.apiUrl}/payments`);
+  } */
 
 }

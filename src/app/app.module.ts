@@ -61,6 +61,7 @@ import { environment } from '../environments/environment';
 // Cloudinary Imports
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
+import { SupportComponent } from './dashboard/admin-dashboard/support/support.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -96,6 +97,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LanguageSettingsComponent,
     PaymentSettingsComponent,
     CourseModalComponent,
+    SupportComponent,
   ],
   imports: [
     BrowserModule,
