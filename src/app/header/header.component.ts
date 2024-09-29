@@ -91,7 +91,7 @@ export class HeaderComponent implements OnInit {
     this.isSidebarOpen = !this.isSidebarOpen;
     console.log('Sidebar toggled:', this.isSidebarOpen); // هذا سيساعدك في التأكد من أن الدالة تعمل
   }
-  
+
   navigateAndCloseSidebar(route: string) {
     this.isSidebarOpen = false; // إخفاء السايد بار
     this.router.navigate([route]); // الانتقال إلى الصفحة المطلوبة
