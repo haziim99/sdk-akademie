@@ -1,5 +1,6 @@
 /* Contact Section */
 .contact {
+  font-family: 'Titillium Web', sans-serif; /* خط النص */
   text-align: center;
   padding: 80px 20px;
   position: relative;
@@ -104,7 +105,7 @@ form textarea {
 }
 
 form button {
-  background-color: #ff6600;
+  background-color: #7f3300;
   color: #fff;
   padding: 15px 30px;
   border: none;
@@ -122,6 +123,7 @@ form button:hover {
 .contact-info {
   text-align: center;
   margin-top: 30px;
+  font-family: 'Titillium Web', sans-serif; /* خط النص */
 }
 
 .contact-info p {
@@ -131,6 +133,6 @@ form button:hover {
 }
 
 .contact-info p i {
-  color: #ff6600;
+  color: #281000;
   margin-right: 10px;
 }

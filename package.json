@@ -41,6 +41,7 @@
     "@ngx-formly/core": "^6.3.6",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
+    "@splidejs/splide": "^4.1.4",
     "@sweetalert2/ngx-sweetalert2": "^12.4.0",
     "@swimlane/ngx-charts": "^20.5.0",
     "animate.css": "^4.1.1",

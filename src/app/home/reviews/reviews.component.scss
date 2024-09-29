@@ -1,54 +1,38 @@
-.carousel-container {
-  max-width: 648px; /* 60% of 1080px */
-  height: 648px; /* 60% of 1080px */
-  margin: 50px auto; /* Center the slider in the middle of the page */
-  background: linear-gradient(45deg, #ff6e6180, #d5b4ff); /* Gradient color matching the design */
-  padding: 10px; /* Reduced padding for a smaller slider */
-  border-radius: 10px; /* Rounded corners for the container */
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@400&display=swap');
+
+.splide {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 20px;
+  background: linear-gradient(45deg, #ff6e6180, #d5b4ff);
+  border-radius: 10px;
 }
 
-
-.carousel-inner {
-  height: 100%; /* Ensure the inner container fits the outer container */
-  overflow: hidden; /* Hide parts of the image that exceed the container */
+.splide__slide {
+  position: relative;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
 }
 
-
-.carousel-item img {
-  width: 100%; /* Ensure the image width fits the container */
-  height: 100%; /* Ensure the image height fits the container */
-  object-fit: cover; /* Fit the image to the container without distortion */
-  border-radius: 10px; /* Rounded corners for the image */
+.comment-text {
+  color: #ffffff !important; /* لون نص الرأي (أبيض) */
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
-
-
-.carousel-inner {
-  height: 1080px; /* تعيين ارتفاع السلايدر ليتناسب مع ارتفاع الصورة */
-  overflow: hidden; /* إخفاء أجزاء الصورة التي تتجاوز الحاوية */
+.author {
+  color: #685900 !important; /* لون اسم الكاتب (أصفر غامق) */
+  font-weight: bold;
+  margin-top: 10px;
 }
 
-.carousel-item img {
-  width: 100%; /* عرض الصورة يأخذ عرض الحاوية بالكامل */
-  height: 100%; /* ارتفاع الصورة يأخذ ارتفاع الحاوية بالكامل */
-  object-fit: cover; /* ضبط الصورة لتناسب الحاوية بدون تشويه */
-  border-radius: 10px; /* إضافة حواف دائرية للصورة */
+.splide__list {
+  display: flex;
+  align-items: center;
+  font-family: 'Changa', sans-serif;
 }
-
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background: linear-gradient(45deg, #ff6e6180, #d5b4ff); /* Gradient color matching the design */
-  border-radius: 50%; /* Circular buttons */
-  width: 40px; /* Smaller width for the buttons */
-  height: 40px; /* Smaller height for the buttons */
-  background-size: cover; /* Cover background with icons */
-}
-
-.carousel-control-prev:hover .carousel-control-prev-icon,
-.carousel-control-next:hover .carousel-control-next-icon {
-  background-color: rgba(255, 255, 255, 0.5); /* Hover effect with a light background */
-}
-
-
-

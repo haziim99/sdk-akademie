@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class HeaderComponent implements OnInit {
-  isSidebarOpen = false;
+  isSidebarOpen: boolean = false; // تأكد من أن هذه المتغير مُعرفة هنا
   currentLang = 'en';  // Default language
   dropdownOpen = false;
   menuOpen = false; // Track menu visibility
@@ -89,7 +89,14 @@ export class HeaderComponent implements OnInit {
 
   toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen;
+    console.log('Sidebar toggled:', this.isSidebarOpen); // هذا سيساعدك في التأكد من أن الدالة تعمل
   }
+  
+  navigateAndCloseSidebar(route: string) {
+    this.isSidebarOpen = false; // إخفاء السايد بار
+    this.router.navigate([route]); // الانتقال إلى الصفحة المطلوبة
+}
+
 
   closeSidebar(): void {
     this.isSidebarOpen = false;

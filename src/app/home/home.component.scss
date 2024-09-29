@@ -201,14 +201,14 @@
 }
 
 
-
 /* Why SDK section */
 
 .why-sdk {
   text-align: center;
-  padding: 80px 20px; /* Generous padding for better spacing */
+  padding: 80px 20px;
   position: relative;
   overflow: hidden;
+  font-family: 'Titillium Web', sans-serif;
 }
 
 .why-sdk h2 {
@@ -247,147 +247,142 @@
   text-shadow: 0 8px 20px rgba(255, 255, 255, 0); /* Enhanced shadow on hover */
 }
 
-
 .why-sdk-content {
+  background: linear-gradient(45deg, #ffffff, #d5b4ff43);
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  flex-direction: column; /* استخدام الاتجاه العمودي */
+  gap: 40px; /* مساحة أكبر بين العناصر */
 }
 
 .why-sdk-item {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  width: 250px; /* ثابت العرض لضمان أن كل العناصر بنفس الحجم */
-  height: 100%; /* ملء الارتفاع المتاح */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: left;
-  transition: transform 0.3s, box-shadow 0.3s;
-  display: flex;
-  flex-direction: column; /* تنظيم المحتوى عموديًا */
-  justify-content: space-between; /* توزيع المحتوى بالتساوي */
+  display: flex; /* استخدام flex لعرض المحتوى بشكل أفقي */
+  align-items: center; /* محاذاة العناصر في المنتصف */
+  justify-content: space-between; /* توزيع المساحة بين الصورة والنص */
+  background-color: transparent; /* جعل الخلفية شفافة */
+  padding: 20px; /* إضافة مساحة داخلية */
 }
 
-.why-sdk-item:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.why-sdk-item h3 {
-  color: #8B0000; /* Dark Red */
-  margin-top: 10px;
-  font-size: 1.5rem;
-  text-align: center;
-  font-family: 'Edu AU VIC WANT Hand'
-}
-
-.why-sdk-item p {
-  color: #555;
-  text-align: justify;
-  flex-grow: 1; /* يسمح للنص بأن يشغل المساحة المتاحة */
-  margin: 10px 0;
-}
 
 .why-sdk-image {
-  width: 100%;
-  height: 150px; /* تحديد ارتفاع ثابت للصورة لضمان اتساق الحجم */
-  object-fit: cover; /* لتغطية الحاوية دون تشويه الصورة */
-  border-radius: 10px;
+  width: 300px; /* تحديد عرض ثابت أكبر للصورة */
+  height: auto; /* ارتفاع تلقائي للحفاظ على نسبة العرض إلى الارتفاع */
+  object-fit: cover;
+  margin-left: 20px; /* مسافة بين الصورة والنص */
 }
 
 
+.text-content {
+  max-width: 500px; /* تحديد أقصى عرض للمحتوى */
+  margin: 0 auto; /* محاذاة المحتوى في المنتصف */
+}
+
+.text-content h3 {
+  margin: 0; /* إزالة الهوامش العليا والسفلى */
+  font-size: 2rem; /* زيادة حجم الخط قليلاً للتأثير */
+  font-family: 'Titillium Web', sans-serif;
+  color: #8B0000; /* لون داكن لتمييز النص */
+  text-align: center; /* محاذاة النص في المنتصف */
+  text-transform: uppercase; /* تحويل النص إلى حروف كبيرة */
+  letter-spacing: 1px; /* زيادة المسافة بين الحروف */
+  border-bottom: 2px solid #390500; /* إضافة خط سفلي بلون مميز */
+  padding-bottom: 5px; /* مساحة داخلية أسفل النص */
+  transition: color 0.3s ease, transform 0.3s ease; /* إضافة تأثير انتقال */
+}
+
+.text-content h3:hover {
+  color: #080011; /* تغيير اللون عند التحويم */
+  transform: scale(1.05); /* زيادة حجم النص عند التحويم */
+}
+
+.text-content p {
+  margin: 0; /* إزالة الهوامش */
+  line-height: 1.5; /* ارتفاع السطر */
+  color: #555; /* لون النص */
+}
 
 
-.courses {
+// Variables for colors and fonts
+$primary-color: #ff6f61;
+$secondary-color: #d5b4ff;
+$dark-color: #8B0000;
+$hover-color: #080011;
+
+.our-services {
   text-align: center;
-  padding: 80px 20px; /* Generous padding for better spacing */
+  padding: 80px 20px;
   position: relative;
   overflow: hidden;
-}
+  font-family: 'Titillium Web', sans-serif;
 
-.courses h2 {
-  position: relative;
-  font-size: 3rem; /* Large font size for impact */
-  font-weight: 700; /* Bold text */
-  margin: 0 0 70px 0;
-  padding: 0;
-  color: #fff; /* White text color */
-  text-transform: uppercase; /* Uppercase text for emphasis */
-  letter-spacing: 2px; /* Increased letter spacing for modern look */
-  display: inline-block;
-  background: linear-gradient(90deg, #ff6f61, #d5b4ff); /* Gradient background */
-  -webkit-background-clip: text; /* Clip the background gradient to the text */
-  background-clip: text;
-  color: transparent; /* Hide the original text color */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-  transition: transform 0.3s ease, text-shadow 0.3s ease;
-}
+  h2 {
+    position: relative;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0 0 70px 0;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: inline-block;
+    background: linear-gradient(90deg, $primary-color, $secondary-color);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
 
-.courses h2::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 50%;
-  background: radial-gradient(circle, rgb(255, 255, 255) 0%, rgba(255, 0, 0, 0) 100%);
-  transform: translate(-50%, -50%);
-  opacity: 0.5;
-  z-index: -1;
-}
+    &:hover {
+      transform: scale(1.1);
+      text-shadow: 0 8px 20px rgba(255, 255, 255, 0);
+    }
+  }
 
-.courses h2:hover {
-  transform: scale(1.1); /* Slightly enlarge on hover */
-  text-shadow: 0 8px 20px rgba(255, 255, 255, 0); /* Enhanced shadow on hover */
-}
+  .services-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); // شبكة مرنة
+    gap: 20px; // مساحة بين العناصر
+  }
 
+  .services-item {
+    display: flex;
+    flex-direction: column; // جعل العناصر في عمود
+    align-items: center; // محاذاة العناصر في المركز
+    padding: 20px;
+    background-color: transparent;
+    border: 1px solid #ccc; // حد خفيف حول العناصر
+    border-radius: 8px; // زوايا دائرية
+    transition: transform 0.3s ease;
 
-.course-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
+    img.service-image {
+      width: 150px; // حجم أصغر للصورة
+      height: auto;
+      object-fit: cover;
+      margin-bottom: 10px; // مساحة تحت الصورة
+    }
 
-.course {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  width: 250px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: left;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
+    h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: $dark-color;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
 
-.course:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
+      &:hover {
+        color: $hover-color;
+      }
+    }
 
-.course h3 {
-  color: #8B0000; /* Dark Red */
-  margin-top: 10px;
-  font-family: 'Edu AU VIC WANT Hand'
-}
+    p {
+      color: #555;
+      text-align: center;
+      line-height: 1.5;
+    }
 
-.course p {
-  color: #555;
-}
-
-.course a {
-  color: #8B0000; /* Dark Red */
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.service-image {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.service-image-tall {
-  height: 205px; /* Increase the height for the "Buying Books" image */
+    &:hover {
+      transform: scale(1.05); // تكبير بسيط عند التمرير
+    }
+  }
 }
 
 @media (max-width: 768px) { /* تغيير العرض بناءً على حجم الشاشة */
@@ -430,3 +425,34 @@
     padding: 4px 8px; /* تقليل الحشو */
   }
 }
+
+
+@media (max-width: 768px) {
+  .why-sdk-content {
+      flex-direction: column;
+      gap: 30px; /* زيادة المسافة بين العناصر */
+  }
+
+  .why-sdk-item {
+      width: 100%;
+      max-width: 95%; /* عرض أقصى أكبر */
+      padding: 15px; /* حواف داخلية */
+  }
+
+  .why-sdk-image {
+      width: 100%;
+      height: auto;
+      max-height: 200px; /* تحديد ارتفاع أقصى */
+      object-fit: cover; /* ضمان تغطية الصورة */
+  }
+
+  .why-sdk-item h3 {
+      font-size: 1.5em; /* حجم أكبر للعناوين */
+  }
+
+  .why-sdk-item p {
+      font-size: 1em; /* حجم النص */
+  }
+}
+
+

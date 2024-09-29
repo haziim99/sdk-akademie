@@ -325,3 +325,26 @@ body {
     transform: translateY(0);
   }
 }
+
+@media (max-width: 768px) {
+  .course-details {
+    padding: 15px; /* زيادة الحواف الداخلية */
+    ;
+  }
+
+  .course-details h4 {
+      font-size: 1.4em; /* زيادة حجم العنوان */
+  }
+
+  .course-details p {
+      font-size: 1em; /* تأكد من أن النص يمكن قراءته بسهولة */
+  }
+
+  .course-actions {
+      flex-direction: column; /* جعل الأزرار في عمود عند الحاجة */
+      align-items: flex-start; /* محاذاة الأزرار إلى اليسار */
+      gap: 10px; /* زيادة المسافة بين الأزرار */
+  }
+}
+
+

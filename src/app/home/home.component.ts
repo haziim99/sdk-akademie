@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       if (whySdkItems.length) {
         gsap.fromTo(whySdkItems,
           { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 1, ease: 'power2.out', stagger: 0.2, delay: 1.5 }
+          { opacity: 1, y: 0, duration: 1, ease: 'power2.out', stagger: 0.2, delay: .5 }
         );
       }
 

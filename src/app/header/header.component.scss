@@ -80,8 +80,9 @@ header {
 }
 
 .header-actions {
-  display: flex;
-  align-items: center;
+  display: flex; /* استخدام الفليكس لتنسيق العناصر في صف */
+  align-items: center; /* محاذاة العناصر عموديًا */
+  gap: 10px; /* إضافة مساحة بين الأيقونات */
 }
 
 .auth-icons {
@@ -117,11 +118,6 @@ header {
       background-color: rgba(255, 255, 255, 0.2);
       transform: scale(1.05);
     }
-  }
-
-  .user-profile-content {
-    display: flex;
-    align-items: center;
   }
 
   .user-profile-image {
@@ -255,16 +251,77 @@ header {
 
 @media (max-width: 768px) {
   .menu-btn {
-    display: block;
+    display: block; /* Show the button on mobile */
+    position: absolute; /* Positioning */
+    top: 20px; /* Space from the top */
+    right: 20px; /* Space from the right */
+    background: transparent; /* Transparent background */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor */
+    z-index: 1000; /* Ensure it’s above other elements */
   }
 
   .navbar {
-    display: none;
+    display: none; /* Hide navbar on mobile */
   }
 
   .header-actions {
-    .auth-icons {
-      margin-right: 10px;
-    }
+    display: flex; /* Keep header actions */
+    justify-content: flex-end; /* Align to the right */
   }
+
+  .sidebar {
+    position: fixed; /* تحديد الوضعية */
+    top: 0; /* المحاذاة من الأعلى */
+    right: 0; /* المحاذاة من اليمين */
+    width: 250px; /* عرض السايد بار */
+    height: 100%; /* ارتفاع كامل */
+    background: linear-gradient(45deg, #ff6e6180, #d5b4ff); /* الخلفية بتدرج الألوان */
+    color: #fff; /* لون النص */
+    transform: translateX(100%); /* تخفي السايد بار خارج الشاشة */
+    opacity: 0; /* تخفي السايد بار */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* تأثير الانتقال */
+    z-index: 1000; /* لضمان أنه فوق العناصر الأخرى */
+    padding: 20px; /* حواف داخلية */
+    font-family: 'Titillium Web', sans-serif; /* خط النص */
+}
+
+.sidebar.open {
+    transform: translateX(0); /* عرض السايد بار */
+    opacity: 1; /* جعله مرئياً */
+}
+
+
+  .sidebar nav ul {
+    list-style: none; /* إزالة العلامات */
+    padding: 0; /* إزالة الحواف */
+  }
+
+  .sidebar nav ul li {
+    margin: 15px 0; /* مساحة بين العناصر */
+  }
+
+  .sidebar nav ul li a {
+    color: #fff; /* لون النص */
+    text-decoration: none; /* إزالة التسطير */
+    font-weight: bold; /* جعل النص عريض */
+    transition: color 0.3s ease; /* تأثير تغيير اللون */
+  }
+
+  .sidebar nav ul li a:hover {
+    color: #ff6e61; /* تغيير اللون عند التحويم */
+  }
+
+  .close-btn {
+    background: transparent; /* خلفية شفافة */
+    border: none; /* بدون حد */
+    color: #fff; /* لون الزر */
+    font-size: 24px; /* حجم الخط */
+    cursor: pointer; /* مؤشر يد */
+    position: absolute; /* الوضعية المطلقة */
+    top: 20px; /* المحاذاة من الأعلى */
+    left: 20px; /* المحاذاة من اليسار */
+  }
+
+
 }
