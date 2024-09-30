@@ -39,6 +39,15 @@ $text-color: #333;
   }
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 .about {
   padding: 60px 40px;
   background-color: #f9f9f9;
@@ -81,6 +90,97 @@ $text-color: #333;
 .about h2:hover {
   transform: scale(1.1); /* تكبير خفيف عند التمرير */
   text-shadow: 0 8px 20px rgba(255, 255, 255, 0.8); /* ظل نصي معزز عند التمرير */
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column; /* لعرض العناصر في عمود */
+  align-items: center; /* محاذاة العناصر في المركز */
+  gap: 20px; /* مساحة بين العناصر */
+  width: 100%; /* اجعل العرض 100% */
+  max-width: 1200px; /* تحديد الحد الأقصى للعرض */
+  margin: 0 auto; /* محاذاة المحتوى في المنتصف */
+
+  .about-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* اجعل العرض 100% */
+    height: 30vh; /* ارتفاع العنصر */
+    margin: 0; /* إزالة الهوامش */
+    padding: 0 20px; /* زيادة الحدود من اليمين واليسار */
+    color: #e0e0e0; /* لون النص */
+    font-family: 'Titillium Web', sans-serif; /* خط النص */
+    text-align: center; /* محاذاة النص إلى المنتصف */
+    border-radius: 8px; /* زوايا دائرية */
+
+    &.banner-large {
+      background-image: url('/assets/images/welcome.png'); /* مسار النسبي */
+      background-size: cover; /* تجعل الصورة تغطي المساحة */
+      background-position: center; /* مركز الصورة */
+      height: 30vh; /* اجعل ارتفاع العنصر بنسبة 30% من ارتفاع نافذة العرض */
+      width: calc(100% + 40px); /* زيادة العرض قليلاً لتغطية المساحة بالكامل */
+      margin: 10px 0;
+    }
+    &.banner-medium {
+      background-image: url('/assets/images/tailored.jpg'); /* الصورة الثانية */
+      background-size: cover;
+      background-position: center;
+      flex: 1; /* جعل العنصر يأخذ مساحة متساوية */
+      margin: 0 10px; /* حدود بسيطة من اليمين واليسار */
+      height: 200px; /* قم بتعديل الارتفاع حسب الحاجة */
+  }
+
+    &.banner-small {
+      background-image: url('/assets/images/join.jpg'); /* مسار النسبي */
+      background-size: cover;
+      background-position: center;
+      flex: 1;
+      height: 200px;
+      margin: 0 10px;
+    }
+    &.banner-extra-small {
+      background-image: url('/assets/images/travel.jpeg'); /* الصورة الرابعة */
+      background-size: cover;
+      background-position: center;
+      flex: 1; /* جعل العنصر يأخذ مساحة متساوية */
+      margin: 0 10px; /* حدود بسيطة من اليمين واليسار */
+      height: 80vh;
+    }
+  }
+
+  .about-row {
+    display: flex; /* لعرض العناصر بجوار بعضها */
+    width: 100%; /* اجعل العرض 100% */
+    gap: 20px; /* مساحة بين العناصر */
+  }
+
+  .welcome {
+    color: #ffffff ;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 70px;
+    font-weight: bold;
+  }
+
+  .join {
+    color: #fffefe;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 70px;
+    font-weight: bold;
+  }
+  .tailored {
+    color: #00ffaa;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 70px;
+    font-weight: bold;
+  }
+  .travel {
+    color: #fffefe;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 70px;
+    font-weight: bold;
+    margin: 100px;
+  }
 }
 
 
@@ -133,38 +233,6 @@ $text-color: #333;
   font-family: 'Titillium Web', sans-serif;
 }
 
-.about-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* محاذاة العناصر في الوسط */
-  gap: 20px; /* مساحة بين الأعمدة */
-
-  .about-text {
-    flex: 1 1 60%; /* يحتل 60% من العرض */
-    padding: 20px;
-    background-color: #ffffff; /* خلفية بيضاء */
-    border: 1px solid #ddd; /* حافة فاتحة */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-    p {
-      font-size: 1rem;
-      color: #333; /* لون النص الداكن */
-      line-height: 1.6;
-      margin-bottom: 1rem; /* المسافة بين الفقرات */
-      display: flex;
-      align-items: center; /* محاذاة الرموز والنص */
-      gap: 10px; /* مساحة بين الرمز والنص */
-
-      i {
-        font-size: 1.2rem; /* حجم الرمز */
-        color: #013a20; /* لون الرموز */
-      }
-    }
-  }
-
-}
-
 .location {
   background-color: #ffffff;
   border-radius: 8px;
@@ -174,7 +242,7 @@ $text-color: #333;
   text-align: center;
 
   h2 {
-    @include gradient-title; // 
+    @include gradient-title; //
     font-size: 2.5rem;
     margin-bottom: 20px;
   }
