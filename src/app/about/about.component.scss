@@ -128,15 +128,15 @@ body {
       background-position: center;
       flex: 1; /* جعل العنصر يأخذ مساحة متساوية */
       margin: 0 10px; /* حدود بسيطة من اليمين واليسار */
-      height: 200px; /* قم بتعديل الارتفاع حسب الحاجة */
-  }
+      height: 300px; /* زيّد الارتفاع */
+    }
 
     &.banner-small {
       background-image: url('/assets/images/join.jpg'); /* مسار النسبي */
       background-size: cover;
       background-position: center;
       flex: 1;
-      height: 200px;
+      height: 300px; /* زيّد الارتفاع */
       margin: 0 10px;
     }
     &.banner-extra-small {
@@ -145,7 +145,7 @@ body {
       background-position: center;
       flex: 1; /* جعل العنصر يأخذ مساحة متساوية */
       margin: 0 10px; /* حدود بسيطة من اليمين واليسار */
-      height: 80vh;
+      height: 100vh; /* جعل الارتفاع يغطي كامل الشاشة */
     }
   }
 
@@ -158,60 +158,70 @@ body {
   .welcome {
     color: #ffffff ;
     font-family: 'Titillium Web', sans-serif;
-    font-size: 70px;
+    font-size: 60px;
     font-weight: bold;
   }
 
   .join {
     color: #fffefe;
     font-family: 'Titillium Web', sans-serif;
-    font-size: 70px;
+    font-size: 60px;
     font-weight: bold;
   }
   .tailored {
     color: #00ffaa;
     font-family: 'Titillium Web', sans-serif;
-    font-size: 70px;
+    font-size: 60px;
     font-weight: bold;
   }
   .travel {
     color: #fffefe;
     font-family: 'Titillium Web', sans-serif;
-    font-size: 70px;
+    font-size: 60px;
     font-weight: bold;
     margin: 100px;
   }
 }
 
+  /* Media Query */
+  @media (max-width: 768px) {
+    .about-row {
+      flex-direction: column; /* اجعل العناصر في عمود */
+      align-items: center; /* محاذاة العناصر في المركز */
+    }
+
+    .about-banner {
+      font-size: 10px;
+      line-height: 3; /* زيادة ارتفاع السطر */
+      padding: 40px 20px; /* زيادة الحدود العلوية والسفلية حول النص */
+      width: 100%; /* اجعل العرض 100% */
+      height: auto; /* للسماح للصور بالتمدد تلقائيًا حسب المحتوى */
+      margin: 10px 0; /* إضافة هوامش بين العناصر */
+    }
+  }
 
 
-.instructors {
 
-  text-align: center;
-  padding: 80px 20px; /* حشو واسع لتحسين المسافة */
-  position: relative;
-  overflow: hidden;
-}
+/* instructors section */
 
-.instructors h3 {
-  position: relative;
-  font-size: 3rem; /* حجم الخط الكبير للتأثير */
-  font-weight: 700; /* نص عريض */
+.instructors h2 {
+  font-size: 3rem; /* Large font size for impact */
+  font-weight: 700; /* Bold text */
   margin: 0 0 70px 0;
   padding: 0;
-  color: #fff; /* لون النص الأبيض */
-  text-transform: uppercase; /* تحويل النص إلى أحرف كبيرة */
-  letter-spacing: 2px; /* تباعد الأحرف لأسلوب عصري */
+  color: #fff; /* White text color */
+  text-transform: uppercase; /* Uppercase text for emphasis */
+  letter-spacing: 2px; /* Increased letter spacing for modern look */
   display: inline-block;
-  background: linear-gradient(90deg, #ff6f61, #d5b4ff); /* تدرج لوني في الخلفية */
-  -webkit-background-clip: text; /* قص التدرج اللوني على النص */
+  background: linear-gradient(90deg, #ff6f61, #d5b4ff); /* Gradient background */
+  -webkit-background-clip: text; /* Clip the background gradient to the text */
   background-clip: text;
-  color: transparent; /* إخفاء لون النص الأصلي */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* تأثير ظل للعمق */
-  transition: transform 0.3s ease, text-shadow 0.3s ease; /* تأثير التمرير */
+  color: transparent; /* Hide the original text color */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
-.instructors h3::before {
+.instructors h2::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -224,15 +234,156 @@ body {
   z-index: -1;
 }
 
-.instructors h3:hover {
+.instructors h2:hover {
   transform: scale(1.1); /* تكبير خفيف عند التمرير */
   text-shadow: 0 8px 20px rgba(255, 255, 255, 0.8); /* ظل نصي معزز عند التمرير */
 }
 
-.instructor h4 {
+.instructors {
+  text-align: center;
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
   font-family: 'Titillium Web', sans-serif;
 }
 
+.instructor-content {
+  background: linear-gradient(45deg, #ffffff, #d5b4ff43);
+  display: flex;
+  flex-direction: column; /* استخدام الاتجاه العمودي */
+  gap: 40px; /* مساحة أكبر بين العناصر */
+}
+
+.instructor-image {
+  width: 300px; /* تحديد عرض ثابت أكبر للصورة */
+  height: auto; /* ارتفاع تلقائي للحفاظ على نسبة العرض إلى الارتفاع */
+  object-fit: cover;
+  margin-left: 20px; /* مسافة بين الصورة والنص */
+}
+
+.instructor-item {
+  display: flex; /* استخدام flex لعرض المحتوى بشكل أفقي */
+  align-items: center; /* محاذاة العناصر في المنتصف */
+  justify-content: space-between; /* توزيع المساحة بين الصورة والنص */
+  background-color: transparent; /* جعل الخلفية شفافة */
+  padding: 20px; /* إضافة مساحة داخلية */
+}
+
+.instructor-list-wrapper {
+  width: 100%;
+  background: linear-gradient(45deg, #ff6e6180, #d5b4ff); /* الخلفية الموحدة */
+  display: flex;
+  justify-content: center; /* توسيط القائمة بداخل الخلفية */
+}
+
+.instructor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* المسافة بين كل عنصر */
+  max-width: 1200px; /* تحديد عرض القائمة */
+  width: 100%; /* جعل القائمة تأخذ كامل العرض المحدد */
+  padding: 20px; /* مسافة داخلية حول القائمة */
+  font-family: 'Titillium Web', sans-serif;
+
+}
+
+.instructor {
+  display: flex;
+  align-items: center;
+  padding: 20px 0; /* مسافة داخلية عمودية فقط */
+  position: relative;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.instructor:nth-child(odd) .instructor-info {
+  text-align: right; /* توجيه النص إلى اليمين */
+}
+
+.instructor:nth-child(even) .instructor-info {
+  text-align: left; /* توجيه النص إلى اليسار */
+}
+
+.instructor:nth-child(odd) {
+  justify-content: space-between; /* جعل النص أقصى اليمين والصورة أقصى اليسار */
+}
+
+.instructor:nth-child(even) {
+  justify-content: space-between; /* جعل النص أقصى اليسار والصورة أقصى اليمين */
+  flex-direction: row-reverse; /* عكس ترتيب العناصر */
+}
+
+.instructor-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.instructor-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.instructor-info {
+  flex: 1; /* أخذ المساحة المتبقية */
+  padding: 0 20px;
+  max-width: 800px; /* تحديد عرض النص ليكون قليل */
+  font-size: 32px; /* تكبير حجم النص */
+  line-height: 1.9; /* زيادة تباعد الأسطر */
+  word-wrap: break-word; /* كسر النص عند الحاجة لتجنب التمدد الأفقي */
+}
+
+.instructor-info h4 {
+  margin-bottom: 20px;
+  font-size: 36px; /* حجم أكبر للعنوان */
+  font-weight: bold;
+  font-family: 'Titillium Web', sans-serif;
+
+}
+
+.instructor-info p {
+  font-size: 24px; /* تكبير حجم النص داخل الفقرة */
+  line-height: 1; /* زيادة التباعد بين الأسطر */
+}
+
+.instructor-name {
+  margin: 0; /* إزالة الهوامش العليا والسفلى */
+  font-size: 2rem; /* زيادة حجم الخط قليلاً للتأثير */
+  font-family: 'Titillium Web', sans-serif;
+  color: #8B0000; /* لون داكن لتمييز النص */
+  text-align: center; /* محاذاة النص في المنتصف */
+  text-transform: uppercase; /* تحويل النص إلى حروف كبيرة */
+  letter-spacing: 1px; /* زيادة المسافة بين الحروف */
+  border-bottom: 2px solid #390500; /* إضافة خط سفلي بلون مميز */
+  padding-bottom: 5px; /* مساحة داخلية أسفل النص */
+  transition: color 0.3s ease, transform 0.3s ease; /* إضافة تأثير انتقال */
+
+}
+
+.instructor-name::after {
+  content: "";
+  display: block;
+  width: 50%; /* عرض الخط السفلي */
+  height: 4px; /* ارتفاع الخط السفلي */
+  margin: 5px auto; /* مركز الخط السفلي */
+  transition: transform 0.3s ease; /* تأثير سلس عند التحريك */
+}
+
+.instructor-name:hover {
+  color: #170035; /* تغير لون النص عند التحويم */
+  transform: translateY(-3px); /* تحريك الاسم للأعلى عند التحويم */
+}
+
+.instructor-position {
+  font-size: 1.5rem; /* حجم خط أصغر للمسمى الوظيفي */
+  color: #777; /* لون رمادي للمسمى الوظيفي */
+  margin: 0 0 15px 0; /* مساحة تحت المسمى الوظيفي */
+}
+
+
+/* Location section */
 .location {
   background-color: #ffffff;
   border-radius: 8px;
@@ -261,86 +412,3 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 }
-
-/* التعديلات الأساسية لتصغير حجم العناصر وتنسيقها بشكل مناسب */
-.instructor-list {
-  display: flex;
-  flex-wrap: wrap; /* يسمح بتفاف العناصر إلى الأسطر التالية */
-  gap: 15px; /* تقليل المسافة بين العناصر */
-  justify-content: center; /* محاذاة العناصر في الوسط */
-}
-
-.instructor {
-  display: flex;
-  flex-direction: column; /* ترتيب المحتوى عمودياً */
-  align-items: center;
-  border: 2px solid #8a0000; /* حافة داكنة حول العنصر */
-  border-radius: 8px;
-  padding: 15px; /* تقليل الحشو */
-  box-shadow: 0 4px 8px linear-gradient(45deg, #ff6f61, #d5b4ff);
-  background: white; /* تدرج خلفية */
-  max-width: 300px; /* تحديد أقصى عرض أصغر */
-  width: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* تأثير التمرير */
-  margin: 10px; /* تباعد أقل بين العناصر */
-  box-sizing: border-box; /* يشمل الحواف والحشو في العرض الإجمالي */
-}
-
-.instructor-picture {
-  width: 100%;
-  height: 250px; /* تقليل ارتفاع الصورة */
-  overflow: hidden; /* إخفاء أي جزء من الصورة يتجاوز الحاوية */
-  border-radius: 8px;
-  margin-bottom: 10px; /* تقليل التباعد بين الصورة ومحتوى المعلومات */
-  display: flex; /* محاذاة الصورة في وسط العنصر */
-  align-items: center;
-  justify-content: center;
-}
-
-.instructor-picture img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* تغطية الحاوية بشكل جيد */
-}
-
-.instructor-info {
-  text-align: center; /* محاذاة النص في الوسط */
-  color: #080808; /* لون النص الأبيض */
-  background: rgba(255, 252, 252, 0.568); /* خلفية مظللة للتباين مع النص */
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* ظل خفيف لتحسين التباين */
-  box-sizing: border-box; /* يشمل الحواف والحشو في العرض الإجمالي */
-}
-.instructor-info:hover {
-  background-color: #e3e2e2;
-}
-
-.instructor-info h4 {
-  font-size: 1rem; /* تقليل حجم الخط */
-  color: #724c01; /* لون النص البارز */
-  margin-bottom: 5px; /* تقليل التباعد بين العنوان والمحتوى */
-}
-
-.instructor-info p {
-  font-size: 0.9rem; /* تقليل حجم نص الوصف */
-  color: #490204; /* لون نص الثانوي */
-  line-height: 1.4;
-  margin: 0;
-}
-
-    h4 {
-      font-size: 1.2rem;
-      color: #ffdfba; /* لون النص البارز */
-      margin-bottom: 10px; /* تباعد بين العنوان والمحتوى */
-    }
-
-    p {
-      font-size: 1rem;
-      color: #e0e0e0; /* لون نص الثانوي */
-      line-height: 1.4;
-      margin: 0;
-
-}
-
-

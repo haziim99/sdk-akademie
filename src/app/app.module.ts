@@ -62,6 +62,7 @@ import { environment } from '../environments/environment';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
 import { SupportComponent } from './dashboard/admin-dashboard/support/support.component';
+import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -98,6 +99,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PaymentSettingsComponent,
     CourseModalComponent,
     SupportComponent,
+    ScrollToTopComponent,
   ],
   imports: [
     BrowserModule,
