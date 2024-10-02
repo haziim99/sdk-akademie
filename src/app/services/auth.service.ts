@@ -69,7 +69,9 @@ export class AuthService {
             gender: newUser.gender,
             level: newUser.level || 'beginner',
             role: 'user',
-            courses: []
+            courses: [],
+            address: undefined,
+            dob: undefined
           };
           return from(this.firestore.collection<User>('users').doc(user.uid).set(userData)).pipe(
             map(() => ({ success: true })),
@@ -261,6 +263,15 @@ export class AuthService {
   navigateBack() {
     // يمكن تعديل هذا السطر ليشمل المنطق المناسب لتوجيه المستخدم
     this.router.navigate(['/admin-dashboard']);
+  }
+
+  updateUser(userId: string, userData: Partial<User>): Promise<void> {
+    return this.firestore.collection('users').doc(userId).update(userData);
+  }
+
+  // دالة لحذف المستخدم
+  deleteUser(userId: string): Promise<void> {
+    return this.firestore.collection('users').doc(userId).delete();
   }
 
 }

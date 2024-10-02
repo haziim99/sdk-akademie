@@ -12,6 +12,7 @@ export class RegisterComponent {
   firstName: string = '';
   lastName: string = '';
   email: string = '';
+  adress: string = '';
   phone: string = '';
   password: string = '';
   gender: 'male' | 'female' = 'male';
@@ -29,6 +30,7 @@ export class RegisterComponent {
     const newUser = {
       name: `${this.firstName} ${this.lastName}`,
       email: this.email,
+      adress:this.adress,
       phone: this.phone,
       password: this.password,
       gender: this.gender,

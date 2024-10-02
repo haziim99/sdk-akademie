@@ -164,6 +164,8 @@
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 2rem;
         padding: 2rem 0;
+        font-family: 'Titillium Web', sans-serif;
+
 
         .course-card {
           background-color: #ffffff;
@@ -213,12 +215,14 @@
               display: -webkit-box;
               -webkit-line-clamp: 2;
               -webkit-box-orient: vertical;
+              font-family: 'Titillium Web', sans-serif;
+
             }
 
             p {
               font-size: 0.9rem;
               color: #666;
-              height: 4.5em;
+              height: auto;
               overflow: hidden;
               text-overflow: ellipsis;
               display: -webkit-box;

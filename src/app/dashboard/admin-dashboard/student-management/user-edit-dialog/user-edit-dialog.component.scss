@@ -1,0 +1,67 @@
+:host {
+  display: block;
+  width: 450px; // عرض النموذج
+}
+
+// ضبط مساحة الحوار
+.edit-user-form {
+  background: linear-gradient(135deg, #ff6e6180, #d5b4ff);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+}
+
+// نمط عنوان الحوار
+h2 {
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 26px; // حجم خط أكبر
+  color: #444; // لون أكثر تباينًا
+}
+
+// نمط حقول النموذج
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.9); // خلفية بيضاء
+  border-radius: 6px; // زوايا دائرية
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // تأثير ظل خفيف
+}
+
+.mat-label {
+  color: #666; // لون النص للعنوان
+}
+
+// نمط الأزرار
+.mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+// زر الإلغاء
+button {
+  border-radius: 5px; // زوايا دائرية
+  padding: 12px 18px; // حجم الزر
+  font-weight: bold;
+  border: none; // إزالة الحدود
+  cursor: pointer;
+  transition: all 0.3s ease; // تأثير التغير في اللون
+
+  &.cancel-button {
+    background-color: #e57373; // لون خلفية الزر
+    color: white;
+    &:hover {
+      background-color: #ef5350; // لون عند المرور فوق الزر
+    }
+  }
+
+  &.save-button {
+    background-color: #81c784; // لون خلفية الزر
+    color: white;
+    &:hover {
+      background-color: #66bb6a; // لون عند المرور فوق الزر
+    }
+  }
+}

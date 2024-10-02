@@ -1,43 +1,43 @@
-<div class="users-management">
-  <div class="header">
-    <h1>Users Management</h1>
-    <button class="back-button" (click)="navigateBack()">Back to Admin Dashboard</button>
-  </div>
+  <div class="users-management">
+    <div class="header">
+      <h1>Users Management</h1>
+      <button class="back-button" (click)="navigateBack()">Back to Admin Dashboard</button>
+    </div>
 
-  <div class="user-list">
-    <h2>List of Users</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Courses</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.phone }}</td>
-          <td>
-            <ul class="course-list">
-              <li *ngFor="let course of user.courses">{{ course.title }}</li>
-            </ul>
-          </td>
-          <td>
-            <div class="action-buttons">
-              <button class="edit-button" (click)="editUser(user.id)">Edit</button>
-              <button class="delete-button" (click)="deleteUser(user.id)">Delete</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="user-list">
+      <h2>List of Users</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Courses</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>
+              <ul class="course-list">
+                <li *ngFor="let course of user.courses">{{ course.title }}</li>
+              </ul>
+            </td>
+            <td>
+              <div class="action-buttons">
+                <button class="edit-button" (click)="editUser(user.id)">Edit</button>
+                <button class="delete-button" (click)="deleteUser(user.id)">Delete</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <button class="add-user-button" (click)="addUser()">Add New User</button>
-</div>
+    <button class="add-user-button" (click)="addUser()">Add New User</button>
+  </div>

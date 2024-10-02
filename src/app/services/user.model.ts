@@ -16,6 +16,8 @@
 
 
     export interface User {
+address: any;
+dob: any;
       id: string; // Ensure `id` is required
       name: string;
       email: string;

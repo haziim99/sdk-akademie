@@ -23,6 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select'; // إضافة وحدة MatSelectModule
+import { MatOptionModule } from '@angular/material/core'; // إضافة وحدة MatOptionModule
 import { RegisterComponent } from './dashboard/register/register.component';
 import { ForgetpasswordComponent } from './dashboard/forgetpassword/forgetpassword.component';
 import { ProfileComponent } from './dashboard/profile/profile.component';
@@ -57,12 +59,14 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { environment } from '../environments/environment';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // Cloudinary Imports
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import { Cloudinary } from 'cloudinary-core';
 import { SupportComponent } from './dashboard/admin-dashboard/support/support.component';
 import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
+import { UserEditDialogComponent } from './dashboard/admin-dashboard/student-management/user-edit-dialog/user-edit-dialog.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -100,6 +104,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CourseModalComponent,
     SupportComponent,
     ScrollToTopComponent,
+    UserEditDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,10 +117,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatSelectModule, // إضافة وحدة MatSelectModule هنا
+    MatOptionModule, // إضافة وحدة MatOptionModule هنا
     InputTextModule,
     PasswordModule,
     ButtonModule,
     CheckboxModule,
+    MatDialogModule,
     ToastModule,
     TranslateModule.forRoot({
       loader: {
@@ -135,7 +143,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserService,
     MessageService,
     provideHttpClient(withFetch()),
-
   ],
   bootstrap: [AppComponent]
 })

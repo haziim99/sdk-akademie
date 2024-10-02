@@ -1,9 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap');
 
 body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  font-family: 'Titillium Web', sans-serif; // تطبيق الخط الأساسي
+  margin: 0; // إزالة الهوامش الافتراضية
+  padding: 0; // إزالة الحشوات الافتراضية
+  background-color: #f5f5f5; // لون خلفية لطيف
+  color: #333; // لون نص افتراضي
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Titillium Web', sans-serif; // تطبيق الخط على العناوين
+}
+
+button, input, select, textarea {
+  font-family: 'Titillium Web', sans-serif; // تطبيق الخط على عناصر النموذج
 }
 
 header {
