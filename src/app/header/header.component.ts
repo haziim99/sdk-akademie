@@ -34,29 +34,29 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // التحقق من وجود مستخدم مسجل الدخول في التخزين
     const storedUser = this.authService.getCurrentUser();
     if (storedUser) {
       this.isLoggedIn = true;
-      this.profilePictureUrl = storedUser.profilePicture || 'assets/images/default-profile.jpg';
+      this.profilePictureUrl = storedUser.profilePicture || 'assets/images/default-profile.jpg';  // تعيين صورة بروفايل افتراضية
     } else {
       this.isLoggedIn = false;
-      this.profilePictureUrl = 'assets/images/default-profile.jpg';
+      this.profilePictureUrl = 'assets/images/default-profile.jpg';  // تعيين صورة افتراضية عند عدم تسجيل الدخول
     }
 
-    // الاشتراك في تغيير بيانات المستخدم
+    // الاشتراك في تغييرات المستخدم
     this.subscriptions.add(
       this.authService.currentUser.subscribe(user => {
         if (user) {
           this.isLoggedIn = true;
-          this.profilePictureUrl = `${user.profilePicture}?t=${new Date().getTime()}` || 'assets/images/default-profile.jpg';
+          this.profilePictureUrl = user.profilePicture || 'assets/images/default-profile.jpg';  // تعيين صورة بروفايل افتراضية
         } else {
           this.isLoggedIn = false;
-          this.profilePictureUrl = 'assets/images/default-profile.jpg';
+          this.profilePictureUrl = 'assets/images/default-profile.jpg';  // تعيين صورة افتراضية عند عدم وجود المستخدم
         }
       })
     );
   }
+
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe(); // إلغاء جميع الاشتراكات عند تدمير المكون

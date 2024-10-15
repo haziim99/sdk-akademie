@@ -72,47 +72,36 @@ $text-color: #2f0805;
   }
 
   .p-button {
-    .p-button {
-      border: 0;
-      outline: none;
-      border-radius: 25px;
-      padding: 15px;
-      font-size: 18px;
-      font-weight: bold;
-      text-transform: uppercase;
-      background: linear-gradient(45deg, $main-color, $secondary-color);
-      color: white;
-      cursor: pointer;
-      transition: background 0.25s ease;
-      width: 100%;
+    background: linear-gradient(45deg, darken(#ff6e6180, 10%), darken(#d5b4ff, 10%));
+    color: white; // تغيير لون النص
+    border: 0;
+    outline: none;
+    border-radius: 25px;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s ease;
+    width: 100%;
 
-      &:hover:not(:disabled) {
-        background: linear-gradient(45deg, darken($main-color, 10%), darken($secondary-color, 10%));
-        transform: translateY(-3px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      }
-
-      &:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-      }
-
-      &:active:not(:disabled) {
-        transform: translateY(-1px);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      }
+    &:hover:not(:disabled) {
+      background: linear-gradient(45deg, darken(#ff6e6180, 10%), darken(#d5b4ff, 10%));
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
 
-    .p-inputtext, .p-password input {
-      transition: all 0.3s ease;
-
-      &:focus {
-        transform: translateY(-2px);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
+    &:active:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
   }
+
 
   .p-field-checkbox {
     display: flex;
@@ -131,6 +120,7 @@ $text-color: #2f0805;
     margin-top: 0.25rem;
   }
 }
+
 
 .login-footer {
   margin-top: 1.5rem;

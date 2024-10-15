@@ -2,6 +2,7 @@
 export interface Course {
   id: string;
   title: string;
+  url?:string;
   category: string;
   description: string;
   duration: string;
@@ -11,6 +12,7 @@ export interface Course {
   imageUrl: string;
   imageFile?: File | null; // إضافة هذا السطر لتخزين ملف الصورة
   videos: { title: string; url: string }[];
+  videoUrl: string;
   level?: 'beginner' | 'intermediate' | 'advanced'; // إضافة مستوى الفئة
 }
 

@@ -35,11 +35,13 @@
             <h3>{{ course.title }}</h3>
             <p>{{ course.description | slice:0:100 }}...</p>
               <p><strong>Duration:</strong> {{ course.duration }}</p>
+              <p><strong>Start Date:</strong> {{ course.startDate | date: 'longDate' }}</p>
               <p><strong>Instructor:</strong> {{ course.instructor }}</p>
               <p><strong>Level:</strong> {{ course.level | titlecase }}</p>
             <div class="course-footer">
               <span class="price">{{ formatPrice(course.price) }}</span>
               <button class="edit-button" (click)="selectCourse(course)">Edit</button>
+              <button class="videos-button" (click)="openVideoManagement(course.id)">Videos</button>
             </div>
           </div>
         </div>

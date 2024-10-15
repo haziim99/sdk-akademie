@@ -1,0 +1,40 @@
+<div class="manage-videos">
+  <h2>Manage Videos for {{ course?.title }}</h2>
+
+  <div class="video-actions">
+    <input type="text" [(ngModel)]="newVideoTitle" placeholder="Video Title" />
+
+    <!-- زر اختيار الفيديو من الجهاز -->
+    <button (click)="selectFile()">Choose from device</button>
+
+    <!-- زر إدخال عنوان URL -->
+    <button (click)="selectUrl()">Enter Video URL</button>
+
+    <!-- اختيار الملف من الجهاز -->
+    <input *ngIf="isFileSelected" type="file" (change)="onVideoFileChange($event)" accept="video/*" />
+
+    <!-- إدخال عنوان URL -->
+    <input *ngIf="isUrlSelected" type="text" [(ngModel)]="videoUrl" placeholder="Enter Video URL" />
+
+    <button (click)="addVideo()">Add Video</button>
+  </div>
+
+
+  <div *ngIf="videos.length === 0" class="no-videos">
+    <p>No videos available for this course.</p>
+  </div>
+
+  <div class="video-container">
+    <div class="video-wrapper">
+      <ul class="video-list">
+        <li *ngFor="let video of videos; let i = index">
+          <button (click)="playVideo(video.url, video.title)">{{ video.title }}</button>
+          <button (click)="deleteVideo(i)">Delete</button>
+        </li>
+      </ul>
+      <app-video-player [videoUrl]="currentVideoUrl" [videoTitle]="currentVideoTitle"></app-video-player>
+    </div>
+  </div>
+
+  <button class="back-button" (click)="goBack()">Back to Dashboard</button>
+</div>

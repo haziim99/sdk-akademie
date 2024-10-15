@@ -48,6 +48,7 @@ export class CourseModalComponent {
       imageUrl: '',
       imageFile: null,
       videos: [],
+      videoUrl:'',
       level: 'beginner'
     };
   }
@@ -137,14 +138,13 @@ export class CourseModalComponent {
 
 
   isFormValid(): boolean {
-    return this.newCourse.title.trim() !== '' &&
-          this.newCourse.description.trim() !== '' &&
-          this.newCourse.price > 0 &&
-          this.newCourse.instructor.trim() !== '' &&
-          this.newCourse.duration.trim() !== '' &&
-          this.newCourse.level !== undefined;
+    return !!this.newCourse.title?.trim() &&
+            !!this.newCourse.description?.trim() &&
+            !!this.newCourse.duration &&
+            !!this.newCourse.instructor &&
+            this.newCourse.price > 0 &&
+            !!this.newCourse.startDate;
   }
-
 
 
   selectLevel(level: 'beginner' | 'intermediate' | 'advanced'): void {

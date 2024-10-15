@@ -1,5 +1,7 @@
 // استيراد Angular Material
 @use '@angular/material' as mat;
+@import '../node_modules/video.js/dist/video-js.css';
+
 
 @font-face {
   font-family: 'Edu AU VIC WANT Hand';

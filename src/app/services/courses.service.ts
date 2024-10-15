@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { StorageService } from './storage.service';
 import { Course } from './course.model';
@@ -16,36 +16,38 @@ export class CoursesService {
 
   constructor(
     private firestore: AngularFirestore,
-    private stoargeService: StorageService
+    private storageService: StorageService // Corrected spelling here
   ) {
     this.coursesCollection = this.firestore.collection<Course>('courses');
     this.loadCourses();
   }
 
-  private loadCourses(): void {
+  public loadCourses(): void {
     this.coursesCollection.valueChanges().pipe(
       catchError(error => {
         console.error('Error fetching courses', error);
         return of([]);
       })
     ).subscribe((courses: Course[]) => {
-      console.log('Loaded courses:', courses);
       this.coursesSubject.next(courses);
-      this.updatestorageService(courses);
+      this.updateStorageService(courses);
     });
   }
 
-  updatestorageService(courses: Course[]): void {
-    this.stoargeService.setItem('currentCourses', JSON.stringify(courses));
+  private updateStorageService(courses: Course[]): void {
+    this.storageService.setItem('currentCourses', JSON.stringify(courses));
   }
 
   getCourses(): Observable<Course[]> {
-    return this.courses$;
-  }
+    return this.firestore.collection<Course>('courses').valueChanges().pipe(
+        tap(courses => console.log('Courses fetched from Firestore:', courses))
+    );
+}
 
-  getCourseById(id: string): Observable<Course | undefined> {
-    return this.courses$.pipe(
-      map(courses => courses.find(course => course.id === id))
+
+  getCourseById(courseId: string): Observable<Course | undefined> {
+    return this.firestore.collection<Course>('courses').doc<Course>(courseId).valueChanges().pipe(
+      tap(course => console.log('Fetched course:', course)) // سجل الدورة المستردة
     );
   }
 
@@ -76,6 +78,11 @@ export class CoursesService {
       if (!course.id) {
         observer.error('Course ID is missing');
         return;
+      }
+
+      if (course.startDate) {
+        const formattedDate = new Date(course.startDate).toISOString().split('T')[0];
+        course.startDate = formattedDate;
       }
 
       const courseDoc = this.firestore.doc<Course>(`courses/${course.id}`);

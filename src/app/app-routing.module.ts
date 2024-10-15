@@ -20,6 +20,8 @@ import { PaymentDetailsComponent } from './dashboard/admin-dashboard/payment-det
 import { ProfileManagementComponent } from './dashboard/admin-dashboard/profile-management/profile-management.component';
 import { SupportComponent } from './dashboard/admin-dashboard/support/support.component';
 import { SystemSettingsComponent } from './dashboard/admin-dashboard/system-settings/system-settings.component';
+import { ManageVideosComponent } from './dashboard/admin-dashboard/manage-videos/manage-videos.component';
+import { VideoPlayerComponent } from './dashboard/admin-dashboard/manage-videos/video-player/video-player.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -36,6 +38,8 @@ const routes: Routes = [
   { path: 'forgetpassword', component: ForgetpasswordComponent },
   { path: 'course-modal', component: CourseModalComponent },
   { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'manage-videos/:id', component: ManageVideosComponent, canActivate: [AuthGuard] },
+  { path: 'video-player', component: VideoPlayerComponent },
   { path: 'student-management', component: StudentManagementComponent, canActivate: [AuthGuard, AdminGuard] }, // مسار إدارة الطلاب
   { path: 'payments-details', component: PaymentDetailsComponent, canActivate: [AuthGuard] },
   { path: 'profile-management', component: ProfileManagementComponent, canActivate: [AuthGuard] },

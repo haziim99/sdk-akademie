@@ -56,34 +56,41 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  register(newUser: { name: string; email: string; phone: string; password: string; gender: 'male' | 'female'; level?: 'beginner' | 'intermediate' | 'advanced' }): Observable<{ success: boolean }> {
+  register(newUser: { name: string; email: string; address: string; phone: string; password: string; gender: 'male' | 'female'; level?: 'beginner' | 'intermediate' | 'advanced' }): Observable<{ success: boolean }> {
     return from(this.fireauth.createUserWithEmailAndPassword(newUser.email, newUser.password)).pipe(
-      switchMap(userCredential => {
-        const user = userCredential.user;
-        if (user) {
-          const userData: User = {
-            id: user.uid,
-            name: newUser.name,
-            email: newUser.email,
-            phone: newUser.phone,
-            gender: newUser.gender,
-            level: newUser.level || 'beginner',
-            role: 'user',
-            courses: [],
-            address: undefined,
-            dob: undefined
-          };
-          return from(this.firestore.collection<User>('users').doc(user.uid).set(userData)).pipe(
-            map(() => ({ success: true })),
-            catchError(() => of({ success: false }))
-          );
-        } else {
-          return of({ success: false });
-        }
-      }),
-      catchError(() => of({ success: false }))
+        switchMap(userCredential => {
+            const user = userCredential.user;
+            if (user) {
+                const userData: User = {
+                    id: user.uid,
+                    name: newUser.name,
+                    email: newUser.email,
+                    address: newUser.address, // تأكد من وجود عنوان
+                    phone: newUser.phone,
+                    gender: newUser.gender,
+                    level: newUser.level || 'beginner',
+                    role: 'user',
+                    courses: [],
+                    dob: null
+                  };
+                return from(this.firestore.collection<User>('users').doc(user.uid).set(userData)).pipe(
+                    map(() => ({ success: true })),
+                    catchError((error) => {
+                        console.error('Error saving user data to Firestore:', error);
+                        return of({ success: false });
+                    })
+                );
+            } else {
+                console.error('User credential is null');
+                return of({ success: false });
+            }
+        }),
+        catchError((error) => {
+            console.error('Error creating user in Firebase:', error);
+            return of({ success: false });
+        })
     );
-  }
+}
 
   login(email: string, password: string): Observable<{ success: boolean; role?: 'user' | 'admin'; userId?: string }> {
     return from(this.fireauth.signInWithEmailAndPassword(email, password)).pipe(

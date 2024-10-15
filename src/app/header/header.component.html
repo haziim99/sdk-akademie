@@ -30,8 +30,8 @@
 
     <div *ngIf="isLoggedIn" class="user-profile">
       <a routerLink="/" class="logo-link" (click)="goToProfile()" (touchstart)="goToProfile()">
-        <i *ngIf="!profilePictureUrl" class="fas fa-user-circle"></i>
-        <img *ngIf="profilePictureUrl" [src]="profilePictureUrl" alt="User Profile Picture" class="user-profile-image">
+        <i *ngIf="!profilePictureUrl || profilePictureUrl === 'assets/images/default-profile.jpg'" class="fas fa-user-circle"></i>
+        <img *ngIf="profilePictureUrl && profilePictureUrl !== 'assets/images/default-profile.jpg'" [src]="profilePictureUrl" alt="User Profile Picture" class="user-profile-image">
       </a>
     </div>
   </div>

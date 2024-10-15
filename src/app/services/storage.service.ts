@@ -6,7 +6,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class StorageService {
   private localStorageAvailable: boolean;
-  private memoryStorage: { [key: string]: string } = {}; // Object for memory storage
+  private inMemoryStorage: { [key: string]: string } = {}; // Object for in-memory storage
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.localStorageAvailable = this.checkLocalStorageAvailability();
@@ -28,31 +28,30 @@ export class StorageService {
     return false;
   }
 
-  setItem(key: string, value: string): void {
+  setItem(key: string, value: any): void {
+    const stringValue = JSON.stringify(value);
     if (this.localStorageAvailable) {
       try {
-        localStorage.setItem(key, value);
-        console.log(`Saved ${key}:`, value);
+        localStorage.setItem(key, stringValue);
       } catch (e) {
         console.error('Error saving to localStorage:', e);
       }
     } else {
-      this.memoryStorage[key] = value;
+      this.inMemoryStorage[key] = stringValue;
     }
   }
 
-  getItem(key: string): string | null {
+  getItem(key: string): any | null {
     if (this.localStorageAvailable) {
       try {
         const value = localStorage.getItem(key);
-        console.log(`Retrieved ${key}:`, value);
-        return value;
+        return value ? JSON.parse(value) : null;
       } catch (e) {
         console.error('Error retrieving from localStorage:', e);
         return null;
       }
     }
-    return this.memoryStorage[key] || null;
+    return this.inMemoryStorage[key] ? JSON.parse(this.inMemoryStorage[key]) : null;
   }
 
   removeItem(key: string): void {
@@ -64,7 +63,7 @@ export class StorageService {
         console.error('Error removing from localStorage:', e);
       }
     } else {
-      delete this.memoryStorage[key];
+      delete this.inMemoryStorage[key];
     }
   }
 }

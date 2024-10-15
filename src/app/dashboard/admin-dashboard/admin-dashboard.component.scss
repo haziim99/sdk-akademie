@@ -241,7 +241,23 @@
                 font-size: 1.3rem;
               }
 
-              .edit-button {
+              .videos-button {
+                background: linear-gradient(45deg, #ff6e6180, #d5b4ff); /* Gradient matching design */
+                color: #36013a;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-weight: 500;
+
+                &:hover {
+                  background-color: #c39dff;
+                  transform: translateY(-2px);
+                }
+              }
+
+              .edit-button  {
                 background: linear-gradient(45deg, #ff6e6180, #d5b4ff); /* Gradient matching design */
                 color: #36013a;
                 border: none;

@@ -67,6 +67,8 @@ import { Cloudinary } from 'cloudinary-core';
 import { SupportComponent } from './dashboard/admin-dashboard/support/support.component';
 import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { UserEditDialogComponent } from './dashboard/admin-dashboard/student-management/user-edit-dialog/user-edit-dialog.component';
+import { ManageVideosComponent } from './dashboard/admin-dashboard/manage-videos/manage-videos.component';
+import { VideoPlayerComponent } from './dashboard/admin-dashboard/manage-videos/video-player/video-player.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -105,6 +107,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SupportComponent,
     ScrollToTopComponent,
     UserEditDialogComponent,
+    ManageVideosComponent,
+    VideoPlayerComponent,
   ],
   imports: [
     BrowserModule,

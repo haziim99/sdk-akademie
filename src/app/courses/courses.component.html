@@ -19,8 +19,16 @@
 
   <ng-template #courseContent>
     <div class="tabs">
-      <button (click)="selectTab('registered')" [class.active]="selectedTab === 'registered'">Recorded Courses</button>
-      <button (click)="selectTab('attending')" [class.active]="selectedTab === 'attending'">Attending Courses</button>
+      <button
+      (click)="selectTab('registered')"
+      [class.active]="selectedTab === 'registered'">
+      Recorded Courses
+      </button>
+      <button
+      (click)="selectTab('attending')"
+      [class.active]="selectedTab === 'attending'">
+      Attending Courses
+    </button>
     </div>
 
     <div *ngIf="selectedTab === 'registered'">

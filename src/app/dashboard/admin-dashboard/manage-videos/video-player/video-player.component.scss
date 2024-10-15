@@ -1,0 +1,48 @@
+/* video-player.component.scss */
+
+.video-player-container {
+  margin: 0 auto;
+  max-width: 640px; /* تحديد عرض أقصى لحاوية الفيديو */
+  position: relative; /* لضبط العناصر المطلقة داخل الحاوية */
+}
+
+.video-js {
+  width: 100%; /* عرض الفيديو ليتناسب مع العنصر الأب */
+  height: auto; /* ارتفاع الفيديو يتكيف مع العرض */
+  max-width: 800px; /* تحديد عرض أقصى للفيديو */
+  border-radius: 8px; /* زوايا دائرية */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* إضافة ظل بسيط */
+}
+
+video {
+  width: 100%;
+  height: auto;
+  border-radius: 20px; /* زوايا دائرية للفيديو */
+}
+
+/* تصميم زر سرعة التشغيل */
+.vjs-playback-speed {
+  position: relative; /* لجعل الزر داخل حاوية الفيديو */
+  right: 10px; /* تعديل الموضع */
+  z-index: 10; /* تحديد مستوى الز-index */
+  color: white; /* لون النص */
+  background-color: rgba(0, 0, 0, 0.7); /* خلفية شبه شفافة للزر */
+  border-radius: 5px; /* زوايا دائرية للزر */
+  padding: 5px 10px; /* حشوة داخلية للزر */
+  font-size: 14px; /* حجم الخط */
+  cursor: pointer; /* تغيير شكل المؤشر عند المرور فوق الزر */
+}
+
+/* تحسين زر التحكم في الصوت */
+.vjs-volume-panel {
+  margin-right: 20px; /* إضافة مسافة بين زر الصوت وزر السرعة */
+}
+
+/* تصميم باقي الأزرار */
+.vjs-control {
+  color: white; /* لون الأزرار */
+}
+
+.vjs-control:hover {
+  opacity: 0.8; /* تأثير التعتيم عند المرور فوق الأزرار */
+}

@@ -47,6 +47,21 @@ export class AdminDashboardComponent implements OnInit {
     this.messageService.currentMessage.subscribe(message => this.message = message);
   }
 
+  loadCourses(): void {
+    this.coursesService.getCourses().subscribe({
+      next: (courses) => {
+        this.courses = courses;
+        this.filteredCourses = [...courses];
+        this.saveCoursesTostorageService();
+        console.log('Courses loaded in Admin Dashboard:', courses); // تتبع الدورات المحملة
+      },
+      error: (error) => {
+        console.error('Error loading courses:', error);
+        this.showAlert('error', 'Error', 'Failed to load courses. Please try again.');
+      }
+    });
+  }
+
   loadAdminInfo(): void {
     const currentUser = this.authService.getCurrentUser();
     if (currentUser) {
@@ -61,24 +76,12 @@ export class AdminDashboardComponent implements OnInit {
     }
   }
 
-  loadCourses(): void {
-    this.coursesService.getCourses().subscribe({
-      next: (courses) => {
-        this.courses = courses;
-        this.filteredCourses = [...courses];
-        this.saveCoursesTostorageService();
-      },
-      error: (error) => {
-        console.error('Error loading courses:', error);
-        this.showAlert('error', 'Error', 'Failed to load courses. Please try again.');
-      }
-    });
-  }
-
   selectCourse(course: Course): void {
     this.selectedCourse = { ...course };
+    console.log('Selected course:', this.selectedCourse); // للتأكد من تعيين الدورة
     this.showModal = true;
   }
+
 
   showAddCourseForm(): void {
     this.selectedCourse = null; // تأكد من تعيينه لقيمة null لإضافة دورة جديدة
@@ -119,10 +122,14 @@ export class AdminDashboardComponent implements OnInit {
     }
   }
 
+  openVideoManagement(courseId: string) {
+    this.router.navigate(['/manage-videos', courseId]);
+  }
+
+
   updateVideo(courseId: string, videoIndex: number, updatedVideo: Video): void {
     this.coursesService.updateVideo(courseId, videoIndex, updatedVideo);
   }
-
 
 
   onFileChange(event: any): void {
@@ -197,7 +204,8 @@ export class AdminDashboardComponent implements OnInit {
       instructor: '', // Ensure all required fields are included
       imageUrl: '',
       imageFile: null,
-      videos: [] // Ensure all required fields are included
+      videos: [], // Ensure all required fields are included
+      videoUrl:''
     };
   }
 

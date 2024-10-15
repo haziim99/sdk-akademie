@@ -38,6 +38,22 @@
         Course duration is required.
       </div>
 
+      <!-- Date picker for start date -->
+      <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input
+          type="date"
+          id="startDate"
+          [(ngModel)]="newCourse.startDate"
+          name="startDate"
+          required
+        />
+      </div>
+
+      <div *ngIf="!newCourse.startDate" class="error-message">
+        Start date is required.
+      </div>
+
       <select [(ngModel)]="newCourse.instructor" name="instructor" required>
         <option value="">Select Instructor</option>
         <option value="Frau Amira El feky">Frau Amira El feky</option>
