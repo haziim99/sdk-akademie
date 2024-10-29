@@ -70,7 +70,6 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/@splidejs/splide/dist/js/splide.min.js",
               "node_modules/video.js/dist/video.js"
-
             ],
             "server": "src/main.server.ts",
             "prerender": true,

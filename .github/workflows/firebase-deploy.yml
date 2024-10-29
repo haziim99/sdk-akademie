@@ -15,10 +15,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '14' # يمكنك تغييرها إذا كنت بحاجة إلى إصدار أحدث
 
       - name: Install dependencies
         run: npm install
+
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools # إضافة هذه الخطوة لتثبيت Firebase CLI
 
       - name: Deploy to Firebase
         env:

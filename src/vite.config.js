@@ -30,7 +30,7 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     optimizeDeps: {
-      exclude: ['undici'],
+      exclude: ['undici', 'firebase'],
     },
   };
 });

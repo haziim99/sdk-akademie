@@ -143,7 +143,7 @@
                 {{ ticket.status | titlecase }}
               </span>
             </td>
-            <td>{{ ticket.lastUpdated | date:'short' }}</td>
+            <td>{{ response.date.toDate() | date: 'short' }}</td>
             <td>
               <button class="btn btn-info btn-sm" (click)="viewTicket(ticket)">View</button>
             </td>
@@ -179,12 +179,12 @@
             <h6>Responses:</h6>
             <div *ngFor="let response of selectedTicket?.responses" class="response mb-3">
               <p><strong>{{ response.author }}:</strong> {{ response.message }}</p>
-              <p><small>{{ response.date | date:'short' }}</small></p>
+              <p><small>{{ response.date.toDate() | date: 'short' }}</small></p>
             </div>
 
             <hr />
 
-            <div class="reply-section">
+            <!-- <div class="reply-section">
               <h6>Send a Reply:</h6>
               <form (ngSubmit)="sendReply()" #replyForm="ngForm">
                 <div class="form-group">
@@ -201,7 +201,7 @@
                   {{ isReplying ? 'Sending...' : 'Send Reply' }}
                 </button>
               </form>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

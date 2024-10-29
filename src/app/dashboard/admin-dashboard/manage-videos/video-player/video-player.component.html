@@ -1,7 +1,6 @@
-<!-- video-player.component.html -->
-<div class="video-player-container">
-  <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264">
-    <source class="vjs-no-js" [src]="videoUrl" type="video/mp4" />
+<div class="video-wrapper">
+  <video #videoElement id="my-video" class="video-js vjs-default-skin" controls preload="auto">
+  <source [src]="currentVideoUrl" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>

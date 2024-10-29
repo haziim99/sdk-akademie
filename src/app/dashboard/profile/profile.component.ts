@@ -14,7 +14,9 @@ import { catchError, finalize, switchMap } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { CloudinaryResponse } from '@/app/services/cloudinary-response.model';
-
+import { Timestamp } from 'firebase/firestore';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 @Component({
   selector: 'app-profile',
@@ -58,6 +60,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private userCollection: AngularFirestoreCollection<User>;
   private courseCollection: AngularFirestoreCollection<Course>;
   private subscriptions: Subscription = new Subscription();
+response: any;
 
   constructor(
     private http: HttpClient,
@@ -134,49 +137,50 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (!this.user) return;
 
     if (!this.newTicket.subject.trim() || !this.newTicket.description.trim()) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Incomplete Information',
-        text: 'Please provide both subject and description for your ticket.',
-        confirmButtonColor: '#ff6600'
-      });
-      return;
+        Swal.fire({
+            icon: 'warning',
+            title: 'Incomplete Information',
+            text: 'يرجى تقديم كل من الموضوع والوصف للتذكرة.',
+            confirmButtonColor: '#ff6600'
+        });
+        return;
     }
 
     this.isSubmitting = true;
 
     const ticket: SupportTicket = {
-      userId: this.user.id,
-      subject: this.newTicket.subject.trim(),
-      description: this.newTicket.description.trim(),
-      status: 'open',
-      responses: [],
-      createdAt: new Date(),
-      lastUpdated: new Date()
+        userId: this.user.id,
+        subject: this.newTicket.subject.trim(),
+        description: this.newTicket.description.trim(),
+        status: 'open',
+        responses: [],
+        createdAt: Timestamp.fromDate(new Date()), // تحويل Date إلى Firestore Timestamp
+        lastUpdated: Timestamp.fromDate(new Date()) // تحويل Date إلى Firestore Timestamp
     };
 
     try {
-      await this.supportService.submitTicket(ticket);
-      Swal.fire({
-        icon: 'success',
-        title: 'Ticket Submitted',
-        text: 'Your support ticket has been submitted successfully.',
-        confirmButtonColor: '#ff6600'
-      });
-      // Reset the form
-      this.newTicket = { subject: '', description: '', status: 'open', responses: [] };
+        await this.supportService.submitTicket(ticket);
+        Swal.fire({
+            icon: 'success',
+            title: 'تم إرسال التذكرة',
+            text: 'تم إرسال تذكرتك بنجاح.',
+            confirmButtonColor: '#ff6600'
+        });
+        // إعادة تعيين النموذج
+        this.newTicket = { subject: '', description: '', status: 'open', responses: [] };
     } catch (error) {
-      console.error('Error submitting ticket:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Submission Failed',
-        text: 'There was an error submitting your ticket. Please try again later.',
-        confirmButtonColor: '#ff6600'
-      });
+        console.error('خطأ في إرسال التذكرة:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'فشل الإرسال',
+            text: 'حدث خطأ أثناء إرسال تذكرتك. يرجى المحاولة لاحقًا.',
+            confirmButtonColor: '#ff6600'
+        });
     } finally {
-      this.isSubmitting = false;
+        this.isSubmitting = false;
     }
-  }
+}
+
 
   // View ticket details
   viewTicket(ticket: SupportTicket): void {
@@ -193,7 +197,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   // Send a reply to the selected ticket
-  async sendReply(): Promise<void> {
+  /* async sendReply(): Promise<void> {
     if (!this.selectedTicket || !this.newReply.trim()) {
       Swal.fire({
         icon: 'warning',
@@ -209,7 +213,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const response: SupportResponse = {
       author: 'Admin', // You can modify this to reflect the admin's name or role
       message: this.newReply.trim(),
-      date: new Date()
+      date: firebase.firestore.Timestamp.now(),
     };
 
     const updatedResponses = [...this.selectedTicket.responses, response];
@@ -241,8 +245,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     } finally {
       this.isReplying = false;
     }
-  }
-
+  } */
 
   async loadCourses(): Promise<void> {
     try {

@@ -1,8 +1,10 @@
-<!-- support.component.html -->
 <div class="support-component">
   <!-- Header Section -->
   <div class="support-header">
     <h1>Customer Support</h1>
+    <div class="header-actions">
+      <button class="back-button" (click)="navigateToAdminDashboard()">Back to Admin Dashboard</button>
+    </div>
     <div class="search-filter">
       <input
         type="text"
@@ -18,68 +20,52 @@
     </div>
   </div>
 
-  <!-- Content Section -->
+  <!-- Support Content Section -->
   <div class="support-content">
-    <!-- Ticket List -->
     <div class="ticket-list">
       <h2>Support Tickets</h2>
       <ul>
         <li
           *ngFor="let ticket of filteredTickets"
           (click)="selectTicket(ticket)"
-          [class.selected]="selectedTicket?.id === ticket.id"
-        >
+          [class.selected]="selectedTicket?.id === ticket.id">
           <div class="ticket-info">
-            <span class="ticket-id">#{{ ticket.id }}</span>
             <span class="ticket-subject">{{ ticket.subject }}</span>
-          </div>
-          <div class="ticket-status" [ngClass]="ticket.status">
-            {{ ticket.status | titlecase }}
+            <span class="ticket-status" [ngClass]="{'open-status': ticket.status === 'open', 'closed-status': ticket.status === 'closed'}">
+              {{ ticket.status | titlecase }}
+            </span>
           </div>
         </li>
       </ul>
     </div>
 
-    <!-- Ticket Details -->
+    <!-- Displaying the selected ticket -->
     <div class="ticket-details" *ngIf="selectedTicket">
-      <h2>Ticket Details</h2>
-      <div class="details-header">
-        <h3>{{ selectedTicket.subject }}</h3>
-        <span class="status" [ngClass]="selectedTicket.status">
-          {{ selectedTicket.status | titlecase }}
-        </span>
-      </div>
+      <h2>{{ selectedTicket.subject }}</h2>
       <p>{{ selectedTicket.description }}</p>
 
-      <!-- Responses -->
-      <div class="responses">
-        <h4>Responses</h4>
-        <div *ngFor="let response of selectedTicket.responses" class="response">
-          <strong>{{ response.author }}</strong>
-          <p>{{ response.message }}</p>
-          <span class="response-date">{{ response.date | date:'short' }}</span>
-        </div>
+      <!-- Displaying replies section with safe navigation -->
+      <div class="replies-section" *ngIf="selectedTicket.responses.length > 0">
+        <h3>Replies</h3>
+        <ul>
+          <li *ngFor="let response of selectedTicket.responses">
+            <p><strong>{{ response.author }}:</strong> {{ response.message }}</p>
+            <p class="response-date">{{ response.date.toDate() | date: 'short' }}</p>
+          </li>
+        </ul>
       </div>
 
-      <!-- Reply Form -->
+      <!-- Reply form -->
       <div class="reply-form">
-        <h4>Send a Reply</h4>
-        <form (ngSubmit)="sendReply()">
-          <textarea
-            [(ngModel)]="newReply"
-            name="reply"
-            required
-            placeholder="Type your reply here..."
-          ></textarea>
-          <button type="submit" class="send-button">Send</button>
-        </form>
+        <textarea
+          [(ngModel)]="newReply"
+          name="reply"
+          required
+          placeholder="Type your reply..."
+        ></textarea>
+        <button class="send-button" (click)="sendReply()">Send</button>
       </div>
-    </div>
-
-    <!-- No Selection Message -->
-    <div class="no-selection" *ngIf="!selectedTicket">
-      <p>Select a ticket from the list to view details.</p>
-      <button (click)="goBack()" class="btn btn-primary">Back to Admin Dashboard</button>
+      <button class="close-ticket-button" (click)="closeTicket()">Close Ticket</button>
     </div>
   </div>
 </div>

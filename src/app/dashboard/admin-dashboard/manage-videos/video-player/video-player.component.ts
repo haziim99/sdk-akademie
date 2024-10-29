@@ -9,7 +9,7 @@ import videojs from 'video.js';
 export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   @Input() videoTitle!: string; // تعيين عنوان الفيديو
   @Input() videoUrl?: string = '';
-  @ViewChild('videoPlayer', { static: false }) videoPlayer!: ElementRef;
+  @ViewChild('videoElement') videoElement!: ElementRef;
 
   currentVideoUrl: string = ''; // تعريف الخاصية
   currentVideoTitle: string = ''; // تعريف الخاصية
@@ -19,6 +19,29 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
     this.initializePlayer();
   }
 
+  ngAfterViewInit(): void {
+    const videoElement = this.videoElement?.nativeElement as HTMLVideoElement; // تحويل النوع هنا
+    if (videoElement) {
+        console.log('Initializing VideoJS player...');
+        console.log('Video Element:', videoElement);
+        console.log('Video Source URL:', videoElement.src); // تحقق من الرابط المصدر
+
+        this.player = videojs(videoElement);
+
+        // إضافة استماع لأحداث الفيديو:
+        this.player.on('error', () => {
+            console.error('Error event from VideoJS:', this.player.error());
+        });
+
+        this.player.ready(() => {
+            console.log('VideoJS player is ready');
+        });
+    } else {
+        console.error('Video element not found.');
+    }
+}
+
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['videoUrl'] && changes['videoUrl'].currentValue) {
       this.updateVideo();
@@ -27,8 +50,9 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   initializePlayer() {
-    const videoElement = document.getElementById('my-video');
+    const videoElement = document.getElementById('my-video') as HTMLVideoElement; // تحويل النوع هنا
     if (videoElement) {
+        videoElement.src = ''; // أو تعيين مصدر آخر إذا لزم الأمر
         this.player = videojs(videoElement, {
             controls: true,
             autoplay: false,
@@ -52,28 +76,29 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
     }
 }
 
+playVideo(url: string, title: string) {
+  if (url && title) {
+      this.currentVideoUrl = url;
+      this.currentVideoTitle = title;
+      console.log(`Playing Video: ${title} ${url}`);
 
-  playVideo(url: string, title: string) {
-    if (url && title) {
-        this.currentVideoUrl = url;
-        this.currentVideoTitle = title;
-        console.log(`Playing Video: ${title} ${url}`);
-        // تأكد من أنك تضبط عنوان الفيديو هنا أيضًا
-        this.player.src({ type: 'video/mp4', src: this.currentVideoUrl });
-        this.player.play();
-    } else {
-        console.error('Invalid video URL or title:', url, title);
-    }
+      // تأكد من أنك تقوم بتحديث الفيديو بشكل صحيح
+      this.updateVideo();
+  } else {
+      console.error('Invalid video URL or title:', url, title);
+  }
 }
 
-
-  updateVideo() {
-    console.log(`Updating video to: ${this.videoUrl} with title: ${this.videoTitle}`);
-    if (this.player) {
+updateVideo() {
+  console.log(`Updating video to: ${this.videoUrl} with title: ${this.videoTitle}`);
+  if (this.player && this.videoUrl) {
       this.player.src({ type: 'video/mp4', src: this.videoUrl });
       this.player.play();
-    }
+  } else {
+      console.error('Player not initialized or video URL is invalid.');
   }
+}
+
 
   ngOnDestroy() {
     if (this.player) {
