@@ -11,33 +11,33 @@ import { Course } from '../services/course.model';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-  courses: Course[] = []; // قائمة الدورات المتاحة
-  filteredCourses: Course[] = []; // الدورات المفلترة
-  selectedTab: string = 'registered'; // التبويب الافتراضي
-  cart: Set<string> = new Set(); // تتبع الدورات المضافة بواسطة المعرف
-  isLoggedIn: boolean = false; // تتبع حالة تسجيل الدخول
-  levelSelected: boolean = false; // علامة لتحديد مستوى المستخدم
-  showAll: boolean = false; // تتبع ما إذا كان يجب عرض جميع الدورات أم الدورات المفلترة
-  selectedLevel!: string; // تخزين المستوى المحدد
+  courses: Course[] = [];
+  filteredCourses: Course[] = [];
+  selectedTab: string = 'registered';
+  cart: Set<string> = new Set();
+  isLoggedIn: boolean = false;
+  levelSelected: boolean = false;
+  showAll: boolean = false;
+  selectedLevel!: string;
 
   constructor(
     private router: Router,
     private authService: AuthService,
-    private coursesService: CoursesService // استخدام CoursesService
+    private coursesService: CoursesService
   ) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = this.authService.isLoggedIn(); // تحديث حالة تسجيل الدخول
-    this.loadCourses(); // تحميل الدورات المتاحة
+    this.isLoggedIn = this.authService.isLoggedIn();
+    this.loadCourses();
   }
 
   loadCourses(): void {
     this.coursesService.getCourses().subscribe({
       next: data => {
-        console.log('Data received:', data); // تحقق من البيانات المستلمة
+        console.log('Data received:', data);
         this.courses = data;
-        this.filteredCourses = this.courses; // تهيئة filteredCourses بكل الدورات
-        // إذا كان هناك مستوى محدد، قم بتطبيق الفلترة
+        this.filteredCourses = this.courses;
+        
         if (this.selectedLevel) {
           this.selectLevel(this.selectedLevel);
         }

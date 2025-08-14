@@ -31,10 +31,9 @@ export class SupportComponent implements OnInit {
   }
 
   navigateToAdminDashboard() {
-    this.router.navigate(['/admin-dashboard']); // تأكد من مسار الصفحة الصحيحة
+    this.router.navigate(['/admin-dashboard']);
   }
 
-  // استرجاع جميع التذاكر للأدمن
   loadAllTicketsForAdmin(): void {
     this.supportService.getAllTickets().subscribe((tickets: SupportTicket[]) => {
       this.tickets = tickets;
@@ -50,7 +49,6 @@ export class SupportComponent implements OnInit {
     });
   }
 
-  // إضافة شرط الفلترة حسب حالة البحث
   filterTickets(): void {
     this.filteredTickets = this.tickets.filter((ticket) => {
       const matchesSearch = ticket.subject.toLowerCase().includes(this.searchTerm.toLowerCase());
@@ -60,7 +58,6 @@ export class SupportComponent implements OnInit {
   }
 
 
-  // Select a ticket to view details
   // Select a ticket to view details
   selectTicket(ticket: SupportTicket): void {
   this.selectedTicket = ticket;
@@ -79,19 +76,17 @@ export class SupportComponent implements OnInit {
     }
 
     const reply: SupportResponse = {
-      author: 'Admin', // يمكن تغيير هذا لاحقًا إلى الاسم أو الدور الفعلي
+      author: 'Admin',
       message: this.newReply.trim(),
-      date: Timestamp.now(), // استخدام Timestamp بدلاً من Date
+      date: Timestamp.now(),
     };
 
-    // إضافة الرد إلى التذكرة وتحديث Firebase
     this.supportService.updateTicket(this.selectedTicket.id!, {
       responses: [...this.selectedTicket.responses, reply],
-      status: 'open', // يمكن تعديل الحالة حسب الحاجة
+      status: 'open',
     }).then(() => {
-      // إضافة الرد محليًا لضمان التحديث الفوري
       this.selectedTicket!.responses.push(reply);
-      this.newReply = ''; // مسح النص المدخل بعد الإرسال
+      this.newReply = '';
       Swal.fire({
         icon: 'success',
         title: 'Reply Sent',
@@ -113,7 +108,7 @@ export class SupportComponent implements OnInit {
       if (this.selectedTicket) {
         this.supportService.updateTicket(this.selectedTicket.id!, {
           ...this.selectedTicket,
-          status: status, // هنا نمرر الحالة بشكل صحيح
+          status: status,
         }).catch((error: any) => {
           console.error('Error updating ticket status:', error);
         });
@@ -128,8 +123,8 @@ export class SupportComponent implements OnInit {
       description,
       status: 'open',
       responses: [],
-      createdAt: Timestamp.now(), // استخدام Timestamp بدلاً من Date
-      lastUpdated: Timestamp.now(), // استخدام Timestamp بدلاً من Date
+      createdAt: Timestamp.now(),
+      lastUpdated: Timestamp.now(),
     };
 
     this.supportService.submitTicket(newTicket).then(() => {
@@ -151,7 +146,7 @@ export class SupportComponent implements OnInit {
 
   closeTicket(): void {
     if (!this.selectedTicket) {
-      return; // تأكد من وجود تذكرة محددة
+      return;
     }
 
     Swal.fire({
@@ -164,12 +159,11 @@ export class SupportComponent implements OnInit {
       confirmButtonText: 'Yes, close it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        // تحديث حالة التذكرة إلى "closed"
         this.supportService.updateTicket(this.selectedTicket!.id!, {
           ...this.selectedTicket,
-          status: 'closed', // تحديث الحالة إلى مغلقة
+          status: 'closed',
         }).then(() => {
-          this.selectedTicket!.status = 'closed'; // تحديث الحالة محليًا
+          this.selectedTicket!.status = 'closed';
           Swal.fire({
             icon: 'success',
             title: 'Ticket Closed',
@@ -196,6 +190,6 @@ export class SupportComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/admin-dashboard']); // تأكد من أن هذا هو مسار لوحة التحكم الخاص بك
+    this.router.navigate(['/admin-dashboard']);
   }
 }

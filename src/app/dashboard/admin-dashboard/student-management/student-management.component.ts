@@ -22,6 +22,7 @@ export class StudentManagementComponent implements OnInit {
     this.fetchUsers();
   }
 
+
   fetchUsers() {
     this.authService.getAllUsers().subscribe({
       next: (users: User[]) => {

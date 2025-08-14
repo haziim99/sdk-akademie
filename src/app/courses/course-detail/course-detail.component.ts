@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { Course } from '../../services/user.model';
 
-// Ensure Plyr is available globally
 declare const Plyr: any;
 
 @Component({

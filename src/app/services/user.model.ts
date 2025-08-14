@@ -11,9 +11,9 @@
       price: number;
       instructor: string;
       imageUrl: string;
-      imageFile?: File | null; // إضافة هذا السطر لتخزين ملف الصورة
+      imageFile?: File | null;
       videos: { title: string; url: string }[];
-      level?: 'beginner' | 'intermediate' | 'advanced'; // إضافة مستوى الفئة
+      level?: 'beginner' | 'intermediate' | 'advanced';
     }
 
 
@@ -27,9 +27,9 @@
       profilePicture?: string | null; // تغيير هنا
       courses?: Course[];
       password?: string; // Include if necessary; otherwise, omit it
-      gender: 'male' | 'female'; // إضافة حقل الجنس
-      level?: 'beginner' | 'intermediate' | 'advanced'; // إضافة مستوى الفئة
-      role: 'user' | 'admin'; // إضافة خاصية role
+      gender: 'male' | 'female';
+      level?: 'beginner' | 'intermediate' | 'advanced';
+      role: 'user' | 'admin';
     }
 
 
@@ -40,6 +40,5 @@
 
     export interface UploadResponse {
       secure_url: string;
-      // يمكنك إضافة أي خصائص أخرى تحتاجها من الاستجابة
     }
 

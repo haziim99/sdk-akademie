@@ -8,10 +8,9 @@ import Splide from '@splidejs/splide';
 })
 export class ReviewsComponent implements AfterViewInit {
   comments = [
-    { text: "Very wonderful course", author: "John Doe" },
-    { text: "It's very good", author: "Jane Smith" },
-    { text: "I liked it", author: "Alice Johnson" },
-    // يمكنك إضافة المزيد من التعليقات هنا
+    { text: "Very wonderful course", author: "Ahmed Mohamed" },
+    { text: "It's very good", author: "Sarah Hassan" },
+    { text: "I liked it", author: "Tarek Sobhy" },
   ];
 
   ngAfterViewInit(): void {

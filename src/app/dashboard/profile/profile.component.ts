@@ -15,8 +15,9 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { CloudinaryResponse } from '@/app/services/cloudinary-response.model';
 import { Timestamp } from 'firebase/firestore';
-import firebase from 'firebase/app';
 import 'firebase/firestore';
+import $ from 'jquery';
+
 
 @Component({
   selector: 'app-profile',
@@ -281,8 +282,6 @@ response: any;
     }
 
     try {
-      console.log('Buying course:', courseId);
-
       const courseDocRef = this.courseCollection.doc(courseId);
       const courseSnapshot = await firstValueFrom(courseDocRef.get());
 

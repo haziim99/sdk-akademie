@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class CloudinaryService {
   private cloudName = 'dzmcteb1t';
   private uploadPreset = 'courses';
-  private videoUploadPreset = 'video_upload'; // إعداد البريست للفيديوهات
+  private videoUploadPreset = 'video_upload';
   private cloudinaryUploadUrl = `https://api.cloudinary.com/v1_1/${this.cloudName}/upload`;
   private cloudinaryDeleteUrl = `https://api.cloudinary.com/v1_1/${this.cloudName}/image/destroy`; // URL for deleting images
   private cloudinaryDeleteVideoUrl = `https://api.cloudinary.com/v1_1/${this.cloudName}/video/destroy`;
@@ -45,8 +45,8 @@ deleteVideo(publicId: string) {
   deleteImage(publicId: string) {
     const formData = new FormData();
     formData.append('public_id', publicId);
-    formData.append('api_key', environment.cloudinary.apiKey); // استخدام api_key من البيئة
-    formData.append('api_secret', environment.cloudinary.apiSecret); // استخدام api_secret من البيئة
+    formData.append('api_key', environment.cloudinary.apiKey);
+    formData.append('api_secret', environment.cloudinary.apiSecret);
     return this.http.post<any>(this.cloudinaryDeleteUrl, formData);
   }
 }

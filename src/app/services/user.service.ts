@@ -19,18 +19,18 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private firestore: AngularFirestore,
-    private storageService: StorageService // حقن StorageService هنا
+    private storageService: StorageService //  StorageService
   ) {
     this.userCollection = this.firestore.collection('users');
   }
 
   private getCurrentUser(): User | null {
-    const user = this.storageService.getItem('currentUser'); // استخدام this.storageService
+    const user = this.storageService.getItem('currentUser'); //  this.storageService
     return user ? JSON.parse(user) : null;
   }
 
-  private saveUserToStorageService(user: User): void { // تصحيح الاسم
-    this.storageService.setItem('currentUser', JSON.stringify(user)); // استخدام this.storageService
+  private saveUserToStorageService(user: User): void { //
+    this.storageService.setItem('currentUser', JSON.stringify(user)); // this.storageService
   }
 
   getUserCourses(userId: string): Observable<Course[]> {

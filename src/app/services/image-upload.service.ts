@@ -17,7 +17,6 @@ export class ImageUploadService {
     return this.http.post<any>(this.uploadUrl, formData);
   }
 
-  // دالة لمعالجة رفع الصورة وعرض رسالة الخطأ إذا لزم الأمر
   processImageUpload(file: File): Observable<any> {
     return this.uploadImage(file).pipe(
       catchError(error => {

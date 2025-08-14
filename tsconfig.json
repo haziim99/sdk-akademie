@@ -15,9 +15,9 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "types": ["jquery"],  // Removed "node"
-    "target": "es2022",  // Align with Angular CLI setting
-    "module": "esnext",  // Or es2020 if preferred
+    "types": ["jquery"],
+    "target": "es2022",
+    "module": "esnext",
     "lib": [
       "es2022",
       "dom"

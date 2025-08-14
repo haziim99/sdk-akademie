@@ -12,7 +12,6 @@
 <section class="courses" [class.blur]="!levelSelected">
   <h2>Our Courses</h2>
 
-  <!-- التحقق من تحميل الكورسات -->
   <div *ngIf="courses.length === 0; else courseContent">
     <p>Loading courses, please wait...</p>
   </div>

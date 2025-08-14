@@ -26,16 +26,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // يمكن إضافة أي منطق تحتاجه عند بدء تشغيل الصفحة
   }
 
   ngAfterViewInit(): void {
-    // تأكد من أننا في بيئة المتصفح
     if (isPlatformBrowser(this.platformId)) {
-      // استخدام GSAP لتطبيق الرسوم المتحركة
       const tl = gsap.timeline();
 
-      // الرسوم المتحركة للنص الرئيسي
       const heroText = this.el.nativeElement.querySelector('.hero-text');
       const heroSubtext = this.el.nativeElement.querySelector('.hero-subtext');
 
@@ -49,7 +45,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         );
       }
 
-      // الرسوم المتحركة لعناصر "Why SDK"
       const whySdkItems = this.el.nativeElement.querySelectorAll('.why-sdk-item');
       if (whySdkItems.length) {
         gsap.fromTo(whySdkItems,
@@ -58,7 +53,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         );
       }
 
-      // الرسوم المتحركة لعناصر "Our Services"
       const courses = this.el.nativeElement.querySelectorAll('.course');
       if (courses.length) {
         gsap.fromTo(courses,
@@ -70,12 +64,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   navigateToCourses(): void {
-    // فقط لتأكيد أن التوجيه يعمل بشكل صحيح
     this.router.navigate(['/courses']).catch(err => console.error(err));
   }
 
   onLogin(): void {
-    const token = 'your-generated-token'; // Replace with actual token
+    const token = 'your-generated-token';
     this.authService.login(token, 'user');
     this.router.navigate(['/profile']);
   }
