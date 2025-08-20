@@ -1,7 +1,7 @@
 // src/environments/environment.prod.ts
 export const environment = {
   production: true,
-  firebase: {
+  firebaseConfig: {
     apiKey: "AIzaSyCL1zs7mVkugzizMFM-VDnSGpQkic1snWQ",
     authDomain: "sdk-akademie1.firebaseapp.com",
     projectId: "sdk-akademie1",
