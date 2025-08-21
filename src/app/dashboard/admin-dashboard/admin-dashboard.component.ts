@@ -4,12 +4,12 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { StorageService } from '@/app/services/storage.service';
 import { Router } from '@angular/router';
-import { Course } from '../../services/course.model';
+import { Course } from '../../services/models/course.model';
 import Swal from 'sweetalert2';
 import { MessageService } from '@/app/services/message.service';
 import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
 import { FirebaseError } from '@firebase/util';
-import { Video } from '@/app/services/user.model';
+import { Video } from '@/app/services/models/user.model';
 import { environment } from '@/environments/environment';
 import { firstValueFrom } from 'rxjs';
 

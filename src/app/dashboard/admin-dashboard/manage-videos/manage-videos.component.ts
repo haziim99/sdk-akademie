@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '@/app/services/courses.service';
 import { CloudinaryService } from '@/app/services/cloudinary.service';
 import { AuthService } from '@/app/services/auth.service';
-import { Course, Video, UploadResponse } from '@/app/services/user.model';
+import { Course, Video, UploadResponse } from '@/app/services/models/user.model';
 import { firstValueFrom } from 'rxjs';
 import videojs from 'video.js';
 

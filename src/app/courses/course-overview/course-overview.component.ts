@@ -3,10 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { gsap } from 'gsap';
 import { UserService } from '../../services/user.service';
 import { StorageService } from '../../services/storage.service'; // استيراد الخدمة
-import { Course } from '../../services/user.model';
+import { Course } from '../../services/models/user.model';
 import { CoursesService } from '../../services/courses.service';
 import { HttpClient } from '@angular/common/http';
-import { Lecture } from '../../services/course.model';
+import { Lecture } from '../../services/models/course.model';
 import { firstValueFrom } from 'rxjs';
 
 

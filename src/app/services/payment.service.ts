@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Course } from './course.model';
-import { Payment } from './payment.model';
+import { Course } from './models/course.model';
+import { Payment } from './models/payment.model';
 @Injectable({
   providedIn: 'root'
 })

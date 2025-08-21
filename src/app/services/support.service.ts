@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase/compat/app';
-import { Timestamp } from 'firebase/firestore';
+import 'firebase/compat/firestore';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -39,7 +39,6 @@ export class SupportService {
     this.ticketsCollection = this.firestore.collection<SupportTicket>('supportTickets', ref => ref.orderBy('createdAt', 'desc'));
   }
 
-  // Fetch tickets for a specific user
   getUserTickets(userId: string): Observable<SupportTicket[]> {
     return this.firestore.collection<SupportTicket>('supportTickets', ref =>
       ref.where('userId', '==', userId).orderBy('createdAt', 'desc'))
@@ -53,7 +52,6 @@ export class SupportService {
       );
   }
 
-  // Submit a new ticket
   submitTicket(ticket: SupportTicket): Promise<void> {
     const id = this.firestore.createId();
     return this.ticketsCollection.doc(id).set({
@@ -63,7 +61,6 @@ export class SupportService {
     });
   }
 
-  // Update ticket (e.g., add response, change status)
   updateTicket(ticketId: string, data: Partial<SupportTicket>): Promise<void> {
     return this.ticketsCollection.doc(ticketId).update({
       ...data,
@@ -71,7 +68,6 @@ export class SupportService {
     });
   }
 
-  // Fetch all tickets (Admin)
   getAllTickets(): Observable<SupportTicket[]> {
     return this.ticketsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {

@@ -1,5 +1,5 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { Course } from './services/course.model';
+import { Course } from './services/models/course.model';
 import { catchError } from 'rxjs/operators';
 import { of, BehaviorSubject } from 'rxjs';
 import { gsap } from 'gsap';
@@ -9,7 +9,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { StorageService } from './services/storage.service';
 import { Router } from '@angular/router';
-import { User } from './services/user.model';
+import { User } from './services/models/user.model';
 
 // تسجيل الإضافة
 gsap.registerPlugin(ScrollToPlugin);

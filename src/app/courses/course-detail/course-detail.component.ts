@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { Course } from '../../services/user.model';
+import { Course } from '../../services/models/user.model';
 
 declare const Plyr: any;
 

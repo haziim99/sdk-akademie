@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Course } from '@/app/services/course.model';
+import { Course } from '@/app/services/models/course.model';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';

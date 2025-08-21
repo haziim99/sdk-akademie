@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@/app/services/auth.service';
-import { User } from '@/app/services/user.model';
+import { User } from '@/app/services/models/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component'; // تأكد من المسار الصحيح
 

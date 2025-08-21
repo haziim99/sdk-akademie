@@ -67,9 +67,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/courses']).catch(err => console.error(err));
   }
 
-  onLogin(): void {
-    const token = 'your-generated-token';
-    this.authService.login(token, 'user');
-    this.router.navigate(['/profile']);
-  }
+  onLogin(email: string, password: string): void {
+  this.authService.login(email, password).subscribe({
+    next: (res) => {
+      if (res.success) {
+        this.router.navigate(['/profile']);
+      } else {
+        console.error('Login failed');
+      }
+    },
+    error: (err) => {
+      console.error('Error logging in:', err);
+    }
+  });
+}
 }

@@ -6,13 +6,13 @@ import { AuthService } from '@/app/services/auth.service';
 import { PaymentService } from '@/app/services/payment.service';
 import { StorageService } from '@/app/services/storage.service';
 import { UserService } from '@/app/services/user.service';
-import { User,Course } from '@/app/services/user.model';
+import { User,Course } from '@/app/services/models/user.model';
 import { filter, firstValueFrom, Subscription, Observable } from 'rxjs';
 import { CoursesService } from '@/app/services/courses.service';
 import { catchError, finalize, switchMap } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { CloudinaryResponse } from '@/app/services/cloudinary-response.model';
+import { CloudinaryResponse } from '@/app/services/models/cloudinary-response.model';
 
 @Component({
   selector: 'app-profile-management',

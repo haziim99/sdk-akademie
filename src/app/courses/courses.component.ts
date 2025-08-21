@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 import { CoursesService } from '../services/courses.service';
-import { Course } from '../services/course.model';
+import { Course } from '../services/models/course.model';
 
 @Component({
   selector: 'app-courses',
@@ -37,7 +37,7 @@ export class CoursesComponent implements OnInit {
         console.log('Data received:', data);
         this.courses = data;
         this.filteredCourses = this.courses;
-        
+
         if (this.selectedLevel) {
           this.selectLevel(this.selectedLevel);
         }

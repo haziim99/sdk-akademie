@@ -1,21 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap');
 
+/* ================== Global Styles ================== */
 body {
-  font-family: 'Titillium Web', sans-serif; // تطبيق الخط الأساسي
-  margin: 0; // إزالة الهوامش الافتراضية
-  padding: 0; // إزالة الحشوات الافتراضية
-  background-color: #f5f5f5; // لون خلفية لطيف
-  color: #333; // لون نص افتراضي
+  font-family: 'Titillium Web', sans-serif; /* Main font */
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5; /* Light background */
+  color: #333; /* Default text color */
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Titillium Web', sans-serif; // تطبيق الخط على العناوين
-}
-
+h1, h2, h3, h4, h5, h6,
 button, input, select, textarea {
-  font-family: 'Titillium Web', sans-serif; // تطبيق الخط على عناصر النموذج
+  font-family: 'Titillium Web', sans-serif; /* Apply font everywhere */
 }
 
+/* ================== Header ================== */
 header {
   display: flex;
   justify-content: space-between;
@@ -26,14 +25,11 @@ header {
   position: relative;
   z-index: 1000;
   border-bottom: none;
-  font-family: 'Titillium Web', sans-serif;
 }
 
-.logo-container {
-  .logo {
-    height: 120px;
-    object-fit: contain;
-  }
+.logo-container .logo {
+  height: 120px;
+  object-fit: contain;
 }
 
 .menu-btn {
@@ -45,173 +41,170 @@ header {
   display: none;
 }
 
+/* ================== Navbar ================== */
 .navbar {
   flex: 2;
   display: flex;
   justify-content: center;
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-  }
-
-  li {
-    margin: 0 20px;
-  }
-
-  a {
-    text-decoration: none;
-    color: #fefefe;
-    font-weight: bold;
-    padding: 10px 15px;
-    font-size: 1rem;
-    border-radius: 5px;
-    transition: color 0.3s ease, border-bottom 0.3s ease;
-    position: relative;
-
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #000d2b;
-      transition: width 0.3s ease;
-    }
-
-    &:hover::after {
-      width: 100%;
-    }
-  }
 }
 
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.navbar li {
+  margin: 0 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #fefefe;
+  font-weight: bold;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  position: relative;
+}
+
+.navbar a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #000d2b;
+  transition: width 0.3s ease;
+}
+
+.navbar a:hover::after {
+  width: 100%;
+}
+
+/* ================== Header Actions ================== */
 .header-actions {
-  display: flex; /* استخدام الفليكس لتنسيق العناصر في صف */
-  align-items: center; /* محاذاة العناصر عموديًا */
-  gap: 10px; /* إضافة مساحة بين الأيقونات */
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .auth-icons {
   display: flex;
   margin-right: 15px;
-
-  a {
-    color: #fff;
-    font-size: 18px;
-    margin-right: 10px;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: #000d2b;
-    }
-  }
 }
 
+.auth-icons a {
+  color: #fff;
+  font-size: 18px;
+  margin-right: 10px;
+  transition: color 0.3s ease;
+}
+
+.auth-icons a:hover {
+  color: #000d2b;
+}
+
+/* ================== User Profile ================== */
 .user-profile {
   position: relative;
   cursor: pointer;
-
-  .user-profile-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #fefefe;
-    padding: 5px;
-    border-radius: 50%;
-    transition: all 0.9s ease;
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-      transform: scale(1.05);
-    }
-  }
-
-  .logo-link i {
-    color: white;
-  }
-
-  .user-profile-image {
-    width: 45px; /* حجم أصغر للصورة */
-    height: 45px; /* نفس الحجم للعرض والارتفاع لضمان أن تكون دائرية */
-    border-radius: 50%; /* لجعل الصورة دائرية */
-    object-fit: cover; /* التأكد من احتواء الصورة بالكامل داخل الدائرة */
-    border: 2px solid #fff; /* إطار أبيض حول الصورة */
-    transition: all 0.2s ease;
-  }
-
-  &:hover .user-profile-image {
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-  }
-
-  &:hover::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 3px;
-    font-size: 11px;
-    white-space: nowrap;
-    z-index: 1001;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-
-  &:hover::after {
-    opacity: 1;
-  }
 }
 
+.user-profile-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fefefe;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.9s ease;
+}
+
+.user-profile-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.user-profile-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  transition: all 0.2s ease;
+}
+
+.user-profile:hover .user-profile-image {
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.user-profile:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  white-space: nowrap;
+  z-index: 1001;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+/* ================== Language Selector ================== */
 .language-selector {
   position: relative;
-
-  .language-icon {
-    background: none;
-    border: none;
-    color: #fefefe;
-    font-size: 24px;
-    cursor: pointer;
-  }
-
-  .language-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: #ffffff;
-    color: #333;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    overflow: hidden;
-    z-index: 1000;
-
-    button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      background: none;
-      border: none;
-      text-align: left;
-      cursor: pointer;
-      font-size: 16px;
-
-      &.active {
-        background: #f0f0f0;
-      }
-
-      &:hover {
-        background: #f9f9f9;
-      }
-    }
-  }
 }
 
+.language-icon {
+  background: none;
+  border: none;
+  color: #fefefe;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.language-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #ffffff;
+  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.language-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.language-dropdown button.active {
+  background: #f0f0f0;
+}
+
+.language-dropdown button:hover {
+  background: #f9f9f9;
+}
+
+/* ================== Sidebar ================== */
 .sidebar {
   position: fixed;
   top: 0;
@@ -225,117 +218,114 @@ header {
   z-index: 1000;
   overflow-y: auto;
   padding-top: 60px;
-
-  &.open {
-    transform: translateX(0);
-  }
-
-  .close-btn {
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: #000;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-  }
-
-  nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      margin: 20px 0;
-
-      a {
-        text-decoration: none;
-        color: #333;
-        font-size: 18px;
-        display: block;
-        padding: 10px 20px;
-
-        &.active {
-          background-color: #f0f0f0;
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .menu-btn {
-    display: block; /* Show the button on mobile */
-    position: absolute; /* Positioning */
-    top: 20px; /* Space from the top */
-    right: 20px; /* Space from the right */
-    background: transparent; /* Transparent background */
-    border: none; /* No border */
-    cursor: pointer; /* Pointer cursor */
-    z-index: 1000; /* Ensure it’s above other elements */
-  }
-
-  .navbar {
-    display: none; /* Hide navbar on mobile */
-  }
-
-  .header-actions {
-    display: flex; /* Keep header actions */
-    justify-content: flex-end; /* Align to the right */
-  }
-
-  .sidebar {
-    position: fixed; /* تحديد الوضعية */
-    top: 0; /* المحاذاة من الأعلى */
-    right: 0; /* المحاذاة من اليمين */
-    width: 250px; /* عرض السايد بار */
-    height: 100%; /* ارتفاع كامل */
-    background: linear-gradient(45deg, #ff6e6180, #d5b4ff); /* الخلفية بتدرج الألوان */
-    color: #fff; /* لون النص */
-    transform: translateX(100%); /* تخفي السايد بار خارج الشاشة */
-    opacity: 0; /* تخفي السايد بار */
-    transition: transform 0.3s ease, opacity 0.3s ease; /* تأثير الانتقال */
-    z-index: 1000; /* لضمان أنه فوق العناصر الأخرى */
-    padding: 20px; /* حواف داخلية */
-    font-family: 'Titillium Web', sans-serif; /* خط النص */
 }
 
 .sidebar.open {
-    transform: translateX(0); /* عرض السايد بار */
-    opacity: 1; /* جعله مرئياً */
+  transform: translateX(0);
 }
 
+.sidebar .close-btn {
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: #000;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.sidebar nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  margin: 20px 0;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  display: block;
+  padding: 10px 20px;
+}
+
+.sidebar nav ul li a.active {
+  background-color: #f0f0f0;
+}
+
+/* ================== Responsive ================== */
+@media (max-width: 768px) {
+  .menu-btn {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  .navbar {
+    display: none;
+  }
+
+  .header-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    background: linear-gradient(45deg, #ff6e6180, #d5b4ff);
+    color: #fff;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1000;
+    padding: 20px;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+    opacity: 1;
+  }
 
   .sidebar nav ul {
-    list-style: none; /* إزالة العلامات */
-    padding: 0; /* إزالة الحواف */
+    list-style: none;
+    padding: 0;
   }
 
   .sidebar nav ul li {
-    margin: 15px 0; /* مساحة بين العناصر */
+    margin: 15px 0;
   }
 
   .sidebar nav ul li a {
-    color: #fff; /* لون النص */
-    text-decoration: none; /* إزالة التسطير */
-    font-weight: bold; /* جعل النص عريض */
-    transition: color 0.3s ease; /* تأثير تغيير اللون */
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
   }
 
   .sidebar nav ul li a:hover {
-    color: #ff6e61; /* تغيير اللون عند التحويم */
+    color: #ff6e61;
   }
 
   .close-btn {
-    background: transparent; /* خلفية شفافة */
-    border: none; /* بدون حد */
-    color: #fff; /* لون الزر */
-    font-size: 24px; /* حجم الخط */
-    cursor: pointer; /* مؤشر يد */
-    position: absolute; /* الوضعية المطلقة */
-    top: 20px; /* المحاذاة من الأعلى */
-    left: 20px; /* المحاذاة من اليسار */
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
   }
-
-
 }

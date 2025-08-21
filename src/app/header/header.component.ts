@@ -1,27 +1,26 @@
-import { ChangeDetectionStrategy, Component, OnInit, NgZone } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { User } from '../services/user.model';
+import { User } from '../services/models/user.model';
 import { TranslateService } from '@ngx-translate/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; // Optional: for modal dialogs
-import { ChangeDetectorRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class HeaderComponent implements OnInit {
-  isSidebarOpen: boolean = false; // تأكد من أن هذه المتغير مُعرفة هنا
-  currentLang = 'en';  // Default language
+  isSidebarOpen: boolean = false;
+  currentLang = 'en';
   dropdownOpen = false;
-  menuOpen = false; // Track menu visibility
-  userProfileImage: string = 'assets/images/default-profile.jpg'; // Default profile image
+  menuOpen = false;
+  userProfileImage: string = 'assets/images/default-profile.jpg';
   user: User | null = null;
   profilePictureUrl: string | null = null;
-  isLoggedIn: boolean = false; // Define isLoggedIn property
+  isLoggedIn: boolean = false;
   private subscriptions: Subscription = new Subscription();
 
   constructor(
@@ -30,78 +29,91 @@ export class HeaderComponent implements OnInit {
     private translate: TranslateService,
     private cdRef: ChangeDetectorRef,
     private ngZone: NgZone,
-    private modalService: NgbModal // Optional: for modal dialogs
-  ) { }
+    private modalService: NgbModal
+  ) {}
 
+  /**
+   * Initialize component state
+   */
   ngOnInit(): void {
     const storedUser = this.authService.getCurrentUser();
+
     if (storedUser) {
       this.isLoggedIn = true;
-      this.profilePictureUrl = storedUser.profilePicture || 'assets/images/default-profile.jpg';  // تعيين صورة بروفايل افتراضية
+      this.profilePictureUrl = storedUser.profilePicture || 'assets/images/default-profile.jpg';
     } else {
       this.isLoggedIn = false;
-      this.profilePictureUrl = 'assets/images/default-profile.jpg';  // تعيين صورة افتراضية عند عدم تسجيل الدخول
+      this.profilePictureUrl = 'assets/images/default-profile.jpg';
     }
 
-    // الاشتراك في تغييرات المستخدم
+    // Listen for user changes
     this.subscriptions.add(
       this.authService.currentUser.subscribe(user => {
         if (user) {
           this.isLoggedIn = true;
-          this.profilePictureUrl = user.profilePicture || 'assets/images/default-profile.jpg';  // تعيين صورة بروفايل افتراضية
+          this.profilePictureUrl = user.profilePicture || 'assets/images/default-profile.jpg';
         } else {
           this.isLoggedIn = false;
-          this.profilePictureUrl = 'assets/images/default-profile.jpg';  // تعيين صورة افتراضية عند عدم وجود المستخدم
+          this.profilePictureUrl = 'assets/images/default-profile.jpg';
         }
       })
     );
   }
 
-
+  /**
+   * Cleanup subscriptions
+   */
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe(); // إلغاء جميع الاشتراكات عند تدمير المكون
+    this.subscriptions.unsubscribe();
   }
 
+  /**
+   * Load user profile data
+   */
   async loadUserProfile(): Promise<void> {
-    // تحميل بيانات المستخدم من AuthService أو من قاعدة البيانات
     const userData = this.authService.getCurrentUser();
 
     if (userData) {
       this.user = userData;
       this.profilePictureUrl = userData.profilePicture || '';
-      this.isLoggedIn = true; // تعيين isLoggedIn إلى true عندما تتوفر بيانات المستخدم
+      this.isLoggedIn = true;
 
       console.log('User data loaded:', userData);
-      console.log('Profile picture URL:', this.profilePictureUrl);
     } else {
-      this.isLoggedIn = false; // تعيين isLoggedIn إلى false إذا لم تتوفر بيانات المستخدم
-
+      this.isLoggedIn = false;
       console.log('No user data found.');
-      console.log('Default profile picture URL:', this.profilePictureUrl);
     }
   }
 
+  /**
+   * Handle user logout
+   */
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
-    this.isLoggedIn = false; // تعيين isLoggedIn إلى false عند تسجيل الخروج
+    this.isLoggedIn = false;
   }
 
+  /**
+   * Sidebar control
+   */
   toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen;
-    console.log('Sidebar toggled:', this.isSidebarOpen); // هذا سيساعدك في التأكد من أن الدالة تعمل
+    console.log('Sidebar toggled:', this.isSidebarOpen);
   }
 
-  navigateAndCloseSidebar(route: string) {
-    this.isSidebarOpen = false; // إخفاء السايد بار
-    this.router.navigate([route]); // الانتقال إلى الصفحة المطلوبة
-}
-
+  navigateAndCloseSidebar(route: string): void {
+    this.isSidebarOpen = false;
+    this.router.navigate([route]);
+  }
 
   closeSidebar(): void {
     this.isSidebarOpen = false;
   }
 
+  /**
+   * Language switching
+   */
   changeLanguage(lang: string): void {
     this.translate.use(lang);
     this.currentLang = lang;
@@ -112,31 +124,35 @@ export class HeaderComponent implements OnInit {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
+  /**
+   * Navigation to user profile or admin dashboard
+   */
   goToProfile(): void {
     if (this.isLoggedIn) {
       this.authService.isAdmin().subscribe((isAdmin: boolean) => {
         const targetRoute = isAdmin ? '/admin-dashboard' : '/profile';
-        console.log('Navigating to:', targetRoute);
         this.router.navigate([targetRoute]);
       });
     } else {
-      console.log('User is not logged in. Redirecting to login page.');
       this.router.navigate(['/login']);
     }
     this.closeSidebar();
   }
 
+  /*** Menu control */
   openMenu(event: Event): void {
     event.stopPropagation();
     this.menuOpen = !this.menuOpen;
   }
 
+  /**
+   * Update user profile picture
+   */
   updateProfilePicture(newProfilePictureUrl: string): void {
-    console.log('Updating profile picture to:', newProfilePictureUrl);
     this.authService.updateProfilePicture(newProfilePictureUrl).subscribe({
       next: () => {
-        this.profilePictureUrl = newProfilePictureUrl; // Update profile picture URL
-        this.userProfileImage = newProfilePictureUrl; // Update local image
+        this.profilePictureUrl = newProfilePictureUrl;
+        this.userProfileImage = newProfilePictureUrl;
         console.log('Profile picture updated successfully.');
       },
       error: (err: any) => {
@@ -145,9 +161,10 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  /**
+   * Delete profile picture (reset to default)
+   */
   deleteProfilePic(): void {
-    // Reset profile picture to default and update in backend
-    console.log('Deleting profile picture. Resetting to default.');
     this.userProfileImage = 'assets/images/default-profile.jpg';
     this.profilePictureUrl = 'assets/images/default-profile.jpg';
 

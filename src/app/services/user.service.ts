@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { User, Course } from './user.model';
-import { Lecture, CourseLectures } from './course.model';
+import { User, Course } from './models/user.model';
+import { Lecture, CourseLectures } from './models/course.model';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { StorageService } from './storage.service';
 

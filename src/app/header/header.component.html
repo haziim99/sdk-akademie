@@ -1,6 +1,6 @@
 <header>
   <button class="menu-btn" (click)="toggleSidebar()">
-    <i class="fas fa-bars"></i> <!-- أيقونة القائمة -->
+    <i class="fas fa-bars"></i>
   </button>
 
   <div class="logo-container">
@@ -37,7 +37,6 @@
   </div>
 </header>
 
-<!-- إضافة السايد بار -->
 <div class="sidebar" [ngClass]="{'open': isSidebarOpen}">
   <button class="close-btn" (click)="toggleSidebar()">&times;</button>
   <nav>

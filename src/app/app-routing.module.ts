@@ -4,7 +4,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { CourseDetailsComponent } from './courses/course-detail/course-detail.component';
 import { CourseOverviewComponent } from './courses/course-overview/course-overview.component';
 import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
+import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
 import { AuthGuard } from './services/guards/auth.guard';

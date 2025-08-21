@@ -3,8 +3,8 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { StorageService } from './storage.service';
-import { Course } from './course.model';
-import { Video } from './user.model'; // تأكد من أن Video موجود هنا حسب الحاجة
+import { Course } from './models/course.model';
+import { Video } from './models/user.model'; // تأكد من أن Video موجود هنا حسب الحاجة
 
 @Injectable({
   providedIn: 'root'

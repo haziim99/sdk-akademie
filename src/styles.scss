@@ -1,12 +1,10 @@
-// استيراد Angular Material
 @use '@angular/material' as mat;
 @import '../node_modules/video.js/dist/video-js.css';
-
 
 @font-face {
   font-family: 'Edu AU VIC WANT Hand';
   src: url('/assets/fonts/EduAUVICWANTHand-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 700; /* تحديد نطاق الأوزان إن أمكن */
+  font-weight: 100 700;
   font-style: normal;
 }
 
@@ -17,23 +15,22 @@
   font-style: normal;
 }
 
-/* styles.css */
 .special-title h2 {
   position: relative;
-  font-size: 3rem; /* حجم الخط الكبير للتأثير */
-  font-weight: 700; /* نص عريض */
+  font-size: 3rem;
+  font-weight: 700;
   margin: 0 0 70px 0;
   padding: 0;
-  color: #fff; /* لون النص الأبيض */
-  text-transform: uppercase; /* تحويل النص إلى أحرف كبيرة */
-  letter-spacing: 2px; /* تباعد الأحرف لأسلوب عصري */
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   display: inline-block;
-  background: linear-gradient(90deg, #ff6f61, #d5b4ff); /* تدرج لوني في الخلفية */
-  -webkit-background-clip: text; /* قص التدرج اللوني على النص */
+  background: linear-gradient(90deg, #ff6f61, #d5b4ff);
+  -webkit-background-clip: text;
   background-clip: text;
-  color: transparent; /* إخفاء لون النص الأصلي */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* تأثير ظل للعمق */
-  transition: transform 0.3s ease, text-shadow 0.3s ease; /* تأثير التمرير */
+  color: transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
 .special-title::before {
@@ -50,14 +47,12 @@
 }
 
 .special-title:hover {
-  transform: scale(1.1); /* تكبير خفيف عند التمرير */
-  text-shadow: 0 8px 20px rgba(255, 255, 255, 0.8); /* ظل نصي معزز عند التمرير */
+  transform: scale(1.1);
+  text-shadow: 0 8px 20px rgba(255, 255, 255, 0.8);
 }
 
-// تضمين الأنماط الأساسية لمكونات Angular Material
 @include mat.core();
 
-// تطبيق الخط على الجسم
 body {
   margin: 0;
   font-family: 'Titillium Web', sans-serif;
@@ -65,7 +60,6 @@ body {
   height: 100%;
 }
 
-// نمط صندوق تسجيل الدخول
 .login-container {
   display: flex;
   justify-content: center;
@@ -129,20 +123,20 @@ body {
 }
 
 .logout-button {
-  background-color: #ff6600; // لون الزر
-  color: white; // لون النص
-  border: none; // إزالة الحدود
-  border-radius: 5px; // زوايا مدورة
-  padding: 10px 20px; // الحشو
-  font-size: 16px; // حجم الخط
-  cursor: pointer; // مؤشر المؤشر
-  transition: background-color 0.3s ease; // تأثير الانتقال
+  background-color: #ff6600;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #cc5200; // لون داكن عند التمرير
+    background-color: #cc5200;
   }
 
   &:focus {
-    outline: none; // إزالة الحدود عند التركيز
+    outline: none;
   }
 }

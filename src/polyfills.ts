@@ -1,14 +1,23 @@
 /***************************************************************************************************
- * BROWSER POLYFILLS
- */
+ * POLYFILLS FILE
+ *
+ * Purpose:
+ * Ensure modern JavaScript and Angular features run on older browsers (e.g. IE11).
+ *
+ * Includes:
+ * 1. web-animations-js   → Adds support for animations in old browsers.
+ * 2. core-js/es/reflect  → Adds Reflect API (required for Angular decorators).
+ * 3. core-js/es/...      → Provides modern JS methods (Array, Number, String, Object, etc.).
+ * 4. @angular/localize   → Enables Angular localization ($localize).
+ **************************************************************************************************/
 
-/** IE11 requires the following for NgClass support on SVG elements */
-import 'web-animations-js';  // Run `npm install --save web-animations-js` if you use it
+// 1. Web Animations API polyfill
+import 'web-animations-js';
 
-/** IE10 and IE11 requires the following for the Reflect API */
+// 2. Reflect API polyfill
 import 'core-js/es/reflect';
 
-/** Evergreen browsers require these. **/
+// 3. ES features polyfills
 import 'core-js/es/array';
 import 'core-js/es/parse-int';
 import 'core-js/es/parse-float';
@@ -17,9 +26,5 @@ import 'core-js/es/string';
 import 'core-js/es/regexp';
 import 'core-js/es/object';
 
-/***************************************************************************************************
- * APPLICATION IMPORTS
- */
-
-/** Import `@angular/localize` for localization. */
+// 4. Angular localization
 import '@angular/localize/init';
