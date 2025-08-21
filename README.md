@@ -1,26 +1,29 @@
-# SdkAkademie
+# SDK Akademie
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.1.
+SDK Akademie is a web project for learning the German language in Egypt. It offers interactive online courses and provides efficient management for users and students. The project is built using **Angular** and relies on **Firebase** for user authentication and data management without a traditional backend.
 
-## Development server
+## Key Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- User registration and login with session management (Auth)
+- Student and admin dashboards
+- Add and update courses for users
+- Upload and update profile pictures
+- Display student reviews and feedback
+- Interactive pages: Home, Our Services, Why SDK, Contact Us
+- Data storage locally and via Firebase Firestore
+- Dynamic UI with animations using AOS
+- Internationalization support using Angular i18n
 
-# Code scaffolding
+## Technologies Used
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Frontend:** Angular 18
+- **Backend:** Firebase (Authentication + Firestore)
+- **Local Storage:** LocalStorage (via StorageService)
+- **Design & Animations:** CSS + AOS
+- **Internationalization:** Angular i18n
 
-# Build
+## Installation & Local Setup
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Install dependencies:
+```bash
+npm install
