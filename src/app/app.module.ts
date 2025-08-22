@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule } from '@angular/common/http'; // تأكد من تضمين HttpClientModule
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,8 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select'; // إضافة وحدة MatSelectModule
-import { MatOptionModule } from '@angular/material/core'; // إضافة وحدة MatOptionModule
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 import { RegisterComponent } from './dashboard/register/register.component';
 import { ForgetpasswordComponent } from './dashboard/forgetpassword/forgetpassword.component';
 import { ProfileComponent } from './dashboard/profile/profile.component';
@@ -121,8 +121,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatSelectModule, // إضافة وحدة MatSelectModule هنا
-    MatOptionModule, // إضافة وحدة MatOptionModule هنا
+    MatSelectModule,
+    MatOptionModule,
     InputTextModule,
     PasswordModule,
     ButtonModule,

@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
 
     this.authService.login(this.email, this.password).subscribe({
-      next: (response: { success: boolean; token?: string; role?: string; userId?: string }) => {
+      next: (response: { success: boolean; role?: string; userId?: string }) => {
         this.isLoading = false;
 
         if (response.success) {

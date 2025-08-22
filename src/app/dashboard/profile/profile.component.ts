@@ -114,7 +114,6 @@ response: any;
   // Fetch user's support tickets
   fetchUserTickets(): void {
     if (this.user) {
-      console.log('Fetching tickets for user:', this.user.id);
       this.supportService.getUserTickets(this.user.id).subscribe(
         tickets => {
           this.userTickets = tickets;
