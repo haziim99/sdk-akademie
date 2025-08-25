@@ -16,6 +16,7 @@ export class AuthService {
 
   constructor(
     private firestore: AngularFirestore,
+    private afs: AngularFirestore,
     private fireauth: AngularFireAuth,
     private storageService: StorageService,
     private router: Router
@@ -211,21 +212,41 @@ export class AuthService {
     }
   }
 
-  getAllUsers(): Observable<User[]> {
-    return this.firestore.collection<User>('users', ref => ref.where('role', '==', 'user')).valueChanges().pipe(
-      map(users => {
-        return users.map(user => {
-          if (!user.courses) user.courses = [];
-          return user;
-        });
-      }),
-      catchError(() => of([]))
-    );
+    getAllUsers(): Observable<User[]> {
+  return this.firestore.collection<User>('users', ref => ref.where('role', '==', 'user')).valueChanges({ idField: 'id' }).pipe(
+    map(users => {
+      return users.map(user => {
+        if (!user.courses) user.courses = [];
+        return user;
+      });
+    }),
+    catchError(() => of([]))
+  );
   }
 
   navigateBack() {
     this.router.navigate(['/admin-dashboard']);
   }
+
+    addUser(data: Partial<User>): Promise<void> {
+    const newUser: User = {
+    id: this.afs.createId(),
+    name: data.name || '',
+    email: data.email || '',
+    phone: data.phone || '',
+    address: data.address || '',
+    gender: data.gender || 'male',
+    role: data.role || 'user',
+    dob: data.dob || null,
+    level: data.level || 'beginner',
+    profilePicture: data.profilePicture || null,
+    courses: data.courses || [],
+    password: data.password || ''
+  };
+
+  return this.afs.collection<User>('users').doc(newUser.id).set(newUser);
+}
+
 
   updateUser(userId: string, userData: Partial<User>): Promise<void> {
     return this.firestore.collection('users').doc(userId).update(userData);

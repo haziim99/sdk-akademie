@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { provideHttpClient, withFetch } from '@angular/common/http';
@@ -52,6 +52,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CourseModalComponent } from './dashboard/admin-dashboard/course-modal/course-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Firebase Imports
 import { AngularFireModule } from '@angular/fire/compat';
@@ -69,6 +70,7 @@ import { ScrollToTopComponent } from './features/scroll-to-top/scroll-to-top.com
 import { UserEditDialogComponent } from './dashboard/admin-dashboard/student-management/user-edit-dialog/user-edit-dialog.component';
 import { ManageVideosComponent } from './dashboard/admin-dashboard/manage-videos/manage-videos.component';
 import { VideoPlayerComponent } from './dashboard/admin-dashboard/manage-videos/video-player/video-player.component';
+import { UserEditDialogComponentComponent } from './dashboard/admin-dashboard/student-management/user-edit-dialog-component/user-edit-dialog-component.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -109,10 +111,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserEditDialogComponent,
     ManageVideosComponent,
     VideoPlayerComponent,
+    UserEditDialogComponentComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot({}, {}),

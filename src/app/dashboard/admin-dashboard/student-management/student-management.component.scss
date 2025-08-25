@@ -2,6 +2,7 @@
   font-family: 'Titillium Web', sans-serif;
   color: #333;
 
+  // Header section
   .header {
     display: flex;
     justify-content: space-between;
@@ -53,6 +54,7 @@
     }
   }
 
+  // User list section
   .user-list {
     margin: 2rem 2rem 0;
 
@@ -92,7 +94,7 @@
         font-size: 1rem;
 
         &:first-child {
-          width: 50px; // Fixed width for the index column
+          width: 50px; // Fixed width for index column
         }
       }
 
@@ -113,9 +115,10 @@
         }
       }
 
+      // Action buttons inside table
       .action-buttons {
         display: flex;
-        gap: 0.5rem; // Space between buttons
+        gap: 0.5rem;
 
         .edit-button, .delete-button {
           background-color: #110027;
@@ -134,7 +137,7 @@
         }
 
         .delete-button {
-          background-color: #5a0700; // Red for delete action
+          background-color: #5a0700;
         }
 
         .delete-button:hover {
@@ -144,33 +147,34 @@
     }
   }
 
+  // Course list section
   .course-list {
-    list-style-type: none; // إزالة النقاط التقليدية
-    padding: 0; // إزالة المساحة الافتراضية
-    margin: 0; // إزالة المساحة الافتراضية
-    display: flex; // استخدام flexbox لجعلها عمودية
-    flex-direction: column; // جعل العناصر في عمود
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 
     li {
-      background-color: #f1f1f1; // لون الخلفية للعناصر
-      border: 1px solid #ddd; // إضافة حدود
-      border-radius: 5px; // زوايا دائرية
-      padding: 10px 15px; // مساحة داخلية
-      margin-bottom: 10px; // مسافة بين العناصر
-      transition: background-color 0.3s; // تأثير الانتقال
+      background-color: #f1f1f1;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      transition: background-color 0.3s;
 
       &:hover {
-        background-color: #000000; // تغيير اللون عند التمرير
-        color: #fff; // تغيير لون النص
+        background-color: #000000;
+        color: #fff;
       }
     }
   }
 
-
+  // Add user button
   .add-user-button {
     margin: 2rem auto;
     display: block;
-    width: 200px; // Fixed width for consistency
+    width: 200px;
     background-color: #06000d;
     color: #ffffff;
     border: none;

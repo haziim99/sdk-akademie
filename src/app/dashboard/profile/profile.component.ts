@@ -140,7 +140,7 @@ response: any;
         Swal.fire({
             icon: 'warning',
             title: 'Incomplete Information',
-            text: 'يرجى تقديم كل من الموضوع والوصف للتذكرة.',
+            text: 'Please provide both a subject and a description for the ticket.',
             confirmButtonColor: '#ff6600'
         });
         return;
@@ -154,8 +154,8 @@ response: any;
         description: this.newTicket.description.trim(),
         status: 'open',
         responses: [],
-        createdAt: Timestamp.fromDate(new Date()), // تحويل Date إلى Firestore Timestamp
-        lastUpdated: Timestamp.fromDate(new Date()) // تحويل Date إلى Firestore Timestamp
+        createdAt: Timestamp.fromDate(new Date()),
+        lastUpdated: Timestamp.fromDate(new Date())
     };
 
     try {
@@ -196,56 +196,6 @@ response: any;
     ($('#ticketModal') as any).modal('hide');
   }
 
-  // Send a reply to the selected ticket
-  /* async sendReply(): Promise<void> {
-    if (!this.selectedTicket || !this.newReply.trim()) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Invalid Input',
-        text: 'Please enter a valid reply.',
-        confirmButtonColor: '#ff6600'
-      });
-      return;
-    }
-
-    this.isReplying = true;
-
-    const response: SupportResponse = {
-      author: 'Admin', // You can modify this to reflect the admin's name or role
-      message: this.newReply.trim(),
-      date: firebase.firestore.Timestamp.now(),
-    };
-
-    const updatedResponses = [...this.selectedTicket.responses, response];
-    const updatedStatus = 'closed'; // Optionally, change status to 'closed' after reply
-
-    try {
-      await this.supportService.updateTicket(this.selectedTicket.id!, {
-        responses: updatedResponses,
-        status: updatedStatus
-      });
-      Swal.fire({
-        icon: 'success',
-        title: 'Reply Sent',
-        text: 'Your reply has been sent successfully.',
-        confirmButtonColor: '#ff6600'
-      });
-      // Refresh the selected ticket
-      this.fetchUserTickets();
-      this.closeTicketModal();
-      this.newReply = '';
-    } catch (error) {
-      console.error('Error sending reply:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Reply Failed',
-        text: 'There was an error sending your reply. Please try again later.',
-        confirmButtonColor: '#ff6600'
-      });
-    } finally {
-      this.isReplying = false;
-    }
-  } */
 
   async loadCourses(): Promise<void> {
     try {
@@ -595,8 +545,6 @@ response: any;
 
 updateProfilePicture(url: string): void {
   // Implement the logic to update the profile picture
-  // This might involve calling a service to update the user profile
 }
-
 
 }

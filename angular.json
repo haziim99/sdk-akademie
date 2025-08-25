@@ -51,8 +51,7 @@
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss",
-              "src/assets/css/output.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/css/output.css",              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/slick-carousel/slick/slick.css",
               "node_modules/slick-carousel/slick/slick-theme.css",
               "node_modules/swiper/swiper-bundle.min.css",
@@ -130,11 +129,12 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
+                {
+                  "glob": "**/*",
+                  "input": "public",
+                  "output": "./"
+                }
+              ],
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css"
             ]
