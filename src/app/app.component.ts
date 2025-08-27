@@ -1,17 +1,16 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
-import { Course } from './services/models/course.model';
+import { Course } from './core/models/course.model';
 import { catchError } from 'rxjs/operators';
 import { of, BehaviorSubject } from 'rxjs';
 import { gsap } from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { TranslateService } from '@ngx-translate/core';
 import { isPlatformBrowser } from '@angular/common';
-import { AuthService } from './services/auth.service';
-import { StorageService } from './services/storage.service';
+import { AuthService } from './core/services/auth.service';
+import { StorageService } from './core/services/storage.service';
 import { Router } from '@angular/router';
-import { User } from './services/models/user.model';
+import { User } from './core/models/user.model';
 
-// تسجيل الإضافة
 gsap.registerPlugin(ScrollToPlugin);
 
 @Component({
@@ -32,7 +31,6 @@ export class AppComponent implements OnInit {
     private translate: TranslateService,
     @Inject(PLATFORM_ID) private platformId: object
   ) {
-    // إزالة الوصول إلى مفتاح 'user' إذا لم يكن ضروريًا
   }
 
   ngOnInit(): void {
@@ -43,13 +41,12 @@ export class AppComponent implements OnInit {
       this.storageService.setItem('lang', lang);
       this.translate.use(lang);
     } else {
-      // إذا كان SSR، استخدم 'en' بشكل افتراضي
       this.translate.use('en');
     }
 
     const user = this.authService.getCurrentUser();
   if (user) {
-    this.authService.updateCurrentUser(user); // تأكد من تحديث حالة المستخدم
+    this.authService.updateCurrentUser(user);
   } else {
     this.router.navigate(['/login']);
   }
@@ -58,11 +55,8 @@ export class AppComponent implements OnInit {
 
   changeLanguage(lang: string): void {
     this.translate.use(lang);
-    // استخدم storageService فقط في المتصفح
     if (isPlatformBrowser(this.platformId)) {
       this.storageService.setItem('lang', lang);
     }
   }
-
-  // إزالة دوال getUser و setUser إذا لم يعد هناك حاجة لمفتاح 'user'
 }
