@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeRoutingModule } from './home-routing.module';
 
 import { MatCardModule } from '@angular/material/card';
@@ -22,17 +21,19 @@ import { MessageService } from 'primeng/api';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { HomeComponent } from './components/home.component';
+import { SharedModule } from '@/app/shared/shared.module';
 import { ReviewsModule } from '../reviews/reviews.module';
 import { ContactModule } from '../contact/contact.module';
-import { SharedModule } from '@/app/shared/shared.module';
+
 
 @NgModule({
   declarations: [HomeComponent],
   imports: [
     CommonModule,
     FormsModule,
-    BrowserAnimationsModule,
     HomeRoutingModule,
+    ReviewsModule,
+    ContactModule,
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -46,8 +47,6 @@ import { SharedModule } from '@/app/shared/shared.module';
     CheckboxModule,
     ToastModule,
     TranslateModule,
-    ReviewsModule,
-    ContactModule,
     SharedModule
   ],
   providers: [MessageService]

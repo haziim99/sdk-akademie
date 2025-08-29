@@ -45,7 +45,7 @@ export class UserService {
     const currentUser = this.getCurrentUser();
     if (currentUser && currentUser.id === userId) {
       const updatedUser = { ...currentUser, ...updatedData };
-      this.saveUserToStorageService(updatedUser); // استخدام الدالة المعدلة
+      this.saveUserToStorageService(updatedUser);
       return of({ success: true });
     }
     return of({ success: false });

@@ -1,26 +1,15 @@
-// features/dashboard/admin-dashboard/admin-dashboard.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Angular Material Modules
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
-import { MatDialogModule } from '@angular/material/dialog';
-
-// PrimeNG Modules
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
-import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
-import { ToastModule } from 'primeng/toast';
+import { SharedModule } from '@/app/shared/shared.module';
 import { MessageService } from 'primeng/api';
+
+// Routing
+import { AdminDashboardRoutingModule } from './admin-dashboard-routing.module';
+
+// Services
+
 
 // Components
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
@@ -65,22 +54,13 @@ import { UserEditDialogComponentComponent } from './components/student-managemen
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatDialogModule,
-    InputTextModule,
-    PasswordModule,
-    ButtonModule,
-    CheckboxModule,
-    ToastModule,
+    SharedModule,
+    AdminDashboardRoutingModule
   ],
-  providers: [MessageService],
+  providers: [
+    MessageService
+
+  ],
   exports: [
     AdminDashboardComponent,
     StatsOverviewComponent,
@@ -92,4 +72,3 @@ import { UserEditDialogComponentComponent } from './components/student-managemen
   ]
 })
 export class AdminDashboardModule {}
-

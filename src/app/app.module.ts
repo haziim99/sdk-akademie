@@ -43,7 +43,6 @@ import { ContactModule } from './features/contact/contact.module';
 import { SharedModule } from './shared/shared.module';
 import { CoursesModule } from './features/courses/courses.module';
 import { AuthModule } from './features/auth/auth.module';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 // Http Loader for ngx-translate
 export function HttpLoaderFactory(http: HttpClient) {
@@ -95,9 +94,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CoursesModule,
     AuthModule
   ],
-  providers: [
-    provideAnimationsAsync()
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

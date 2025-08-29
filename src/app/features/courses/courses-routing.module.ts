@@ -7,12 +7,12 @@ import { CourseOverviewComponent } from './components/course-overview/course-ove
 
 const routes: Routes = [
   { path: '', component: CoursesComponent },
-  { path: 'course-details/:id', component: CourseDetailsComponent },
-  { path: 'course-overview/:id', component: CourseOverviewComponent }
+  { path: 'details/:id', component: CourseDetailsComponent },
+  { path: 'overview/:id', component: CourseOverviewComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CoursesRoutingModule {}
+export class CoursesRoutingModule { }

@@ -52,14 +52,16 @@ export class SupportService {
       );
   }
 
-  submitTicket(ticket: SupportTicket): Promise<void> {
-    const id = this.firestore.createId();
-    return this.ticketsCollection.doc(id).set({
-      ...ticket,
-      createdAt: firebase.firestore.Timestamp.now(),
-      lastUpdated: firebase.firestore.Timestamp.now(),
-    });
-  }
+  submitTicket(ticket: Omit<SupportTicket, 'id' | 'createdAt' | 'lastUpdated'>): Promise<void> {
+  const id = this.firestore.createId();
+  const now = firebase.firestore.Timestamp.now();
+
+  return this.ticketsCollection.doc(id).set({
+    ...ticket,
+    createdAt: now,
+    lastUpdated: now,
+  });
+}
 
   updateTicket(ticketId: string, data: Partial<SupportTicket>): Promise<void> {
     return this.ticketsCollection.doc(ticketId).update({

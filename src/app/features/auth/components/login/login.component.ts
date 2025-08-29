@@ -3,11 +3,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../../../core/services/auth.service';
 import { MessageService } from 'primeng/api';
+import { CoreModule } from '../../../../core/core.module';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [MessageService]
+  providers: [
+    MessageService,
+    CoreModule
+  ]
 })
 export class LoginComponent implements OnInit {
   redirectTo: string | null = null;

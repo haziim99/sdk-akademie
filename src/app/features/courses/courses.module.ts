@@ -9,7 +9,7 @@ import { CourseDetailsComponent } from './components/course-detail/course-detail
 import { CourseOverviewComponent } from './components/course-overview/course-overview.component';
 
 // Routing
-import { RouterModule } from '@angular/router';
+import { CoursesRoutingModule } from './courses-routing.module';
 
 @NgModule({
   declarations: [
@@ -21,12 +21,14 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    CoursesRoutingModule
   ],
   exports: [
     CoursesComponent,
     CourseDetailsComponent,
     CourseOverviewComponent
+  ],
+  providers: [
   ]
 })
 export class CoursesModule { }

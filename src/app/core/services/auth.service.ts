@@ -228,7 +228,7 @@ export class AuthService {
     this.router.navigate(['/admin-dashboard']);
   }
 
-    addUser(data: Partial<User>): Promise<void> {
+  addUser(data: Partial<User>): Promise<void> {
     const newUser: User = {
     id: this.afs.createId(),
     name: data.name || '',

@@ -10,6 +10,15 @@ import { UserService } from './services/user.service';
 import { StorageService } from './services/storage.service';
 import { AuthGuard } from './guards/auth.guard';
 import { MessageService } from 'primeng/api';
+import { CloudinaryService } from './services/cloudinary.service';
+import { FirebaseService } from './services/firebase.service';
+import { ImageUploadService } from './services/image-upload.service';
+import { NotificationService } from './services/notification.service';
+import { PaymentService } from './services/payment.service';
+import { ProfileService } from './services/profile.service';
+import { CoursesService } from '@/app/core/services/courses.service';
+import { SettingsService } from '@/app/core/services/settings.service';
+import { SupportService } from '@/app/core/services/support.service';
 
 @NgModule({
   imports: [
@@ -24,7 +33,16 @@ import { MessageService } from 'primeng/api';
     StorageService,
     AuthGuard,
     MessageService,
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()),
+    CloudinaryService,
+    FirebaseService,
+    ImageUploadService,
+    NotificationService,
+    PaymentService,
+    ProfileService,
+    CoursesService,
+    SettingsService,
+    SupportService
   ],
 })
 export class CoreModule {
