@@ -13,25 +13,25 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "types": ["jquery"],
-    "target": "es2022",
-    "module": "esnext",
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
     "lib": [
-      "es2022",
+      "ES2022",
       "dom"
     ],
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    },
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true,
-    "enableIvy": false
+    "strictTemplates": true
   }
 }
