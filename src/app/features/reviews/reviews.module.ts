@@ -1,11 +1,13 @@
 // src/app/features/reviews/reviews.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // PrimeNG modules if needed
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+
+// Routing
+import { ReviewsRoutingModule } from './reviews-routing.module';
 
 // Components
 import { ReviewsComponent } from './components/reviews.component';
@@ -16,8 +18,8 @@ import { ReviewsComponent } from './components/reviews.component';
   ],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
-    ToastModule
+    ToastModule,
+    ReviewsRoutingModule
   ],
   providers: [MessageService],
   exports: [

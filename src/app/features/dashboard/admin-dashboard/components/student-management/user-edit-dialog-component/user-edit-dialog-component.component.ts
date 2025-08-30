@@ -13,9 +13,10 @@ import { MatOption } from "../../../../../../../../node_modules/@angular/materia
 
 
 @Component({
-  selector: 'app-user-edit-dialog-component',
-  templateUrl: './user-edit-dialog-component.component.html',
-  styleUrl: './user-edit-dialog-component.component.scss',
+    selector: 'app-user-edit-dialog-component',
+    templateUrl: './user-edit-dialog-component.component.html',
+    styleUrl: './user-edit-dialog-component.component.scss',
+    standalone: false
 })
 export class UserEditDialogComponentComponent {
 

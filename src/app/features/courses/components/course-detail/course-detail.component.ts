@@ -6,9 +6,10 @@ import { Course } from '../../../../core/models/user.model';
 declare const Plyr: any;
 
 @Component({
-  selector: 'app-course-details',
-  templateUrl: './course-detail.component.html',
-  styleUrls: ['./course-detail.component.scss']
+    selector: 'app-course-details',
+    templateUrl: './course-detail.component.html',
+    styleUrls: ['./course-detail.component.scss'],
+    standalone: false
 })
 export class CourseDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   course: Course | undefined;

@@ -2,9 +2,10 @@ import { Component, Input, OnInit, OnDestroy, OnChanges, SimpleChanges, ViewChil
 import videojs from 'video.js';
 
 @Component({
-  selector: 'app-video-player',
-  templateUrl: './video-player.component.html',
-  styleUrls: ['./video-player.component.scss']
+    selector: 'app-video-player',
+    templateUrl: './video-player.component.html',
+    styleUrls: ['./video-player.component.scss'],
+    standalone: false
 })
 export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   @Input() videoTitle!: string; // تعيين عنوان الفيديو

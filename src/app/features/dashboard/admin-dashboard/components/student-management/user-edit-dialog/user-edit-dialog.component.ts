@@ -3,9 +3,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from '@/app/core/models/user.model';
 
 @Component({
-  selector: 'app-user-edit-dialog',
-  templateUrl: './user-edit-dialog.component.html',
-  styleUrls: ['./user-edit-dialog.component.scss']
+    selector: 'app-user-edit-dialog',
+    templateUrl: './user-edit-dialog.component.html',
+    styleUrls: ['./user-edit-dialog.component.scss'],
+    standalone: false
 })
 export class UserEditDialogComponent {
   constructor(

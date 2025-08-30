@@ -7,9 +7,10 @@ import { UserEditDialogComponent } from '../user-edit-dialog/user-edit-dialog.co
 
 
 @Component({
-  selector: 'app-student-management',
-  templateUrl: './student-management.component.html',
-  styleUrls: ['./student-management.component.scss']
+    selector: 'app-student-management',
+    templateUrl: './student-management.component.html',
+    styleUrls: ['./student-management.component.scss'],
+    standalone: false
 })
 export class StudentManagementComponent implements OnInit {
   users: User[] = [];

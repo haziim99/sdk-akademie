@@ -15,9 +15,10 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { CloudinaryResponse } from '@/app/core/models/cloudinary-response.model';
 
 @Component({
-  selector: 'app-profile-management',
-  templateUrl: './profile-management.component.html',
-  styleUrls: ['./profile-management.component.scss']
+    selector: 'app-profile-management',
+    templateUrl: './profile-management.component.html',
+    styleUrls: ['./profile-management.component.scss'],
+    standalone: false
 })
 export class ProfileManagementComponent implements OnInit, OnDestroy {
   user$: Observable<User | null>;

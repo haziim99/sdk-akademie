@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthRoutingModule } from './auth-routing.module';
 
 // Components
 import { LoginComponent } from './components/login/login.component';
@@ -28,6 +29,7 @@ import { ToastModule } from 'primeng/toast';
     CommonModule,
     FormsModule,
     RouterModule,
+    AuthRoutingModule,
     ReactiveFormsModule,
     TranslateModule,
     PasswordModule,

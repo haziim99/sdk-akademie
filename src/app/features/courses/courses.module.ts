@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 // Components
 import { CoursesComponent } from './components/courses/courses.component';
@@ -21,7 +22,8 @@ import { CoursesRoutingModule } from './courses-routing.module';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    CoursesRoutingModule
+    CoursesRoutingModule,
+    RouterModule
   ],
   exports: [
     CoursesComponent,

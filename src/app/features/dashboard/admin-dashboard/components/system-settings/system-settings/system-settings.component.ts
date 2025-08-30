@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '@/app/core/services/notification.service';
 import { SettingsService } from '@/app/core/services/settings.service';
 @Component({
-  selector: 'app-system-settings',
-  templateUrl: './system-settings.component.html',
-  styleUrls: ['./system-settings.component.scss']
+    selector: 'app-system-settings',
+    templateUrl: './system-settings.component.html',
+    styleUrls: ['./system-settings.component.scss'],
+    standalone: false
 })
 export class SystemSettingsComponent implements OnInit {
   academyName: string = '';

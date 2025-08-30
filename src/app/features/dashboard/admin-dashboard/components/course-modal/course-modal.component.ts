@@ -6,9 +6,10 @@ import { firstValueFrom } from 'rxjs';
 import { CloudinaryService } from '@/app/core/services/cloudinary.service';
 
 @Component({
-  selector: 'app-course-modal',
-  templateUrl: './course-modal.component.html',
-  styleUrls: ['./course-modal.component.scss']
+    selector: 'app-course-modal',
+    templateUrl: './course-modal.component.html',
+    styleUrls: ['./course-modal.component.scss'],
+    standalone: false
 })
 export class CourseModalComponent {
   @Input() course: Course | null = null;

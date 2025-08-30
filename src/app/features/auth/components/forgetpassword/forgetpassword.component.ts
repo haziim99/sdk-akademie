@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-forgetpassword',
-  templateUrl: './forgetpassword.component.html',
-  styleUrls: ['./forgetpassword.component.scss']
+    selector: 'app-forgetpassword',
+    templateUrl: './forgetpassword.component.html',
+    styleUrls: ['./forgetpassword.component.scss'],
+    standalone: false
 })
 export class ForgetpasswordComponent {
   email: string = '';

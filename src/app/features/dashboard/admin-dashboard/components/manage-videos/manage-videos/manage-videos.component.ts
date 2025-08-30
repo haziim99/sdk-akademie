@@ -8,9 +8,10 @@ import { firstValueFrom } from 'rxjs';
 import videojs from 'video.js';
 
 @Component({
-  selector: 'app-manage-videos',
-  templateUrl: './manage-videos.component.html',
-  styleUrls: ['./manage-videos.component.scss']
+    selector: 'app-manage-videos',
+    templateUrl: './manage-videos.component.html',
+    styleUrls: ['./manage-videos.component.scss'],
+    standalone: false
 })
 export class ManageVideosComponent implements OnInit {
   course: Course | undefined;

@@ -11,9 +11,10 @@ import { firstValueFrom } from 'rxjs';
 
 
 @Component({
-  selector: 'app-course-overview',
-  templateUrl: './course-overview.component.html',
-  styleUrls: ['./course-overview.component.scss']
+    selector: 'app-course-overview',
+    templateUrl: './course-overview.component.html',
+    styleUrls: ['./course-overview.component.scss'],
+    standalone: false
 })
 export class CourseOverviewComponent implements OnInit, AfterViewInit {
   course: Course | undefined;

@@ -5,9 +5,10 @@ import { Router } from '@angular/router';
 import { Timestamp } from 'firebase/firestore';
 
 @Component({
-  selector: 'app-support',
-  templateUrl: './support.component.html',
-  styleUrls: ['./support.component.scss'],
+    selector: 'app-support',
+    templateUrl: './support.component.html',
+    styleUrls: ['./support.component.scss'],
+    standalone: false
 })
 export class SupportComponent implements OnInit {
   @Input() status!: 'open' | 'closed';

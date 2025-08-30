@@ -6,9 +6,10 @@ import { CoursesService } from '../../../../core/services/courses.service';
 import { Course } from '../../../../core/models/course.model';
 
 @Component({
-  selector: 'app-courses',
-  templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.scss']
+    selector: 'app-courses',
+    templateUrl: './courses.component.html',
+    styleUrls: ['./courses.component.scss'],
+    standalone: false
 })
 export class CoursesComponent implements OnInit {
   courses: Course[] = [];

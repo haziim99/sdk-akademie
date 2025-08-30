@@ -5,9 +5,10 @@ import { PaymentService } from '../../../../../core/services/payment.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-payment-method',
-  templateUrl: './payment-method.component.html',
-  styleUrls: ['./payment-method.component.scss']
+    selector: 'app-payment-method',
+    templateUrl: './payment-method.component.html',
+    styleUrls: ['./payment-method.component.scss'],
+    standalone: false
 })
 export class PaymentMethodComponent implements OnInit {
   redirectTo: string | null = null;

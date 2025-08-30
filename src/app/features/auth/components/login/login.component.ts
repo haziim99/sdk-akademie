@@ -6,13 +6,14 @@ import { MessageService } from 'primeng/api';
 import { CoreModule } from '../../../../core/core.module';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  providers: [
-    MessageService,
-    CoreModule
-  ]
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    providers: [
+        MessageService,
+        CoreModule
+    ],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
   redirectTo: string | null = null;

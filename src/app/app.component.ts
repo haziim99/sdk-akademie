@@ -14,9 +14,10 @@ import { User } from './core/models/user.model';
 gsap.registerPlugin(ScrollToPlugin);
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit {
   courses: Course[] = [];

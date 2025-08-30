@@ -4,9 +4,10 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables); // تسجيل جميع المكونات
 
 @Component({
-  selector: 'app-stats-overview',
-  templateUrl: './stats-overview.component.html',
-  styleUrls: ['./stats-overview.component.scss']
+    selector: 'app-stats-overview',
+    templateUrl: './stats-overview.component.html',
+    styleUrls: ['./stats-overview.component.scss'],
+    standalone: false
 })
 export class StatsOverviewComponent implements AfterViewInit {
   totalCourses = 50;
