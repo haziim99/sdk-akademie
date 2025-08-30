@@ -22,47 +22,22 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "statsJson": true,
-            "allowedCommonJsDependencies": [
-            "busboy",
-            "gsap",
-            "undici",
-            "@grpc/grpc-js",
-            "@grpc/proto-loader",
-            "jquery",
-            "video.js",
-            "global/window",
-            "global/document",
-            "@videojs/xhr",
-            "videojs-vtt.js",
-            "@babel/runtime/helpers/extends",
-            "mux.js/lib/tools/parse-sidx",
-            "mux.js/lib/utils/clock",
-            "@xmldom/xmldom"
-          ],
-            "outputPath": "dist/sdk-akademie",
+            "outputPath": "dist/sdk-akademie/browser",
             "index": "src/index.html",
-            "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js",
-              "@angular/localize/init"
-            ],
+            "main": "src/main.ts",
+            "polyfills": ["zone.js", "@angular/localize/init"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "/assets"
-              }
+              { "glob": "**/*", "input": "src/assets", "output": "/assets" }
             ],
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/assets/css/output.css",              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/css/output.css",
               "node_modules/slick-carousel/slick/slick.css",
               "node_modules/slick-carousel/slick/slick-theme.css",
               "node_modules/swiper/swiper-bundle.min.css",
@@ -72,7 +47,6 @@
               "node_modules/animate.css/animate.min.css",
               "node_modules/@splidejs/splide/dist/css/splide.min.css",
               "node_modules/video.js/dist/video-js.css"
-
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
@@ -80,51 +54,40 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/@splidejs/splide/dist/js/splide.min.js",
               "node_modules/video.js/dist/video.js"
-            ],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            ]
           },
           "configurations": {
             "production": {
+              "outputHashing": "all",
               "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "6mb",
-                  "maximumError": "10mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2mb",
-                  "maximumError": "4mb"
-                }
-              ],
-              "outputHashing": "all"
+                { "type": "initial", "maximumWarning": "6mb", "maximumError": "10mb" },
+                { "type": "anyComponentStyle", "maximumWarning": "2mb", "maximumError": "4mb" }
+              ]
             },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
+            "development": { "optimization": false, "extractLicenses": false, "sourceMap": true }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "proxyConfig": "proxy.conf.json"
-          },
+          "options": { "proxyConfig": "proxy.conf.json" },
           "configurations": {
-            "production": {
-              "buildTarget": "sdk-akademie:build:production"
-            },
-            "development": {
-              "buildTarget": "sdk-akademie:build:development"
-            }
+            "production": { "browserTarget": "sdk-akademie:build:production" },
+            "development": { "browserTarget": "sdk-akademie:build:development" }
           },
           "defaultConfiguration": "development"
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/sdk-akademie/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": { "outputHashing": "media" }
+          },
+          "defaultConfiguration": "production"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
@@ -132,29 +95,15 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing",
-              "@angular/localize/init"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing", "@angular/localize/init"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-                {
-                  "glob": "**/*",
-                  "input": "public",
-                  "output": "./"
-                }
-              ],
-            "styles": [
-              "@angular/material/prebuilt-themes/azure-blue.css"
-            ]
+            "assets": [{ "glob": "**/*", "input": "public", "output": "./" }],
+            "styles": ["@angular/material/prebuilt-themes/azure-blue.css"]
           }
         }
       }
     }
   },
-  "cli": {
-    "analytics": "051300bf-015a-4df8-b979-155cb244fa57"
-  }
+  "cli": { "analytics": "051300bf-015a-4df8-b979-155cb244fa57" }
 }
