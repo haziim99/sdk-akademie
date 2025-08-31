@@ -5,7 +5,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  
+
   // Lazy loaded feature modules
   {
     path: 'home',
@@ -33,10 +33,10 @@ export const routes: Routes = [
     path: 'contact',
     loadChildren: () => import('./features/contact/contact.module').then(m => m.ContactModule)
   },
-  
+
   // Static routes
   { path: 'about', component: AboutComponent },
-  
+
   { path: '**', redirectTo: 'home' }
 ];
 

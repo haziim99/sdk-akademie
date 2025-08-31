@@ -20,10 +20,10 @@
 
   <div class="header-actions">
     <div *ngIf="!isLoggedIn" class="auth-icons">
-      <a routerLink="/register" title="{{ 'REGISTER' | translate }}">
+      <a routerLink="/auth/register" title="{{ 'REGISTER' | translate }}">
         <i class="fas fa-user-plus"></i>
       </a>
-      <a routerLink="/login" title="{{ 'LOGIN' | translate }}">
+      <a routerLink="/auth/login" title="{{ 'LOGIN' | translate }}">
         <i class="fas fa-sign-in-alt"></i>
       </a>
     </div>

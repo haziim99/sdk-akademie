@@ -6,6 +6,7 @@ import { PaymentMethodComponent } from './components/payment-method/payment-meth
 import { AuthGuard } from '@/app/core/guards/auth.guard';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'profile', pathMatch: 'full' },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'payment-method', component: PaymentMethodComponent, canActivate: [AuthGuard] }
 ];

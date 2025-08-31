@@ -24,7 +24,7 @@ export class RegisterComponent {
   ) { }
 
   navigateToLogin(): void {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 
   onSubmit(): void {
@@ -49,7 +49,7 @@ export class RegisterComponent {
                     text: 'You have successfully registered!',
                     confirmButtonColor: '#ff6600'
                 }).then(() => {
-                    this.router.navigate(['/login']);
+                    this.router.navigate(['/auth/login']);
                 });
             } else {
                 Swal.fire({

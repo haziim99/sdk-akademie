@@ -15,7 +15,7 @@ import { PaymentMethodComponent } from './components/payment-method/payment-meth
 @NgModule({
   declarations: [
     ProfileComponent,
-    PaymentMethodComponent,
+    PaymentMethodComponent
   ],
   imports: [
     CommonModule,
