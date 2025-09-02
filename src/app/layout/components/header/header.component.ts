@@ -33,9 +33,6 @@ export class HeaderComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
-  /**
-   * Initialize component state
-   */
   ngOnInit(): void {
     const storedUser = this.authService.getCurrentUser();
 
@@ -47,7 +44,6 @@ export class HeaderComponent implements OnInit {
       this.profilePictureUrl = 'assets/images/default-profile.jpg';
     }
 
-    // Listen for user changes
     this.subscriptions.add(
       this.authService.currentUser.subscribe(user => {
         if (user) {
@@ -61,16 +57,10 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  /**
-   * Cleanup subscriptions
-   */
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  /**
-   * Load user profile data
-   */
   async loadUserProfile(): Promise<void> {
     const userData = this.authService.getCurrentUser();
 
@@ -78,7 +68,6 @@ export class HeaderComponent implements OnInit {
       this.user = userData;
       this.profilePictureUrl = userData.profilePicture || '';
       this.isLoggedIn = true;
-
       console.log('User data loaded:', userData);
     } else {
       this.isLoggedIn = false;
@@ -86,18 +75,12 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  /**
-   * Handle user logout
-   */
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
     this.isLoggedIn = false;
   }
 
-  /**
-   * Sidebar control
-   */
   toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen;
     console.log('Sidebar toggled:', this.isSidebarOpen);
@@ -112,9 +95,6 @@ export class HeaderComponent implements OnInit {
     this.isSidebarOpen = false;
   }
 
-  /**
-   * Language switching
-   */
   changeLanguage(lang: string): void {
     this.translate.use(lang);
     this.currentLang = lang;
@@ -125,17 +105,10 @@ export class HeaderComponent implements OnInit {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  /**
-   * Navigation to user profile or admin dashboard
-   */
   goToProfile(): void {
     if (this.isLoggedIn) {
       this.authService.isAdmin().subscribe((isAdmin: boolean) => {
-<<<<<<< HEAD
-        const targetRoute = isAdmin ? '/admin' : '/user';
-=======
         const targetRoute = isAdmin ? '/admin' : '/user/profile';
->>>>>>> optimized-architecture
         this.router.navigate([targetRoute]);
       });
     } else {
@@ -144,15 +117,11 @@ export class HeaderComponent implements OnInit {
     this.closeSidebar();
   }
 
-  /*** Menu control */
   openMenu(event: Event): void {
     event.stopPropagation();
     this.menuOpen = !this.menuOpen;
   }
 
-  /**
-   * Update user profile picture
-   */
   updateProfilePicture(newProfilePictureUrl: string): void {
     this.authService.updateProfilePicture(newProfilePictureUrl).subscribe({
       next: () => {
@@ -166,9 +135,6 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  /**
-   * Delete profile picture (reset to default)
-   */
   deleteProfilePic(): void {
     this.userProfileImage = 'assets/images/default-profile.jpg';
     this.profilePictureUrl = 'assets/images/default-profile.jpg';

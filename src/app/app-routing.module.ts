@@ -5,18 +5,13 @@ import { AboutComponent } from './layout/components/about/about.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-<<<<<<< HEAD
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-
-  // Lazy loaded feature modules
-=======
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
   },
 
->>>>>>> optimized-architecture
+  // Lazy loaded feature modules
   {
     path: 'home',
     loadChildren: () =>
@@ -55,11 +50,6 @@ export const routes: Routes = [
   },
 
   // Static routes
-<<<<<<< HEAD
-  { path: 'about', component: AboutComponent },
-
-  { path: '**', redirectTo: 'home' }
-=======
   {
     path: 'about',
     component: AboutComponent,
@@ -70,15 +60,10 @@ export const routes: Routes = [
     path: '**',
     redirectTo: 'home',
   },
->>>>>>> optimized-architecture
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-<<<<<<< HEAD
-export class AppRoutingModule { }
-=======
 export class AppRoutingModule {}
->>>>>>> optimized-architecture

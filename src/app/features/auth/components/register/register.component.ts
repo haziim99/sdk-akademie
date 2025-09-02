@@ -24,14 +24,8 @@ export class RegisterComponent {
   ) { }
 
   navigateToLogin(): void {
-<<<<<<< HEAD
     this.router.navigate(['/auth/login']);
   }
-=======
-  this.router.navigate(['/auth/login']);
-}
-
->>>>>>> optimized-architecture
 
   onSubmit(): void {
     const newUser = {
@@ -43,7 +37,6 @@ export class RegisterComponent {
         gender: this.gender,
         level: undefined
     };
-
 
     this.authService.register(newUser).subscribe({
         next: (response) => {
