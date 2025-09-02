@@ -225,7 +225,7 @@ export class AuthService {
   }
 
   navigateBack() {
-    this.router.navigate(['/admin-dashboard']);
+    this.router.navigate(['/admin']);
   }
 
   addUser(data: Partial<User>): Promise<void> {

@@ -32,7 +32,7 @@ export class SupportComponent implements OnInit {
   }
 
   navigateToAdminDashboard() {
-    this.router.navigate(['/admin-dashboard']);
+    this.router.navigate(['/admin']);
   }
 
   loadAllTicketsForAdmin(): void {
@@ -191,6 +191,6 @@ export class SupportComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/admin-dashboard']);
+    this.router.navigate(['/admin']);
   }
 }

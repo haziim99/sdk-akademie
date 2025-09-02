@@ -1,0 +1,12 @@
+{
+  "course-1": {
+    "lectures": [
+      {
+        "id": "lecture-1",
+        "title": "Introduction to Angular",
+        "duration": "30 minutes",
+        "videoUrl": "sample-video.mp4"
+      }
+    ]
+  }
+}

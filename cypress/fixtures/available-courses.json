@@ -1,0 +1,18 @@
+[
+  {
+    "id": "course-1",
+    "title": "Angular Fundamentals",
+    "description": "Learn Angular from scratch",
+    "price": 99,
+    "duration": "10 hours",
+    "level": "beginner"
+  },
+  {
+    "id": "course-2",
+    "title": "Advanced Firebase",
+    "description": "Master Firebase integration",
+    "price": 149,
+    "duration": "15 hours",
+    "level": "advanced"
+  }
+]

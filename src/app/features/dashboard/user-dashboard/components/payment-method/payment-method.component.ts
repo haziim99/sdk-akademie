@@ -65,7 +65,7 @@ export class PaymentMethodComponent implements OnInit {
                     timer: 2000,
                     timerProgressBar: true,
                     didClose: () => {
-                      this.router.navigate(['/profile'], { queryParams: { refresh: new Date().getTime() } }); // Redirect to profile with refresh flag
+                      this.router.navigate(['/user/profile'], { queryParams: { refresh: new Date().getTime() } }); // Redirect to profile with refresh flag
                     }
                   });
                 },
