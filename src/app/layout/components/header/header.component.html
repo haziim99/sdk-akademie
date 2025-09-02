@@ -19,6 +19,7 @@
   </nav>
 
   <div class="header-actions">
+    <!-- Authentication icons for non-logged-in users -->
     <div *ngIf="!isLoggedIn" class="auth-icons">
       <a routerLink="/auth/register" title="{{ 'REGISTER' | translate }}">
         <i class="fas fa-user-plus"></i>
@@ -28,8 +29,10 @@
       </a>
     </div>
 
+    <!-- User profile for logged-in users -->
     <div *ngIf="isLoggedIn" class="user-profile">
-      <a routerLink="/" class="logo-link" (click)="goToProfile()" (touchstart)="goToProfile()">
+      <!-- FIXED: Removed routerLink and used only click event -->
+      <a (click)="goToProfile()" (touchstart)="goToProfile()" style="cursor: pointer;">
         <i *ngIf="!profilePictureUrl || profilePictureUrl === 'assets/images/default-profile.jpg'" class="fas fa-user-circle"></i>
         <img *ngIf="profilePictureUrl && profilePictureUrl !== 'assets/images/default-profile.jpg'" [src]="profilePictureUrl" alt="User Profile Picture" class="user-profile-image">
       </a>
@@ -45,6 +48,6 @@
       <li><a (click)="navigateAndCloseSidebar('/courses')">{{ 'COURSES' | translate }}</a></li>
       <li><a (click)="navigateAndCloseSidebar('/about')">{{ 'ABOUT' | translate }}</a></li>
       <li><a (click)="navigateAndCloseSidebar('/contact')">{{ 'CONTACT' | translate }}</a></li>
-  </ul>
+    </ul>
   </nav>
 </div>

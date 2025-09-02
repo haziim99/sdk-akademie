@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   this.authService.login(email, password).subscribe({
     next: (res) => {
       if (res.success) {
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/user/profile']);
       } else {
         console.error('Login failed');
       }

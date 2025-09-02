@@ -81,11 +81,11 @@ export class LoginComponent implements OnInit {
   private getRedirectUrl(role: string): string {
     switch (role) {
       case 'admin':
-        return '/admin-dashboard';
+        return '/admin';
       case 'user':
-        return '/profile';
+        return '/user/profile';
       default:
-        return '/';
+        return '/home';
     }
   }
 

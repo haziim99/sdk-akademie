@@ -131,7 +131,11 @@ export class HeaderComponent implements OnInit {
   goToProfile(): void {
     if (this.isLoggedIn) {
       this.authService.isAdmin().subscribe((isAdmin: boolean) => {
+<<<<<<< HEAD
         const targetRoute = isAdmin ? '/admin' : '/user';
+=======
+        const targetRoute = isAdmin ? '/admin' : '/user/profile';
+>>>>>>> optimized-architecture
         this.router.navigate([targetRoute]);
       });
     } else {

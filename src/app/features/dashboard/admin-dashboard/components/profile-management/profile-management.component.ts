@@ -263,6 +263,6 @@ export class ProfileManagementComponent implements OnInit, OnDestroy {
   }
 
   navigateBack(): void {
-    this.router.navigate(['/admin-dashboard']); // تأكد من تعديل المسار حسب الحاجة
+    this.router.navigate(['/admin']); // تأكد من تعديل المسار حسب الحاجة
   }
 }

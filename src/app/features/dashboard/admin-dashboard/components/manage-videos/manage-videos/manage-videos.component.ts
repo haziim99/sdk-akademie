@@ -174,7 +174,7 @@ export class ManageVideosComponent implements OnInit {
 
 
   goBack(): void {
-    this.router.navigate(['/admin-dashboard']);
+    this.router.navigate(['/admin']);
   }
 
   selectFile() {

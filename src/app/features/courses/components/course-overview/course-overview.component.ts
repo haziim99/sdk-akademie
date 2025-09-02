@@ -106,7 +106,7 @@ export class CourseOverviewComponent implements OnInit, AfterViewInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/user/profile']);
   }
 
   enrollNow(): void {

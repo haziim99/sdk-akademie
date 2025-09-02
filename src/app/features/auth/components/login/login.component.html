@@ -6,16 +6,16 @@
         <div class="p-field">
           <span class="p-input-icon-left">
             <i class="pi pi-envelope"></i>
-            <input id="email" type="email" pInputText [(ngModel)]="email" name="email" required email #emailInput="ngModel" placeholder="Email Address">
+            <input data-cy="login-email" id="email" type="email" pInputText [(ngModel)]="email" name="email" required email #emailInput="ngModel" placeholder="Email Address">
           </span>
-          <small class="p-error" *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+          <small data-cy="error-message" class="p-error" *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
             Please enter a valid email address.
           </small>
         </div>
         <div class="p-field">
           <span class="p-input-icon-left">
             <i class="pi pi-lock"></i>
-            <p-password id="password" [(ngModel)]="password" name="password" [toggleMask]="true" required #passwordInput="ngModel" [feedback]="false" placeholder="Password"></p-password>
+            <p-password data-cy="login-password" id="password" [(ngModel)]="password" name="password" [toggleMask]="true" required #passwordInput="ngModel" [feedback]="false" placeholder="Password"></p-password>
           </span>
           <small class="p-error" *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
             Password is required.
@@ -25,7 +25,7 @@
           <p-checkbox [(ngModel)]="rememberMe" [binary]="true" inputId="rememberMe" name="rememberMe"></p-checkbox>
           <label for="rememberMe">Remember me</label>
         </div>
-        <button pButton type="submit" label="Log In" [loading]="isLoading" [disabled]="loginForm.form.invalid" class="p-button-raised p-button-rounded"></button>
+        <button data-cy="login-submit" pButton type="submit" label="Log In" [loading]="isLoading" [disabled]="loginForm.form.invalid" class="p-button-raised p-button-rounded"></button>
       </div>
     </form>
     <div class="login-footer animate__animated animate__fadeIn animate__delay-2s">

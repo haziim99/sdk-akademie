@@ -24,8 +24,14 @@ export class RegisterComponent {
   ) { }
 
   navigateToLogin(): void {
+<<<<<<< HEAD
     this.router.navigate(['/auth/login']);
   }
+=======
+  this.router.navigate(['/auth/login']);
+}
+
+>>>>>>> optimized-architecture
 
   onSubmit(): void {
     const newUser = {
@@ -35,10 +41,9 @@ export class RegisterComponent {
         phone: this.phone,
         password: this.password,
         gender: this.gender,
-        level: undefined // Specify level if needed
+        level: undefined
     };
 
-    console.log('Attempting to register user:', newUser); // إضافة نقطة تسجيل دخول
 
     this.authService.register(newUser).subscribe({
         next: (response) => {
@@ -61,7 +66,7 @@ export class RegisterComponent {
             }
         },
         error: (error) => {
-            console.error('Registration error:', error); // إضافة نقطة تسجيل دخول
+            console.error('Registration error:', error);
             Swal.fire({
                 icon: 'error',
                 title: 'Registration Failed',
@@ -71,5 +76,4 @@ export class RegisterComponent {
         }
     });
 }
-
 }

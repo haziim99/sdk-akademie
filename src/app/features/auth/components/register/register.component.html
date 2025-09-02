@@ -47,7 +47,7 @@
         </div>
         <button type="submit" class="button button-block" [disabled]="!registerForm.form.valid">Create Account</button>
       </form>
-      <p class="login-link animate__animated animate__fadeIn animate__delay-2s">Already have an account? <a href="#" (click)="navigateToLogin()">Log In</a></p>
+      <p class="login-link animate__animated animate__fadeIn animate__delay-2s">Already have an account? <a routerLink="/auth/login">Log In</a></p>
     </div>
   </div>
 </div>
