@@ -1,138 +1,271 @@
-/* Contact Section */
+/* Contact Section - Modern Design */
 .contact {
-  font-family: 'Titillium Web', sans-serif; /* خط النص */
+  font-family: 'Titillium Web', sans-serif;
   text-align: center;
-  padding: 80px 20px;
+  padding: 100px 20px;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+
+  /* Animated background elements */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 70%, rgba(255, 111, 97, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(213, 180, 255, 0.08) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  h2 {
+    position: relative;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0 0 70px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: inline-block;
+    background: linear-gradient(90deg, #ff6f61, #d5b4ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+    z-index: 2;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(255, 0, 0, 0) 100%);
+      transform: translate(-50%, -50%);
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+      text-shadow: 0 8px 20px rgba(255, 255, 255, 0.8);
+    }
+  }
 }
 
-.contact h2 {
-  position: relative;
-  font-size: 3rem;
-  font-weight: 700;
-  margin: 0 0 70px 0;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  display: inline-block;
-  background: linear-gradient(90deg, #ff6f61, #d5b4ff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease, text-shadow 0.3s ease;
-}
-
-.contact h2::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 50%;
-  background: radial-gradient(circle, rgb(255, 255, 255) 0%, rgba(255, 0, 0, 0) 100%);
-  transform: translate(-50%, -50%);
-  opacity: 0.5;
-  z-index: -1;
-}
-
-.contact h2:hover {
-  transform: scale(1.1);
-  text-shadow: 0 8px 20px rgb(255, 255, 255);
-}
-
-.styled-button {
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  background: linear-gradient(90deg, #ff6e6100, #d5b4ff);
-  cursor: pointer;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-  position: relative;
-}
-
-.styled-button::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 0, 0, 0) 100%);
-  transform: translate(-50%, -50%);
-  opacity: 0.5;
-  z-index: -1;
-}
-
-.styled-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
-  border: 2px solid #5d161000;
-}
-
+/* Form Container */
 form {
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
   text-align: left;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 50px 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  z-index: 2;
+
+  /* Form Fields */
+  label {
+    display: block;
+    margin: 25px 0 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid #e1e5e9;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: #ff6f61;
+      background: rgba(255, 255, 255, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 111, 97, 0.15);
+    }
+
+    &::placeholder {
+      color: #999;
+      transition: opacity 0.3s ease;
+    }
+
+    &:focus::placeholder {
+      opacity: 0.7;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+  }
+
+  /* Custom Select Styling */
+  select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 20px;
+    padding-right: 50px;
+  }
 }
 
-form label {
-  display: block;
-  margin: 10px 0 5px;
-  font-weight: bold;
-}
-
-form input, form select, form textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 20px;
+/* Modern Button */
+.styled-button {
   font-size: 1rem;
-  box-sizing: border-box;
-}
-
-form textarea {
-  resize: vertical;
-  min-height: 150px;
-}
-
-form button {
-  background-color: #7f3300;
+  font-weight: 600;
   color: #fff;
-  padding: 15px 30px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 16px 40px;
   border: none;
-  border-radius: 5px;
-  font-weight: bold;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #ff6f61 0%, #d5b4ff 100%);
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  margin: 20px auto;
+  display: block;
+  box-shadow: 0 10px 30px rgba(255, 111, 97, 0.3);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  &:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(255, 111, 97, 0.4);
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px) scale(1.02);
+  }
 }
 
-form button:hover {
-  background-color: #cc5200;
-  transform: scale(1.05);
-}
-
+/* Contact Info */
 .contact-info {
   text-align: center;
-  margin-top: 30px;
-  font-family: 'Titillium Web', sans-serif; /* خط النص */
+  margin-top: 60px;
+  font-family: 'Titillium Web', sans-serif;
+  position: relative;
+  z-index: 2;
+
+  p {
+    margin: 20px 0;
+    font-size: 1.2rem;
+    color: #333;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    display: inline-block;
+    min-width: 280px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    &:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    i {
+      color: #ff6f61;
+      margin-right: 12px;
+      font-size: 1.3rem;
+      width: 20px;
+      text-align: center;
+    }
+  }
+
+  #address-link {
+    cursor: pointer;
+
+    &:hover i {
+      color: #d5b4ff;
+      transform: scale(1.1);
+      transition: all 0.3s ease;
+    }
+  }
 }
 
-.contact-info p {
-  margin: 5px 0;
-  font-size: 1.1rem;
-  color: #333;
+/* Floating Animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(1deg); }
+  50% { transform: translateY(-5px) rotate(-1deg); }
+  75% { transform: translateY(-15px) rotate(0.5deg); }
 }
 
-.contact-info p i {
-  color: #281000;
-  margin-right: 10px;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contact {
+    padding: 80px 15px;
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+    }
+  }
+
+  form {
+    padding: 40px 25px;
+    margin: 0 15px;
+
+    input, select, textarea {
+      padding: 14px 18px;
+      font-size: 0.95rem;
+    }
+
+    label {
+      font-size: 1rem;
+      margin: 20px 0 6px;
+    }
+  }
+
+  .styled-button {
+    padding: 14px 30px;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .contact-info p {
+    font-size: 1.1rem;
+    min-width: 250px;
+    padding: 12px 16px;
+    margin: 15px 0;
+  }
 }

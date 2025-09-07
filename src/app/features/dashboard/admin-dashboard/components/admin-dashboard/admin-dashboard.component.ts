@@ -198,7 +198,7 @@ export class AdminDashboardComponent implements OnInit {
 
   /** Navigate to video management page */
   openVideoManagement(courseId: string) {
-    this.router.navigate(['/manage-videos', courseId]);
+    this.router.navigate(['/admin/manage-videos', courseId]);
   }
 
   /** Close modal */

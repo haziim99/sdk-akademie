@@ -10,11 +10,12 @@ export interface Course {
   price: number;
   instructor: string;
   imageUrl: string;
-  imageFile?: File | null; // إضافة هذا السطر لتخزين ملف الصورة
+  imageFile?: File | null;
   videos: { title: string; url: string }[];
   videoUrl: string;
-  level?: 'beginner' | 'intermediate' | 'advanced'; // إضافة مستوى الفئة
+  level?: 'beginner' | 'intermediate' | 'advanced';
 }
+
 
 
 export interface Lecture {
@@ -25,4 +26,12 @@ export interface Lecture {
 export interface CourseLectures {
   courseTitle: string;
   lectures: Lecture[];
+}
+
+export interface Instructor {
+  name: string;
+  picture: string;
+  position: string;
+  bio: string;
+  specialties: string[];
 }

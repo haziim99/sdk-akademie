@@ -1,19 +1,9 @@
-
-/* General Styles */
 html, body {
   height: 100%;
   width: 100%;
-  background-color: #d3dce6;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   font-family: 'Titillium Web', sans-serif;
   margin: 0;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative; /* Added for positioning */
-
 }
 
 .overlay {
@@ -25,300 +15,271 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
   z-index: 9999;
-  font-family: 'Edu AU VIC WANT Hand', sans-serif;
-}
 
-.level-selection {
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  text-align: center;
+  .level-selection {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 3rem;
+    text-align: center;
 
-  h3 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: #720218;
-    font-family: 'Titillium Web', sans-serif;
+    h3 {
+      font-size: 2rem;
+      font-weight: 500;
+      color: #230400;
+      margin: 0 0 2rem 0;
+      position: relative;
+      padding-bottom: 1rem;
+      font-family: 'Titillium Web', sans-serif;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(45deg, #ff6e61, #d5b4ff);
+        border-radius: 3px;
+      }
     }
 
-  .buttons {
-    display: flex;
-    gap: 1rem;
-    font-family: 'Titillium Web', sans-serif;
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
 
+      button {
+        background: linear-gradient(135deg, #ff6e61 0%, #d5b4ff 100%);
+        color: #230400;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 15px rgba(255, 110, 97, 0.3);
 
-    button {
-      background-color: linear-gradient(45deg, #ff1500, #d5b4ff);
-      color: black;
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1.2rem;
-      transition: background 0.3s ease;
-
-      &:hover {
-        background-color: #130153;
-        color: #e0e0e0;
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(255, 110, 97, 0.4);
+        }
       }
     }
   }
 }
 
-.view-all-courses {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-
-  .custom-button {
-    background: linear-gradient(90deg, #ff6e61, #d5b4ff);
-    color: #ffffff;
-    border: none;
-    padding: 1rem 2rem;
-    margin-top: 3rem;
-    border-radius: 50px; /* شكل دائري */
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center; /* توسيط الأيقونة والنص */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-
-    i {
-      margin-right: 0.5rem; /* مسافة بين الأيقونة والنص */
-      font-size: 1.5rem; /* حجم الأيقونة */
-    }
-
-    &:hover {
-      transform: translateY(-3px); /* تأثير رفع عند التحويم */
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* زيادة الظل عند التحويم */
-    }
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(255, 99, 71, 0.5); /* حلقة تركيز */
-    }
-  }
-}
-
-.courses.blur {
-  filter: blur(5px);
-  pointer-events: none;
-}
-
 .courses {
   font-family: 'Titillium Web', sans-serif;
-  padding: 60px 20px;
-  background-color: #f4f4f9;
-  text-align: center;
-  width: 80%;
-  margin: auto;
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
   position: relative;
 
+  &.blur {
+    filter: blur(5px);
+    pointer-events: none;
+  }
+
   h2 {
-    font-family: 'Titillium Web', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #230400;
+    text-align: center;
+    margin: 0 0 3rem 0;
     position: relative;
-    font-size: 3rem; /* Large font size for impact */
-    font-weight: 700; /* Bold text */
-    margin: 0 0 70px 0;
-    padding: 0;
-    color: #fff; /* White text color */
-    text-transform: uppercase; /* Uppercase text for emphasis */
-    letter-spacing: 2px; /* Increased letter spacing for modern look */
-    display: inline-block;
-    background: linear-gradient(90deg, #ff6f61, #d5b4ff); /* Gradient background */
-    -webkit-background-clip: text; /* Clip the background gradient to the text */
-    background-clip: text;
-    color: transparent; /* Hide the original text color */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-    transition: transform 0.3s ease, text-shadow 0.3s ease;
-  }
+    padding-bottom: 1rem;
 
-  h2::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 50%;
-    background: radial-gradient(circle, rgb(255, 255, 255) 0%, rgba(255, 0, 0, 0) 100%);
-    transform: translate(-50%, -50%);
-    opacity: 0.5;
-    z-index: -1;
-  }
-
-  h2:hover {
-    transform: scale(1.1); /* Slightly enlarge on hover */
-    text-shadow: 0 8px 20px rgba(255, 255, 255, 0); /* Enhanced shadow on hover */
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(45deg, #ff6e61, #d5b4ff);
+      border-radius: 3px;
+    }
   }
 
   .tabs {
     display: flex;
     justify-content: center;
-    margin-bottom: 2rem;
+    gap: 1rem;
+    margin-bottom: 3rem;
 
     button {
-      background: #ffffff;
-      border: 2px solid #ffffff;
-      color: #4a90e2;
-      padding: 0.5rem 1rem;
-      margin: 0 0.5rem;
-      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      color: rgba(35, 4, 0, 0.8);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 25px;
+      padding: 0.8rem 2rem;
+      font-weight: 600;
       cursor: pointer;
-      border-radius: 8px;
-      transition: background 0.3s ease, color 0.3s ease;
-
-      &.active {
-        background: linear-gradient(45deg, #ff6e6180, #d5b4ff);
-        color: #ffffff;
-      }
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
       &:hover {
-        background: #f0f0f0;
-        border-color: #ffa1e8b5;
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-2px);
+      }
+
+      &.active {
+        background: linear-gradient(135deg, #ff6e61 0%, #d5b4ff 100%);
+        color: #230400;
+        box-shadow: 0 4px 15px rgba(255, 110, 97, 0.3);
       }
     }
   }
 
   .course-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    justify-items: center;
-
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
 
     .course {
-      background: #ffffff;
-      border: 1px solid #e0e0e0;
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
       overflow: hidden;
-      width: 100%;
-      max-width: 350px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      padding: 1rem;
-      position: relative; /* Added for positioning */
-      font-family: 'Titillium Web', sans-serif;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-
-    }
-
-    .course-top {
-      animation: fadeInUp 1s ease-out;
-    }
-
-    .course-bottom {
-      animation: fadeInUp 1s ease-out 0.3s;
-    }
-
-    .course:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .course-image {
-      width: 100%;
-      height: 200px;
-      position: relative;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-bottom: 2px solid #e0e0e0;
+      &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
       }
-    }
 
-    .course-details {
-      padding: 1rem;
+      .course-image {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
 
-      h4 {
-        font-size: 1.5rem;
-        color: #333;
-        margin-bottom: 0.5rem;
-        font-family: 'Titillium Web', sans-serif;
-        i {
-          color: #1f0058; /* لون الأيقونة للكورسات المسجلة */
-          margin-right: 0.5rem; /* مسافة بين الأيقونة والنص */
-          font-size: 1.5rem; /* حجم الأيقونة */
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        &:hover img {
+          transform: scale(1.1);
         }
       }
 
+      .course-details {
+        padding: 1.5rem;
 
-      p {
-        color: #666;
-        margin-bottom: 0.5rem;
+        h4 {
+          font-size: 1.3rem;
+          font-weight: 700;
+          color: #230400;
+          margin: 0 0 1rem 0;
+          display: flex;
+          align-items: center;
 
-        &.price {
-          font-weight: bold;
-          color: #1f0058;
+          i {
+            color: #ff6e61;
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+          }
+        }
+
+        p {
+          font-size: 0.95rem;
+          color: rgba(35, 4, 0, 0.7);
+          margin-bottom: 0.8rem;
+          line-height: 1.5;
+
+          &.price {
+            font-weight: 700;
+            color: #ff6e61;
+            font-size: 1.2rem;
+          }
+        }
+
+        .course-actions {
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          justify-content: space-between;
+
+          .details-link,
+          .add-to-cart,
+          .contact-us {
+            background: linear-gradient(135deg, #ff6e61 0%, #d5b4ff 100%);
+            color: #230400;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+
+            i {
+              font-size: 1rem;
+            }
+
+            &:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 6px 15px rgba(255, 110, 97, 0.3);
+            }
+          }
         }
       }
     }
+  }
 
-    .course-actions {
+  .view-all-courses {
+    display: flex;
+    justify-content: center;
+
+    .custom-button {
+      background: linear-gradient(135deg, #ff6e61 0%, #d5b4ff 100%);
+      color: #230400;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(255, 110, 97, 0.3);
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 0.5rem;
 
-      .details-link,
-      .add-to-cart,
-      .contact-us {
-        color: rgb(0, 62, 91);
-        background: white;
-        border: 2px solid #ffffff;
-        padding: 0.5rem;
-        border-radius: 10px;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background 0.3s ease, color 0.3s ease;
-
-        i {
-          font-size: 1.5rem;
-        }
-
-        &:hover {
-          background: linear-gradient(45deg, #ff6e6180, #d5b4ff);
-          color: #ffffff;
-        }
-      }
-
-      .contact-us {
-        background-color: linear-gradient(45deg, #ff6e6180, #d5b4ff);
-        color: linear-gradient(45deg, #ff6e6180, #d5b4ff);
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-size: 1rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-
-        display: flex;
-        align-items: center;
-
-        i {
-          margin-right: 0.5rem;
-          font-size: 1.2rem;
-        }
-
-        &:hover {
-          background-color: linear-gradient(45deg, #ff6e6180, #d5b4ff);
-        }
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 110, 97, 0.4);
       }
     }
   }
 }
 
-/* Animation */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   100% {
     opacity: 1;
@@ -326,25 +287,46 @@ body {
   }
 }
 
-@media (max-width: 768px) {
-  .course-details {
-    padding: 15px; /* زيادة الحواف الداخلية */
-    ;
-  }
-
-  .course-details h4 {
-      font-size: 1.4em; /* زيادة حجم العنوان */
-  }
-
-  .course-details p {
-      font-size: 1em; /* تأكد من أن النص يمكن قراءته بسهولة */
-  }
-
-  .course-actions {
-      flex-direction: column; /* جعل الأزرار في عمود عند الحاجة */
-      align-items: flex-start; /* محاذاة الأزرار إلى اليسار */
-      gap: 10px; /* زيادة المسافة بين الأزرار */
-  }
+.course-top {
+  animation: fadeInUp 0.6s ease-out;
 }
 
+.course-bottom {
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
 
+@media (max-width: 768px) {
+  .courses {
+    padding: 2rem 1rem;
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    .tabs {
+      flex-direction: column;
+      align-items: center;
+
+      button {
+        width: 100%;
+        max-width: 200px;
+      }
+    }
+
+    .course-list {
+      grid-template-columns: 1fr;
+
+      .course .course-details .course-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .details-link,
+        .add-to-cart,
+        .contact-us {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

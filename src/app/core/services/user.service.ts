@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { firstValueFrom, from, Observable, of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { User, Course } from '../models/user.model';
 import { Lecture, CourseLectures } from '../models/course.model';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
@@ -52,31 +52,42 @@ export class UserService {
   }
 
   buyCourse(userId: string, courseId: string): Observable<{ success: boolean }> {
-    return this.getAvailableCourses().pipe(
-      map(courses => {
-        const course = courses.find(c => c.id === courseId);
-        const currentUser = this.getCurrentUser();
-        if (course && currentUser && currentUser.id === userId) {
-          if (!currentUser.courses) {
-            currentUser.courses = [];
-          }
-          if (!currentUser.courses.some(c => c.id === courseId)) {
-            currentUser.courses.push(course);
-            this.saveUserToStorageService(currentUser);
+  return this.firestore.collection<Course>('courses').doc(courseId).valueChanges().pipe(
+    switchMap(course => {
+      if (!course) return of({ success: false });
 
-            // Update the availableCoursesCache
-            this.availableCoursesCache = this.availableCoursesCache?.filter(c => c.id !== courseId) || [];
-            return { success: true };
-          }
+      const currentUser = this.getCurrentUser();
+      if (currentUser && currentUser.id === userId) {
+        if (!currentUser.courses) currentUser.courses = [];
+        if (!currentUser.courses.some(c => c.id === courseId)) {
+          currentUser.courses.push({ ...course, id: courseId });
+
+          // update in Firestore
+          return from(
+            this.firestore.collection('users').doc(userId).update({
+              courses: currentUser.courses
+            })
+          ).pipe(
+            map(() => {
+              this.saveUserToStorageService(currentUser);
+              return { success: true };
+            }),
+            catchError(error => {
+              console.error('Error updating Firestore with new course:', error);
+              return of({ success: false });
+            })
+          );
         }
-        return { success: false };
-      }),
-      catchError(error => {
-        console.error('Error occurred while purchasing the course:', error);
-        return of({ success: false });
-      })
-    );
-  }
+      }
+      return of({ success: false });
+    }),
+    catchError(error => {
+      console.error('Error occurred while purchasing course:', error);
+      return of({ success: false });
+    })
+  );
+}
+
 
   getAvailableCourses(): Observable<Course[]> {
     if (this.availableCoursesCache) {

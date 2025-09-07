@@ -92,7 +92,7 @@ export class CoursesComponent implements OnInit {
 
   addToCart(course: Course): void {
     if (this.isLoggedIn) {
-      this.router.navigate(['/payment-method'], { queryParams: { courseId: course.id } });
+      this.router.navigate(['/user/payment-method'], { queryParams: { courseId: course.id } });
     } else {
       Swal.fire({
         icon: 'info',
@@ -100,7 +100,12 @@ export class CoursesComponent implements OnInit {
         text: 'You need to log in to proceed to payment.',
         confirmButtonColor: '#ff5722'
       }).then(() => {
-        this.router.navigate(['/login'], { queryParams: { redirectTo: `/payment-method?courseId=${course.id}` } });
+        this.router.navigate(['/auth/login'], {
+          queryParams: {
+            redirectTo: '/user/payment-method',
+            courseId: course.id
+          }
+        });
       });
     }
   }

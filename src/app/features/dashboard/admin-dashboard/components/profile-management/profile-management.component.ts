@@ -192,7 +192,6 @@ export class ProfileManagementComponent implements OnInit, OnDestroy {
           await this.userCollection.doc(this.user.id).update({ profilePicture: this.profilePictureUrl });
           console.log('Profile picture updated in Firestore');
 
-          // تحديث في AuthService
           this.authService.updateProfilePicture(this.profilePictureUrl).subscribe({
             next: () => {
               console.log('Profile picture updated in AuthService');
@@ -263,6 +262,6 @@ export class ProfileManagementComponent implements OnInit, OnDestroy {
   }
 
   navigateBack(): void {
-    this.router.navigate(['/admin']); // تأكد من تعديل المسار حسب الحاجة
+    this.router.navigate(['/admin']);
   }
 }

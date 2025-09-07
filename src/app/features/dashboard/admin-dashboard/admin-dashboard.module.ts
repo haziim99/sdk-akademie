@@ -9,6 +9,7 @@ import { MessageService } from 'primeng/api';
 import { AdminDashboardRoutingModule } from './admin-dashboard-routing.module';
 
 // Services
+import 'videojs-hotkeys';
 
 
 // Components

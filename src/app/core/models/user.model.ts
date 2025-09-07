@@ -3,6 +3,13 @@ export interface Video {
   url: string;
 }
 
+export interface PlaylistItem {
+  title: string;
+  url: string;
+  thumbnail?: string;
+  duration?: string;
+}
+
 export interface Course {
   videoUrl: string;
   id: string;

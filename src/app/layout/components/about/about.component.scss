@@ -1,12 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
-
 $primary-color: #013a20;
 $secondary-color: #ff6f61;
 $background-color: #f9f9f9;
 $text-color: #333;
 
-// تعريف mixin للعناوين
+// Gradient title mixin
 @mixin gradient-title {
   position: relative;
   font-weight: 700;
@@ -39,6 +38,7 @@ $text-color: #333;
   }
 }
 
+// Global styles
 * {
   margin: 0;
   padding: 0;
@@ -48,6 +48,7 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+// About section
 .about {
   padding: 60px 40px;
   background-color: #f9f9f9;
@@ -58,20 +59,19 @@ body {
 
 .about h2 {
   position: relative;
-  font-size: 3rem; /* حجم الخط الكبير للتأثير */
-  font-weight: 700; /* نص عريض */
+  font-size: 3rem;
+  font-weight: 700;
   margin: 0 0 70px 0;
   padding: 0;
-  color: #fff; /* لون النص الأبيض */
-  text-transform: uppercase; /* تحويل النص إلى أحرف كبيرة */
-  letter-spacing: 2px; /* تباعد الأحرف لأسلوب عصري */
+  text-transform: uppercase;
+  letter-spacing: 2px;
   display: inline-block;
-  background: linear-gradient(90deg, #ff6f61, #d5b4ff); /* تدرج لوني في الخلفية */
-  -webkit-background-clip: text; /* قص التدرج اللوني على النص */
+  background: linear-gradient(90deg, #ff6f61, #d5b4ff);
+  -webkit-background-clip: text;
   background-clip: text;
-  color: transparent; /* إخفاء لون النص الأصلي */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* تأثير ظل للعمق */
-  transition: transform 0.3s ease, text-shadow 0.3s ease; /* تأثير التمرير */
+  color: transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
 .about h2::before {
@@ -88,136 +88,126 @@ body {
 }
 
 .about h2:hover {
-  transform: scale(1.1); /* تكبير خفيف عند التمرير */
-  text-shadow: 0 8px 20px rgba(255, 255, 255, 0.8); /* ظل نصي معزز عند التمرير */
+  transform: scale(1.1);
+  text-shadow: 0 8px 20px rgba(255, 255, 255, 0.8);
 }
 
 .about-content {
   display: flex;
-  flex-direction: column; /* لعرض العناصر في عمود */
-  align-items: center; /* محاذاة العناصر في المركز */
-  gap: 20px; /* مساحة بين العناصر */
-  width: 100%; /* اجعل العرض 100% */
-  max-width: 1200px; /* تحديد الحد الأقصى للعرض */
-  margin: 0 auto; /* محاذاة المحتوى في المنتصف */
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 
   .about-banner {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%; /* اجعل العرض 100% */
-    height: 30vh; /* ارتفاع العنصر */
-    margin: 0; /* إزالة الهوامش */
-    padding: 0 20px; /* زيادة الحدود من اليمين واليسار */
-    color: #e0e0e0; /* لون النص */
-    font-family: 'Titillium Web', sans-serif; /* خط النص */
-    text-align: center; /* محاذاة النص إلى المنتصف */
-    border-radius: 8px; /* زوايا دائرية */
+    width: 100%;
+    height: 30vh;
+    margin: 0;
+    padding: 0 20px;
+    text-align: center;
+    border-radius: 8px;
 
     &.banner-large {
-      background-image: url('/assets/images/welcome.png'); /* مسار النسبي */
-      background-size: cover; /* تجعل الصورة تغطي المساحة */
-      background-position: center; /* مركز الصورة */
-      height: 30vh; /* اجعل ارتفاع العنصر بنسبة 30% من ارتفاع نافذة العرض */
-      width: calc(100% + 40px); /* زيادة العرض قليلاً لتغطية المساحة بالكامل */
+      background-image: url('/assets/images/welcome.png');
+      background-size: cover;
+      background-position: center;
+      height: 30vh;
+      width: calc(100% + 40px);
       margin: 10px 0;
     }
     &.banner-medium {
-      background-image: url('/assets/images/tailored.jpg'); /* الصورة الثانية */
-      background-size: cover;
-      background-position: center;
-      flex: 1; /* جعل العنصر يأخذ مساحة متساوية */
-      margin: 0 10px; /* حدود بسيطة من اليمين واليسار */
-      height: 300px; /* زيّد الارتفاع */
-    }
-
-    &.banner-small {
-      background-image: url('/assets/images/join.jpg'); /* مسار النسبي */
+      background-image: url('/assets/images/tailored.jpg');
       background-size: cover;
       background-position: center;
       flex: 1;
-      height: 300px; /* زيّد الارتفاع */
+      margin: 0 10px;
+      height: 300px;
+    }
+
+    &.banner-small {
+      background-image: url('/assets/images/join.jpg');
+      background-size: cover;
+      background-position: center;
+      flex: 1;
+      height: 300px;
       margin: 0 10px;
     }
     &.banner-extra-small {
-      background-image: url('/assets/images/travel.jpeg'); /* الصورة الرابعة */
+      background-image: url('/assets/images/travel.jpeg');
       background-size: cover;
       background-position: center;
-      flex: 1; /* جعل العنصر يأخذ مساحة متساوية */
-      margin: 0 10px; /* حدود بسيطة من اليمين واليسار */
-      height: 100vh; /* جعل الارتفاع يغطي كامل الشاشة */
+      flex: 1;
+      margin: 0 10px;
+      height: 100vh;
     }
   }
 
   .about-row {
-    display: flex; /* لعرض العناصر بجوار بعضها */
-    width: 100%; /* اجعل العرض 100% */
-    gap: 20px; /* مساحة بين العناصر */
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    gap: 0px;
   }
 
-  .welcome {
-    color: #ffffff ;
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 60px;
-    font-weight: bold;
-  }
-
-  .join {
-    color: #fffefe;
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 60px;
-    font-weight: bold;
-  }
-  .tailored {
-    color: #00ffaa;
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 60px;
-    font-weight: bold;
-  }
+  .welcome,
+  .join,
+  .tailored,
   .travel {
-    color: #fffefe;
     font-family: 'Titillium Web', sans-serif;
     font-size: 60px;
     font-weight: bold;
-    margin: 100px;
+  }
+
+  .welcome { color: #ffffff; }
+  .join { color: #fffefe; }
+  .tailored { color: #00ffaa; }
+  .travel { color: #fffefe; margin: 100px; }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .about-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about-banner {
+    font-size: 10px;
+    line-height: 3;
+    padding: 40px 20px;
+    width: 100%;
+    height: auto;
+    margin:  0;
   }
 }
 
-  /* Media Query */
-  @media (max-width: 768px) {
-    .about-row {
-      flex-direction: column; /* اجعل العناصر في عمود */
-      align-items: center; /* محاذاة العناصر في المركز */
-    }
-
-    .about-banner {
-      font-size: 10px;
-      line-height: 3; /* زيادة ارتفاع السطر */
-      padding: 40px 20px; /* زيادة الحدود العلوية والسفلية حول النص */
-      width: 100%; /* اجعل العرض 100% */
-      height: auto; /* للسماح للصور بالتمدد تلقائيًا حسب المحتوى */
-      margin: 10px 0; /* إضافة هوامش بين العناصر */
-    }
-  }
-
-
-
-/* instructors section */
+// Instructors section
+.instructors {
+  text-align: center;
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Titillium Web', sans-serif;
+}
 
 .instructors h2 {
-  font-size: 3rem; /* Large font size for impact */
-  font-weight: 700; /* Bold text */
+  font-size: 3rem;
+  font-weight: 700;
   margin: 0 0 70px 0;
   padding: 0;
-  color: #fff; /* White text color */
-  text-transform: uppercase; /* Uppercase text for emphasis */
-  letter-spacing: 2px; /* Increased letter spacing for modern look */
+  text-transform: uppercase;
+  letter-spacing: 2px;
   display: inline-block;
-  background: linear-gradient(90deg, #ff6f61, #d5b4ff); /* Gradient background */
-  -webkit-background-clip: text; /* Clip the background gradient to the text */
+  background: linear-gradient(90deg, #ff6f61, #d5b4ff);
+  -webkit-background-clip: text;
   background-clip: text;
-  color: transparent; /* Hide the original text color */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+  color: transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
@@ -235,81 +225,64 @@ body {
 }
 
 .instructors h2:hover {
-  transform: scale(1.1); /* تكبير خفيف عند التمرير */
-  text-shadow: 0 8px 20px rgba(255, 255, 255, 0.8); /* ظل نصي معزز عند التمرير */
-}
-
-.instructors {
-  text-align: center;
-  padding: 80px 20px;
-  position: relative;
-  overflow: hidden;
-  font-family: 'Titillium Web', sans-serif;
+  transform: scale(1.1);
+  text-shadow: 0 8px 20px rgba(255, 255, 255, 0.8);
 }
 
 .instructor-content {
   background: linear-gradient(45deg, #ffffff, #d5b4ff43);
   display: flex;
-  flex-direction: column; /* استخدام الاتجاه العمودي */
-  gap: 40px; /* مساحة أكبر بين العناصر */
+  flex-direction: column;
+  gap: 40px;
 }
 
 .instructor-image {
-  width: 300px; /* تحديد عرض ثابت أكبر للصورة */
-  height: auto; /* ارتفاع تلقائي للحفاظ على نسبة العرض إلى الارتفاع */
+  width: 300px;
+  height: auto;
   object-fit: cover;
-  margin-left: 20px; /* مسافة بين الصورة والنص */
+  margin-left: 20px;
 }
 
 .instructor-item {
-  display: flex; /* استخدام flex لعرض المحتوى بشكل أفقي */
-  align-items: center; /* محاذاة العناصر في المنتصف */
-  justify-content: space-between; /* توزيع المساحة بين الصورة والنص */
-  background-color: transparent; /* جعل الخلفية شفافة */
-  padding: 20px; /* إضافة مساحة داخلية */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
+  padding: 20px;
 }
 
 .instructor-list-wrapper {
   width: 100%;
-  background: linear-gradient(45deg, #ff6e6180, #d5b4ff); /* الخلفية الموحدة */
+  background: linear-gradient(45deg, #ff6e6180, #d5b4ff);
   display: flex;
-  justify-content: center; /* توسيط القائمة بداخل الخلفية */
+  justify-content: center;
 }
 
 .instructor-list {
   display: flex;
   flex-direction: column;
-  gap: 40px; /* المسافة بين كل عنصر */
-  max-width: 1200px; /* تحديد عرض القائمة */
-  width: 100%; /* جعل القائمة تأخذ كامل العرض المحدد */
-  padding: 20px; /* مسافة داخلية حول القائمة */
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+  padding: 20px;
   font-family: 'Titillium Web', sans-serif;
-
 }
 
 .instructor {
   display: flex;
   align-items: center;
-  padding: 20px 0; /* مسافة داخلية عمودية فقط */
+  padding: 20px 0;
   position: relative;
   font-family: 'Titillium Web', sans-serif;
 }
 
-.instructor:nth-child(odd) .instructor-info {
-  text-align: right; /* توجيه النص إلى اليمين */
-}
+.instructor:nth-child(odd) .instructor-info { text-align: right; }
+.instructor:nth-child(even) .instructor-info { text-align: left; }
 
-.instructor:nth-child(even) .instructor-info {
-  text-align: left; /* توجيه النص إلى اليسار */
-}
-
-.instructor:nth-child(odd) {
-  justify-content: space-between; /* جعل النص أقصى اليمين والصورة أقصى اليسار */
-}
-
+.instructor:nth-child(odd) { justify-content: space-between; }
 .instructor:nth-child(even) {
-  justify-content: space-between; /* جعل النص أقصى اليسار والصورة أقصى اليمين */
-  flex-direction: row-reverse; /* عكس ترتيب العناصر */
+  justify-content: space-between;
+  flex-direction: row-reverse;
 }
 
 .instructor-picture {
@@ -327,63 +300,60 @@ body {
 }
 
 .instructor-info {
-  flex: 1; /* أخذ المساحة المتبقية */
+  flex: 1;
   padding: 0 20px;
-  max-width: 800px; /* تحديد عرض النص ليكون قليل */
-  font-size: 32px; /* تكبير حجم النص */
-  line-height: 1.9; /* زيادة تباعد الأسطر */
-  word-wrap: break-word; /* كسر النص عند الحاجة لتجنب التمدد الأفقي */
+  max-width: 800px;
+  font-size: 32px;
+  line-height: 1.9;
+  word-wrap: break-word;
 }
 
 .instructor-info h4 {
   margin-bottom: 20px;
-  font-size: 36px; /* حجم أكبر للعنوان */
+  font-size: 36px;
   font-weight: bold;
   font-family: 'Titillium Web', sans-serif;
-
 }
 
 .instructor-info p {
-  font-size: 24px; /* تكبير حجم النص داخل الفقرة */
-  line-height: 1; /* زيادة التباعد بين الأسطر */
+  font-size: 24px;
+  line-height: 1;
 }
 
 .instructor-name {
-  margin: 0; /* إزالة الهوامش العليا والسفلى */
-  font-size: 2rem; /* زيادة حجم الخط قليلاً للتأثير */
+  margin: 0;
+  font-size: 2rem;
   font-family: 'Titillium Web', sans-serif;
-  color: #8B0000; /* لون داكن لتمييز النص */
-  text-align: center; /* محاذاة النص في المنتصف */
-  text-transform: uppercase; /* تحويل النص إلى حروف كبيرة */
-  letter-spacing: 1px; /* زيادة المسافة بين الحروف */
-  border-bottom: 2px solid #390500; /* إضافة خط سفلي بلون مميز */
-  padding-bottom: 5px; /* مساحة داخلية أسفل النص */
-  transition: color 0.3s ease, transform 0.3s ease; /* إضافة تأثير انتقال */
-
+  color: #8B0000;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #390500;
+  padding-bottom: 5px;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .instructor-name::after {
   content: "";
   display: block;
-  width: 50%; /* عرض الخط السفلي */
-  height: 4px; /* ارتفاع الخط السفلي */
-  margin: 5px auto; /* مركز الخط السفلي */
-  transition: transform 0.3s ease; /* تأثير سلس عند التحريك */
+  width: 50%;
+  height: 4px;
+  margin: 5px auto;
+  transition: transform 0.3s ease;
 }
 
 .instructor-name:hover {
-  color: #170035; /* تغير لون النص عند التحويم */
-  transform: translateY(-3px); /* تحريك الاسم للأعلى عند التحويم */
+  color: #170035;
+  transform: translateY(-3px);
 }
 
 .instructor-position {
-  font-size: 1.5rem; /* حجم خط أصغر للمسمى الوظيفي */
-  color: #777; /* لون رمادي للمسمى الوظيفي */
-  margin: 0 0 15px 0; /* مساحة تحت المسمى الوظيفي */
+  font-size: 1.5rem;
+  color: #777;
+  margin: 0 0 15px 0;
 }
 
-
-/* Location section */
+// Location section
 .location {
   background-color: #ffffff;
   border-radius: 8px;
@@ -393,7 +363,7 @@ body {
   text-align: center;
 
   h2 {
-    @include gradient-title; //
+    @include gradient-title;
     font-size: 2.5rem;
     margin-bottom: 20px;
   }

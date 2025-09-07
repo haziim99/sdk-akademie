@@ -1,169 +1,232 @@
-/* ================================
-   📌 Custom Font
-================================= */
-@font-face {
-  font-family: 'Edu AU VIC WANT Hand';
-  src: url('/assets/fonts/EduAUVICWANTHand-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 700;
-  font-style: normal;
-}
-
-/* ================================
-   📌 Payment Page Layout
-================================= */
 .payment-container {
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(45deg, #ff1500, #d5b4ff);
-  color: #e7e7e7;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   font-family: 'Titillium Web', sans-serif;
+  color: #333;
 }
 
-/* ================================
-   📌 Header
-================================= */
 .payment-header {
+  background: linear-gradient(45deg, #ff6e6180, #d5b4ff);
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
   text-align: center;
-  padding: 20px;
-  background-color: rgba(252, 249, 249, 0.7);
 
   h1 {
     margin: 0;
-    color: rgb(112, 6, 6);
     font-family: 'Titillium Web', sans-serif;
+    color: #230400;
+    font-size: 2.5rem;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 }
 
-/* ================================
-   📌 Content Section
-================================= */
 .payment-content {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .payment-options {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.payment-option {
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
   width: 100%;
-  max-width: 250px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  transition: border-color 0.3s ease, background 0.3s ease;
 
-  &.selected {
-    border: 2px solid #fe512f;
-    background: rgba(0, 0, 0, 0.9);
-  }
-
-  img {
-    width: 60px;
-    height: auto;
-    margin-bottom: 15px;
-  }
-
-  h2 {
-    margin-top: 0;
-  }
-
-  p {
-    margin: 10px 0;
-  }
-
-  button {
-    background: #fe512f;
-    border: none;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+  .payment-option {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
 
     &:hover {
-      background: #ff9176;
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    &.selected {
+      border-color: #ff6e61;
+      box-shadow: 0 20px 40px rgba(255, 110, 97, 0.2);
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(45deg, #ff6e61, #d5b4ff);
+      }
+    }
+
+    img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-family: 'Titillium Web', sans-serif;
+      font-weight: 500;
+      color: #230400;
+      margin: 0 0 1rem 0;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: rgba(35, 4, 0, 0.7);
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    button {
+      background: linear-gradient(135deg, #ff6e61 0%, #d5b4ff 100%);
+      color: #230400;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(255, 110, 97, 0.3);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 110, 97, 0.4);
+      }
+    }
+
+    .verification-icon {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      color: #28a745;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
   }
-
-  .verification-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5em;
-    color: #28a745; /* Green checkmark */
-    visibility: hidden;
-
-    &.visible {
-      visibility: visible;
-    }
-  }
 }
 
-/* ================================
-   📌 Footer
-================================= */
-.payment-footer {
-  text-align: center;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-.proceed-btn {
-  background: linear-gradient(90deg, #ff1500, #d5b4ff);
-  border: none;
-  color: #ffffff;
-  padding: 15px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background 0.3s ease;
-
-  &:hover {
-    background: #931d00;
-  }
-}
-
-/* ================================
-   📌 Confirmation Modal
-================================= */
 .confirmation-modal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: linear-gradient(90deg, #ff1500, #d5b4ff);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 3rem;
   text-align: center;
+  z-index: 1000;
+  max-width: 500px;
+  width: 90%;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    z-index: -1;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 1rem 0;
+  }
+
+  p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    margin-bottom: 2rem;
+
+    strong {
+      color: #ff6e61;
+      text-transform: capitalize;
+    }
+  }
 
   button {
-    background: #fe512f;
+    background: linear-gradient(135deg, #ff6e61 0%, #d5b4ff 100%);
+    color: #230400;
     border: none;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0 0.5rem;
 
     &:hover {
-      background: #ff9176;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 110, 97, 0.3);
+    }
+
+    &:last-child {
+      background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+      color: white;
+
+      &:hover {
+        box-shadow: 0 6px 15px rgba(108, 117, 125, 0.3);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .payment-header {
+    padding: 1.5rem;
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .payment-content {
+    padding: 2rem 1rem;
+  }
+
+  .payment-options {
+    grid-template-columns: 1fr;
+  }
+
+  .confirmation-modal {
+    padding: 2rem;
+    margin: 1rem;
+
+    button {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
     }
   }
 }

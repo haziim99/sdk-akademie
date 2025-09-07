@@ -1,6 +1,157 @@
-<div class="video-wrapper">
-  <video #videoElement id="my-video" class="video-js vjs-default-skin" controls preload="auto">
-  <source [src]="currentVideoUrl" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+<div class="player-container">
+  <!-- Video Player -->
+  <div class="video-player-wrapper">
+    <video
+      #videoElement
+      class="video-js vjs-default-skin"
+      controls
+      preload="auto"
+      data-setup='{}'>
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a web browser that
+        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>.
+      </p>
+    </video>
+
+    <!-- Custom Overlay Controls -->
+    <div class="video-overlay" [class.hidden]="isPlaying">
+      <div class="overlay-controls">
+        <button class="big-play-btn" (click)="togglePlay()">
+          <span *ngIf="!isPlaying">▶</span>
+          <span *ngIf="isPlaying">⏸</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Video Info Overlay -->
+    <div class="video-info-overlay">
+      <h3 class="video-title">{{ videoTitle }}</h3>
+      <div class="video-stats">
+        <span>{{ formatTime(currentTime) }} / {{ formatTime(duration) }}</span>
+        <span>{{ playbackRate }}x</span>
+        <span>{{ currentQuality }}p</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar Controls -->
+  <div class="player-sidebar" [class.collapsed]="!showPlaylist && !showSettings">
+
+    <!-- Playlist Panel -->
+    <div class="playlist-panel" *ngIf="showPlaylist && playlist.length > 0">
+      <div class="panel-header">
+        <h4>Playlist ({{ playlist.length }})</h4>
+        <button class="close-btn" (click)="togglePlaylist()">×</button>
+      </div>
+      <div class="playlist-content">
+        <div
+          class="playlist-item"
+          *ngFor="let item of playlist; let i = index"
+          [class.active]="i === currentIndex"
+          (click)="playVideoFromPlaylist(i)">
+          <div class="playlist-thumbnail">
+            <img [src]="item.thumbnail || '/assets/default-thumb.jpg'" alt="thumbnail">
+            <span class="duration">{{ item.duration || '0:00' }}</span>
+          </div>
+          <div class="playlist-info">
+            <h5>{{ item.title }}</h5>
+            <span class="playlist-index">{{ i + 1 }} / {{ playlist.length }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div class="settings-panel" *ngIf="showSettings">
+      <div class="panel-header">
+        <h4>Settings</h4>
+        <button class="close-btn" (click)="toggleSettings()">×</button>
+      </div>
+      <div class="settings-content">
+
+        <!-- Quality Settings -->
+        <div class="setting-group">
+          <label>Quality</label>
+          <div class="quality-options">
+            <button
+              *ngFor="let quality of qualityLevels"
+              class="quality-btn"
+              [class.active]="quality.value === currentQuality"
+              (click)="changeQuality(quality.value)">
+              {{ quality.label }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Playback Speed -->
+        <div class="setting-group">
+          <label>Playback Speed</label>
+          <div class="speed-options">
+            <button
+              *ngFor="let speed of [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]"
+              class="speed-btn"
+              [class.active]="speed === playbackRate"
+              (click)="changePlaybackRate(speed)">
+              {{ speed }}x
+            </button>
+          </div>
+        </div>
+
+        <!-- Keyboard Shortcuts -->
+        <div class="setting-group">
+          <label>Keyboard Shortcuts</label>
+          <div class="shortcuts-list">
+            <div class="shortcut-item" *ngFor="let shortcut of keyboardShortcuts">
+              <kbd>{{ shortcut.key }}</kbd>
+              <span>{{ shortcut.action }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytics -->
+        <div class="setting-group">
+          <label>Session Stats</label>
+          <div class="analytics-stats">
+            <div class="stat-item">
+              <span>Watch Time:</span>
+              <span>{{ formatTime(analytics.watchTime) }}</span>
+            </div>
+            <div class="stat-item">
+              <span>Pauses:</span>
+              <span>{{ analytics.pauseCount }}</span>
+            </div>
+            <div class="stat-item">
+              <span>Skips:</span>
+              <span>{{ analytics.skipCount }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Controls -->
+  <div class="bottom-controls">
+    <div class="control-group">
+      <button class="control-btn" (click)="previousVideo()" [disabled]="currentIndex === 0">
+        ⏮ Previous
+      </button>
+      <button class="control-btn" (click)="nextVideo()" [disabled]="currentIndex === playlist.length - 1">
+        Next ⏭
+      </button>
+    </div>
+
+    <div class="control-group">
+      <button class="control-btn" (click)="togglePlaylist()">
+        📋 Playlist
+      </button>
+      <button class="control-btn" (click)="toggleSettings()">
+        ⚙️ Settings
+      </button>
+      <button class="control-btn" (click)="togglePictureInPicture()">
+        📺 PiP
+      </button>
+    </div>
+  </div>
 </div>

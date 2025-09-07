@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'payment-method', component: PaymentMethodComponent, canActivate: [AuthGuard] }
 ];
 
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

@@ -143,30 +143,6 @@ export class AuthService {
     this.currentUserSubject.next(updatedUser);
   }
 
-  addCourseToUser(courseId: string): Observable<any> {
-    const currentUser = this.getCurrentUser();
-    if (currentUser) {
-      const courseExists = currentUser.courses?.some(c => c.id === courseId);
-      if (!courseExists) {
-        return this.getCourseById(courseId).pipe(
-          map(course => {
-            if (course) {
-              currentUser.courses!.push(course);
-              this.updateCurrentUser(currentUser);
-              return { success: true };
-            }
-            return { success: false };
-          }),
-          catchError(() => of({ success: false }))
-        );
-      } else {
-        return of({ success: false });
-      }
-    } else {
-      return of({ success: false });
-    }
-  }
-
   private getCourseById(id: string): Observable<Course | undefined> {
     return this.firestore.collection<Course>('courses').doc(id).valueChanges().pipe(
       map(course => course),

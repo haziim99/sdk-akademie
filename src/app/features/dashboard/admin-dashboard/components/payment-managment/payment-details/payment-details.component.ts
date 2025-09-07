@@ -47,10 +47,28 @@ export class PaymentDetailsComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // هنا يمكنك استدعاء خدمة لعرض المدفوعات الحقيقية في المستقبل
   }
 
   navigateBack(): void {
-    this.router.navigate(['/admin']); // تأكد من تعديل المسار حسب الحاجة
+    this.router.navigate(['/admin']);
+  }
+
+  // Helper methods for stats
+  getTotalAmount(): number {
+    return this.payments
+      .filter(payment => payment.status === 'Completed')
+      .reduce((total, payment) => total + payment.amount, 0);
+  }
+
+  getCompletedCount(): number {
+    return this.payments.filter(payment => payment.status === 'Completed').length;
+  }
+
+  getPendingCount(): number {
+    return this.payments.filter(payment => payment.status === 'Pending').length;
+  }
+
+  getFailedCount(): number {
+    return this.payments.filter(payment => payment.status === 'Failed').length;
   }
 }

@@ -1,32 +1,106 @@
 <div class="payment-details">
-  <div class="header">
-    <h2>Payment Details</h2>
-    <button class="back-button" (click)="navigateBack()">Back to Admin Dashboard</button>
+  <!-- Modern Header with Navigation -->
+  <header class="admin-header">
+    <div class="header-content">
+      <div class="page-title">
+        <h1>Payment Details</h1>
+        <div class="breadcrumb">Admin Dashboard / Payments</div>
+      </div>
+      <button class="back-button" (click)="navigateBack()">
+        ← Back to Admin Dashboard
+      </button>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="admin-nav">
+      <ul>
+        <li><a routerLink="/admin/student-management" routerLinkActive="active">Students</a></li>
+        <li><a routerLink="/admin/payments-details" routerLinkActive="active">Payments</a></li>
+        <li><a routerLink="/admin/profile-management" routerLinkActive="active">Profile Management</a></li>
+        <li><a routerLink="/admin/support" routerLinkActive="active">Support</a></li>
+        <li><a routerLink="/admin/system-settings" routerLinkActive="active">Settings</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <div class="content-container">
+    <div class="payments-section">
+      <h2>Payment Transactions</h2>
+
+      <!-- Optional Stats Section -->
+      <div class="payment-stats">
+        <div class="stat-card">
+          <div class="stat-number">{{ getTotalAmount() }}</div>
+          <div class="stat-label">Total Revenue (EGP)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ payments.length }}</div>
+          <div class="stat-label">Total Transactions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ getCompletedCount() }}</div>
+          <div class="stat-label">Completed Payments</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ getPendingCount() }}</div>
+          <div class="stat-label">Pending Payments</div>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>User Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Amount</th>
+              <th>Method</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let payment of payments; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>
+                <div class="user-info">
+                  <strong>{{ payment.user.name }}</strong>
+                </div>
+              </td>
+              <td>{{ payment.user.email }}</td>
+              <td>{{ payment.user.phone }}</td>
+              <td class="amount">{{ payment.amount }} EGP</td>
+              <td class="method">
+                <span class="method-badge">{{ payment.method }}</span>
+              </td>
+              <td>{{ payment.date | date:'short' }}</td>
+              <td class="status">
+                <span class="status-badge"
+                      [ngClass]="{
+                        'completed': payment.status === 'Completed',
+                        'pending': payment.status === 'Pending',
+                        'failed': payment.status === 'Failed'
+                      }">
+                  {{ payment.status }}
+                </span>
+              </td>
+            </tr>
+
+            <!-- Empty State -->
+            <tr *ngIf="payments.length === 0">
+              <td colspan="8" class="empty-state">
+                <div style="text-align: center; padding: 2rem; color: #666;">
+                  <h3>No payments found</h3>
+                  <p>Payment transactions will appear here once they are processed.</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>User Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Amount (EGP)</th>
-        <th>Method</th>
-        <th>Date</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let payment of payments; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ payment.user.name }}</td>
-        <td>{{ payment.user.email }}</td>
-        <td>{{ payment.user.phone }}</td>
-        <td>{{ payment.amount }} EGP</td>
-        <td>{{ payment.method }}</td>
-        <td>{{ payment.date | date:'short' }}</td>
-        <td>{{ payment.status }}</td>
-      </tr>
-    </tbody>
-  </table>
 </div>

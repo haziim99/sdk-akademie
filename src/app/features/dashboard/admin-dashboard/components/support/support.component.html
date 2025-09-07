@@ -1,71 +1,104 @@
-<div class="support-component">
-  <!-- Header Section -->
-  <div class="support-header">
-    <h1>Customer Support</h1>
-    <div class="header-actions">
-      <button class="back-button" (click)="navigateToAdminDashboard()">Back to Admin Dashboard</button>
-    </div>
-    <div class="search-filter">
-      <input
-        type="text"
-        placeholder="Search tickets..."
-        [(ngModel)]="searchTerm"
-        (input)="filterTickets()"
-      />
-      <select [(ngModel)]="filterStatus" (change)="filterTickets()">
-        <option value="">All Statuses</option>
-        <option value="open">Open</option>
-        <option value="closed">Closed</option>
-      </select>
-    </div>
-  </div>
+ <div class="support-details">
+        <!-- Modern Header with Navigation -->
+        <header class="admin-header">
+            <div class="header-content">
+                <div class="page-title">
+                    <h1>Customer Support</h1>
+                    <div class="breadcrumb">Admin Dashboard / Support</div>
+                </div>
+                <button class="back-button" onclick="navigateBack()">
+                    ← Back to Admin Dashboard
+                </button>
+            </div>
 
-  <!-- Support Content Section -->
-  <div class="support-content">
-    <div class="ticket-list">
-      <h2>Support Tickets</h2>
-      <ul>
-        <li
-          *ngFor="let ticket of filteredTickets"
-          (click)="selectTicket(ticket)"
-          [class.selected]="selectedTicket?.id === ticket.id">
-          <div class="ticket-info">
-            <span class="ticket-subject">{{ ticket.subject }}</span>
-            <span class="ticket-status" [ngClass]="{'open-status': ticket.status === 'open', 'closed-status': ticket.status === 'closed'}">
-              {{ ticket.status | titlecase }}
-            </span>
-          </div>
-        </li>
-      </ul>
+            <!-- Navigation Menu -->
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="/admin/student-management">Students</a></li>
+                    <li><a href="/admin/payments-details">Payments</a></li>
+                    <li><a href="/admin/profile-management">Profile Management</a></li>
+                    <li><a href="/admin/support" class="active">Support</a></li>
+                    <li><a href="/admin/system-settings">Settings</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <div class="content-container">
+            <div class="support-section">
+                <h2>Support Tickets Management</h2>
+
+                <!-- Search and Filter -->
+                <div class="search-filter-container">
+                    <input type="text" placeholder="Search tickets..." id="searchInput">
+                    <select id="statusFilter">
+                        <option value="">All Statuses</option>
+                        <option value="open">Open</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+
+                <!-- Support Content -->
+                <div class="support-content">
+                    <!-- Tickets List -->
+                    <div class="tickets-list">
+                        <h3>Support Tickets</h3>
+                        <div id="ticketsList">
+                            <!-- Sample tickets -->
+                            <div class="ticket-item selected" onclick="selectTicket(1)">
+                                <div class="ticket-info">
+                                    <span class="ticket-subject">Login Issues</span>
+                                    <span class="ticket-status open-status">Open</span>
+                                </div>
+                            </div>
+                            <div class="ticket-item" onclick="selectTicket(2)">
+                                <div class="ticket-info">
+                                    <span class="ticket-subject">Payment Problem</span>
+                                    <span class="ticket-status closed-status">Closed</span>
+                                </div>
+                            </div>
+                            <div class="ticket-item" onclick="selectTicket(3)">
+                                <div class="ticket-info">
+                                    <span class="ticket-subject">Course Access</span>
+                                    <span class="ticket-status open-status">Open</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ticket Details -->
+                    <div class="ticket-details" id="ticketDetails">
+                        <h3>Login Issues</h3>
+                        <div class="ticket-description">
+                            <p>I'm unable to log into my account. I've tried resetting my password multiple times but still can't access the platform. Please help me resolve this issue.</p>
+                        </div>
+
+                        <!-- Replies Section -->
+                        <div class="replies-section">
+                            <h4>Conversation History</h4>
+                            <div class="reply-item">
+                                <div class="reply-author">Student:</div>
+                                <div class="reply-message">I'm unable to log into my account. I've tried resetting my password multiple times but still can't access the platform.</div>
+                                <div class="reply-date">2 hours ago</div>
+                            </div>
+                            <div class="reply-item">
+                                <div class="reply-author">Admin:</div>
+                                <div class="reply-message">Thank you for contacting us. I've reset your account permissions. Please try logging in again and let me know if you still face any issues.</div>
+                                <div class="reply-date">1 hour ago</div>
+                            </div>
+                        </div>
+
+                        <!-- Reply Form -->
+                        <div class="reply-form">
+                            <h4>Send Reply</h4>
+                            <textarea placeholder="Type your reply here..." id="replyMessage"></textarea>
+                            <div class="form-actions">
+                                <button class="send-button" onclick="sendReply()">Send Reply</button>
+                                <button class="close-ticket-button" onclick="closeTicket()">Close Ticket</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- Displaying the selected ticket -->
-    <div class="ticket-details" *ngIf="selectedTicket">
-      <h2>{{ selectedTicket.subject }}</h2>
-      <p>{{ selectedTicket.description }}</p>
-
-      <!-- Displaying replies section with safe navigation -->
-      <div class="replies-section" *ngIf="selectedTicket.responses.length > 0">
-        <h3>Replies</h3>
-        <ul>
-          <li *ngFor="let response of selectedTicket.responses">
-            <p><strong>{{ response.author }}:</strong> {{ response.message }}</p>
-            <p class="response-date">{{ response.date.toDate() | date: 'short' }}</p>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Reply form -->
-      <div class="reply-form">
-        <textarea
-          [(ngModel)]="newReply"
-          name="reply"
-          required
-          placeholder="Type your reply..."
-        ></textarea>
-        <button class="send-button" (click)="sendReply()">Send</button>
-      </div>
-      <button class="close-ticket-button" (click)="closeTicket()">Close Ticket</button>
-    </div>
-  </div>
-</div>

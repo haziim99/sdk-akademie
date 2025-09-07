@@ -5,7 +5,6 @@ import { CloudinaryService } from '@/app/core/services/cloudinary.service';
 import { AuthService } from '@/app/core/services/auth.service';
 import { Course, Video, UploadResponse } from '@/app/core/models/user.model';
 import { firstValueFrom } from 'rxjs';
-import videojs from 'video.js';
 
 @Component({
     selector: 'app-manage-videos',
@@ -29,6 +28,7 @@ export class ManageVideosComponent implements OnInit {
   currentVideoUrl!: string;
   currentVideoTitle!: string;
 
+
   constructor(
     private route: ActivatedRoute,
     private coursesService: CoursesService,
@@ -43,44 +43,14 @@ export class ManageVideosComponent implements OnInit {
     if (courseId) {
       this.courseId = courseId;
       this.loadCourseDetails(courseId);
-      this.setupRefresh();
-    } else {
-      console.error('No course ID found in the route');
     }
   }
 
-  playVideo(url: string, title: string) {
+  playVideo(url: string, title: string): void {
     if (url && title) {
       this.currentVideoUrl = url;
       this.currentVideoTitle = title;
-      console.log(`Playing Video: ${title} ${url}`);
-
-      if (this.player) {
-        this.player.src({ type: 'video/mp4', src: this.currentVideoUrl });
-        this.player.load();
-        this.player.play().catch((error: any) => {
-          console.error('Error playing the video:', error);
-        });
-      } else {
-        console.error('Video player is not initialized');
-      }
-    } else {
-      console.error('Invalid video URL or title:', url, title);
     }
-    if (this.player) {
-      this.player.requestFullscreen();
-    } else {
-      console.error('Video player is not initialized');
-    }
-
-  }
-
-  setupRefresh(): void {
-    setInterval(() => {
-      if (this.courseId) {
-        this.loadCourseDetails(this.courseId);
-      }
-    }, this.refreshTime);
   }
 
   async loadCourseDetails(courseId: string): Promise<void> {
@@ -89,8 +59,6 @@ export class ManageVideosComponent implements OnInit {
       this.course = courses.find(course => course.id === courseId);
       if (this.course) {
         this.videos = this.course.videos || [];
-      } else {
-        console.error('Course not found');
       }
     } catch (error) {
       console.error('Error loading course details', error);
@@ -103,87 +71,87 @@ export class ManageVideosComponent implements OnInit {
     const file = event.target.files[0];
     if (file) {
       this.selectedVideoFile = file;
-      console.log('Video file selected:', this.selectedVideoFile);
-    } else {
-      console.error('No video file selected');
     }
   }
 
   async deleteVideo(index: number): Promise<void> {
     const videoToDelete = this.videos[index];
-    if (videoToDelete) {
+    if (videoToDelete && this.course) {
       this.videos.splice(index, 1);
-
-      if (this.course) {
-        this.course.videos = this.videos;
-        await firstValueFrom(this.coursesService.updateCourse(this.course));
-        console.log('Video deleted successfully');
-      }
+      this.course.videos = this.videos;
+      await firstValueFrom(this.coursesService.updateCourse(this.course));
     }
   }
 
   async addVideo(): Promise<void> {
-    console.log('New Video Title:', this.newVideoTitle);
-    console.log('Selected Video File:', this.selectedVideoFile);
-
-    if (!this.newVideoTitle || !this.selectedVideoFile) {
-        console.error('Please provide both a title and a video file.');
-        return;
-    }
-
+    // Check admin permissions
     const currentUser = this.authService.getCurrentUser();
     if (currentUser?.role !== 'admin') {
-        console.error('Only admins can upload videos.');
-        return;
+      console.error('Only admins can upload videos.');
+      return;
     }
 
-    const formData = new FormData();
-    formData.append('file', this.selectedVideoFile);
-    formData.append('upload_preset', 'video_upload');
+    let videoUrl = '';
 
-    let newVideo: Video | null = null; // Initialize with null
+    // Handle file upload
+    if (this.isFileSelected && this.selectedVideoFile && this.newVideoTitle) {
+      try {
+        const formData = new FormData();
+        formData.append('file', this.selectedVideoFile);
+        formData.append('upload_preset', 'video_upload');
 
-    try {
         const uploadResponse: UploadResponse = await firstValueFrom(this.cloudinaryService.uploadVideo(formData));
-        console.log('Upload Response:', uploadResponse);
-
-        newVideo = {
-            title: this.newVideoTitle,
-            url: uploadResponse.secure_url
-        };
-
-        this.videos.push(newVideo);
-        console.log('Videos after adding new video:', this.videos);
-
-        if (this.course) {
-            this.course.videos = this.videos;
-            await firstValueFrom(this.coursesService.updateCourse(this.course));
-            console.log('Course updated successfully');
-        }
-
-        // تشغيل الفيديو الجديد بعد إضافته
-        this.playVideo(newVideo.url, newVideo.title);
-
-        this.newVideoTitle = '';
-        this.selectedVideoFile = null;
-    } catch (error) {
+        videoUrl = uploadResponse.secure_url;
+      } catch (error) {
         console.error('Error uploading video:', error);
+        return;
+      }
     }
-}
+    // Handle URL input
+    else if (this.isUrlSelected && this.newVideoUrl && this.newVideoTitle) {
+      videoUrl = this.newVideoUrl;
+    } else {
+      console.error('Please provide title and video source.');
+      return;
+    }
 
+    // Add video to course
+    const newVideo: Video = {
+      title: this.newVideoTitle,
+      url: videoUrl
+    };
 
+    this.videos.push(newVideo);
 
-  goBack(): void {
-    this.router.navigate(['/admin']);
+    if (this.course) {
+      this.course.videos = this.videos;
+      await firstValueFrom(this.coursesService.updateCourse(this.course));
+      this.playVideo(newVideo.url, newVideo.title);
+    }
+
+    // Reset form
+    this.resetForm();
   }
 
-  selectFile() {
+  private resetForm(): void {
+    this.newVideoTitle = '';
+    this.newVideoUrl = '';
+    this.selectedVideoFile = null;
+    this.isFileSelected = false;
+    this.isUrlSelected = false;
+  }
+
+  selectFile(): void {
     this.isFileSelected = true;
     this.isUrlSelected = false;
   }
 
-  selectUrl() {
+  selectUrl(): void {
     this.isFileSelected = false;
     this.isUrlSelected = true;
+  }
+
+  goBack(): void {
+    this.router.navigate(['/admin']);
   }
 }

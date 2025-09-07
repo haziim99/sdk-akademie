@@ -1,42 +1,155 @@
 <div class="profile-management">
-  <div class="header">
-    <h1>Profile Management</h1>
-    <button class="back-button" (click)="navigateBack()">Back to Admin Dashboard</button>
-  </div>
-
-  <div class="profile-details">
-    <div class="profile-picture">
-      <img [src]="profilePictureUrl" alt="Profile Picture">
-      <button class="upload-button" (click)="triggerFileInput()">Change Picture</button>
-      <input type="file" #fileInput (change)="onFileSelected($event)" hidden>
+  <!-- Modern Header with Navigation -->
+  <header class="admin-header">
+    <div class="header-content">
+      <div class="page-title">
+        <h1>Profile Management</h1>
+        <div class="breadcrumb">Admin Dashboard / Profile</div>
+      </div>
+      <button class="back-button" (click)="navigateBack()">
+        ← Back to Admin Dashboard
+      </button>
     </div>
 
-    <div class="user-info" *ngIf="!isEditing">
-      <h2>{{ user?.name }}</h2>
-      <p><strong>Email:</strong> {{ user?.email }}</p>
-      <p><strong>Phone:</strong> {{ user?.phone }}</p>
-      <p><strong>Gender:</strong> {{ getGenderTitle() }}</p>
-      <button class="edit-button" (click)="editProfile()">Edit Profile</button>
-    </div>
+    <!-- Navigation Menu -->
+    <nav class="admin-nav">
+      <ul>
+        <li><a routerLink="/admin/student-management" routerLinkActive="active">Students</a></li>
+        <li><a routerLink="/admin/payments-details" routerLinkActive="active">Payments</a></li>
+        <li><a routerLink="/admin/profile-management" routerLinkActive="active">Profile Management</a></li>
+        <li><a routerLink="/admin/support" routerLinkActive="active">Support</a></li>
+        <li><a routerLink="/admin/system-settings" routerLinkActive="active">Settings</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <div class="edit-form" *ngIf="isEditing">
-      <form (ngSubmit)="saveChanges()">
-        <label>
-          Name:
-          <input type="text" [(ngModel)]="updatedName" name="name" required>
-        </label>
-        <label>
-          Email:
-          <input type="email" [(ngModel)]="updatedEmail" name="email" required>
-        </label>
-        <label>
-          Phone:
-          <input type="text" [(ngModel)]="updatedPhone" name="phone">
-        </label>
-        <div class="form-buttons">
-          <button type="submit" class="save-button">Save</button>
-          <button type="button" class="cancel-button" (click)="cancelEdit()">Cancel</button>
+  <!-- Main Content -->
+  <div class="content-container">
+    <div class="profile-card">
+      <!-- Profile Picture Section -->
+      <div class="profile-picture-section">
+        <div class="picture-container" [class.is-uploading]="isUploading">
+          <img [src]="profilePictureUrl"
+               [alt]="user?.name + ' Profile Picture'"
+               class="profile-image"
+               onerror="this.src='assets/images/default-profile.jpg'">
         </div>
-      </form>
+
+        <div class="picture-actions">
+          <button class="upload-btn"
+                  (click)="triggerFileInput()"
+                  [disabled]="isUploading"
+                  title="Upload new profile picture">
+            <i class="fas fa-camera"></i>
+            {{ isUploading ? 'Uploading...' : 'Change Picture' }}
+          </button>
+
+          <button class="reset-btn"
+                  (click)="resetProfilePicture()"
+                  [disabled]="isUploading"
+                  title="Reset to default picture">
+            <i class="fas fa-undo"></i>
+            Reset
+          </button>
+        </div>
+
+        <!-- Hidden file input -->
+        <input type="file"
+               #fileInput
+               (change)="onFileSelected($event)"
+               accept="image/*"
+               hidden>
+      </div>
+
+      <!-- Profile Info Section -->
+      <div class="profile-info-section">
+        <h2 class="section-title">Account Information</h2>
+
+        <!-- Display Mode -->
+        <div class="profile-display" *ngIf="!isEditing">
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">Full Name</span>
+              <span class="value">{{ user?.name || 'Not provided' }}</span>
+            </div>
+
+            <div class="info-item">
+              <span class="label">Email Address</span>
+              <span class="value">{{ user?.email || 'Not provided' }}</span>
+            </div>
+
+            <div class="info-item">
+              <span class="label">Phone Number</span>
+              <span class="value">{{ user?.phone || 'Not provided' }}</span>
+            </div>
+
+            <div class="info-item" *ngIf="user?.gender">
+              <span class="label">Title</span>
+              <span class="value">{{ getGenderTitle() }}</span>
+            </div>
+          </div>
+
+          <button class="edit-btn" (click)="editProfile()" title="Edit profile information">
+            <i class="fas fa-edit"></i>
+            Edit Profile
+          </button>
+        </div>
+
+        <!-- Edit Mode -->
+        <div class="profile-edit" *ngIf="isEditing">
+          <form class="edit-form" (ngSubmit)="saveChanges()" #profileForm="ngForm">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text"
+                     id="name"
+                     [(ngModel)]="updatedName"
+                     name="name"
+                     required
+                     placeholder="Enter your full name"
+                     #nameInput="ngModel">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email"
+                     id="email"
+                     [(ngModel)]="updatedEmail"
+                     name="email"
+                     required
+                     placeholder="Enter your email address"
+                     #emailInput="ngModel">
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel"
+                     id="phone"
+                     [(ngModel)]="updatedPhone"
+                     name="phone"
+                     placeholder="Enter your phone number (optional)"
+                     #phoneInput="ngModel">
+            </div>
+
+            <div class="form-actions">
+              <button type="submit"
+                      class="save-btn"
+                      [disabled]="!profileForm.form.valid"
+                      title="Save changes">
+                <i class="fas fa-save"></i>
+                Save Changes
+              </button>
+
+              <button type="button"
+                      class="cancel-btn"
+                      (click)="cancelEdit()"
+                      title="Cancel editing">
+                <i class="fas fa-times"></i>
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
+</div>

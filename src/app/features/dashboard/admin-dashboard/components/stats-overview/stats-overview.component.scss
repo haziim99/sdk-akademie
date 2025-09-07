@@ -1,62 +1,125 @@
-
-.body {
-  font-family: 'Titillium Web', sans-serif;
-}
-
 .stats-overview {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(106, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 3rem;
+  margin-top: 2rem;
 
   h2 {
-    color: #450000;
-    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #230400;
+    margin: 0 0 2rem 0;
+    position: relative;
+    padding-bottom: 1rem;
     font-family: 'Titillium Web', sans-serif;
-    font-size: 30px;
-    font-weight: bold;
-    position: relative; /* لجعل ::after يتناسب مع h2 */
-    margin-bottom: 10px 10px;
-     /* ارتفاع بين النص والخط */
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(45deg, #ff6e61, #d5b4ff);
+      border-radius: 3px;
+    }
   }
 
-  h2::after {
-    content: ''; /* محتوى فارغ لإنشاء الخط */
-    position: absolute; /* لجعل الخط فوق النص */
-    left: 0; /* محاذاة الخط إلى اليسار */
-    bottom: -5px; /* ارتفاع الخط تحت النص */
-    width: 5%; /* عرض الخط (يمكنك تعديله) */
-    height: 2px; /* ارتفاع الخط */
-    background-color: #160005; /* لون الخط (يمكنك تعديله) */
+  .stat-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+
+    .stat-item {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(45deg, #ff6e61, #d5b4ff);
+      }
+
+      &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      i {
+        font-size: 3rem;
+        color: #ff6e61;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #230400;
+        margin: 0 0 1rem 0;
+        font-family: 'Titillium Web', sans-serif;
+      }
+
+      p {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #ff6e61;
+        margin: 0;
+        font-family: 'Titillium Web', sans-serif;
+      }
+    }
   }
-}
 
-.stat-items {
-  display: flex; /* جعل العناصر في صف أفقي */
-  justify-content: space-between; /* توزيع العناصر بالتساوي */
-}
+  canvas {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    padding: 1rem;
+    width: 100% !important;
+    max-height: 400px;
+  }
 
-.stat-item {
-  flex: 1; /* جعل كل عنصر يأخذ نفس المساحة */
-  margin: 0 10px; /* إضافة هوامش بين العناصر */
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: #fff;
-  text-align: center; /* محاذاة النص في المنتصف */
-}
+  @media (max-width: 768px) {
+    padding: 2rem;
 
-.stat-item h3 {
-  margin: 0;
-  font-size: 1.2em;
-}
+    h2 {
+      font-size: 1.5rem;
+    }
 
-.stat-item p {
-  font-size: 1.5em;
-  font-weight: bold;
-}
+    .stat-items {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
 
-.icon-courses, .icon-students, .icon-reviews {
-  font-size: 2em; /* حجم الأيقونات */
-  margin-bottom: 10px; /* مسافة بين الأيقونة والعنوان */
+      .stat-item {
+        padding: 1.5rem;
+
+        i {
+          font-size: 2.5rem;
+        }
+
+        p {
+          font-size: 2rem;
+        }
+      }
+    }
+
+    canvas {
+      max-height: 300px;
+    }
+  }
 }

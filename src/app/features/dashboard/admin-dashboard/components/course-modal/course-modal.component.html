@@ -1,60 +1,56 @@
 <div class="modal-backdrop" (click)="onClose()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <h3>{{ course ? 'Edit Course' : 'Add New Course' }}</h3>
-    <form (ngSubmit)="onSave()">
+
+    <form [formGroup]="courseForm" (ngSubmit)="onSave()">
+
       <input
         type="text"
-        [(ngModel)]="newCourse.title"
-        name="title"
+        formControlName="title"
         placeholder="Course Title"
-        required
       />
-      <div *ngIf="!newCourse.title.trim()" class="error-message">
-        Course title is required.
+      <div *ngIf="title?.invalid && title?.touched" class="error-message">
+        <span *ngIf="title?.errors?.['required']">Course title is required.</span>
+        <span *ngIf="title?.errors?.['minlength']">Title must be at least 3 characters.</span>
       </div>
 
-      <select [(ngModel)]="newCourse.category" name="category" [disabled]="true">
+      <select formControlName="category" [disabled]="true">
         <option value="German Course">German Course</option>
       </select>
 
       <textarea
-        [(ngModel)]="newCourse.description"
-        name="description"
+        formControlName="description"
         placeholder="Description"
-        required
       ></textarea>
-      <div *ngIf="!newCourse.description.trim()" class="error-message">
-        Course description is required.
+      <div *ngIf="description?.invalid && description?.touched" class="error-message">
+        <span *ngIf="description?.errors?.['required']">Description is required.</span>
+        <span *ngIf="description?.errors?.['minlength']">Description must be at least 10 characters.</span>
       </div>
 
-      <select [(ngModel)]="newCourse.duration" name="duration" required>
+      <select formControlName="duration">
         <option value="">Select Duration</option>
         <option value="4 weeks">4 weeks</option>
         <option value="6 weeks">6 weeks</option>
         <option value="8 weeks">8 weeks</option>
         <option value="12 weeks">12 weeks</option>
       </select>
-      <div *ngIf="!newCourse.duration" class="error-message">
+      <div *ngIf="duration?.invalid && duration?.touched" class="error-message">
         Course duration is required.
       </div>
 
-      <!-- Date picker for start date -->
       <div class="form-group">
         <label for="startDate">Start Date:</label>
         <input
           type="date"
           id="startDate"
-          [(ngModel)]="newCourse.startDate"
-          name="startDate"
-          required
+          formControlName="startDate"
         />
       </div>
-
-      <div *ngIf="!newCourse.startDate" class="error-message">
+      <div *ngIf="startDate?.invalid && startDate?.touched" class="error-message">
         Start date is required.
       </div>
 
-      <select [(ngModel)]="newCourse.instructor" name="instructor" required>
+      <select formControlName="instructor">
         <option value="">Select Instructor</option>
         <option value="Frau Amira El feky">Frau Amira El feky</option>
         <option value="Frau Asmaa Mohamed">Frau Asmaa Mohamed</option>
@@ -63,53 +59,50 @@
         <option value="Herr Youssef Hassan">Herr Youssef Hassan</option>
         <option value="Frau Sara Ali">Frau Sara Ali</option>
       </select>
-      <div *ngIf="!newCourse.instructor" class="error-message">
+      <div *ngIf="instructor?.invalid && instructor?.touched" class="error-message">
         Instructor is required.
       </div>
 
       <input
         type="number"
-        [(ngModel)]="newCourse.price"
-        name="price"
+        formControlName="price"
         placeholder="Price"
-        required
         min="1"
       />
-      <div *ngIf="newCourse.price <= 0" class="error-message">
-        Price must be greater than 0.
+      <div *ngIf="price?.invalid && price?.touched" class="error-message">
+        <span *ngIf="price?.errors?.['required']">Price is required.</span>
+        <span *ngIf="price?.errors?.['min']">Price must be greater than 0.</span>
       </div>
 
       <input type="file" (change)="onFileChange($event)" accept="image/*" />
+
+      <input type="file" (change)="onVideoChange($event)" accept="video/*" />
 
       <div class="level-selection">
         <h3>Select Course Level:</h3>
         <div class="buttons">
           <button
             type="button"
-            [ngClass]="{'selected': selectedLevel === 'beginner'}"
+            [ngClass]="{'selected': level?.value === 'beginner'}"
             (click)="selectLevel('beginner')">Beginner
           </button>
           <button
             type="button"
-            [ngClass]="{'selected': selectedLevel === 'intermediate'}"
+            [ngClass]="{'selected': level?.value === 'intermediate'}"
             (click)="selectLevel('intermediate')">Intermediate
           </button>
           <button
             type="button"
-            [ngClass]="{'selected': selectedLevel === 'advanced'}"
+            [ngClass]="{'selected': level?.value === 'advanced'}"
             (click)="selectLevel('advanced')">Advanced
           </button>
         </div>
       </div>
 
-      <div *ngIf="!isFormValid()" class="error-message">
-        Please fill out all required fields before submitting.
-      </div>
-
       <div class="modal-footer">
         <button
           type="submit"
-          [disabled]="!isFormValid()">
+          [disabled]="courseForm.invalid">
           {{ course ? 'Update Course' : 'Add Course' }}
         </button>
         <button type="button" (click)="onClose()">Cancel</button>

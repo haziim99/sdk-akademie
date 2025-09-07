@@ -1,43 +1,94 @@
-  <div class="users-management">
-    <div class="header">
-      <h1>Users Management</h1>
-      <button class="back-button" (click)="navigateBack()">Back to Admin Dashboard</button>
+<div class="users-management">
+  <!-- Modern Header with Navigation -->
+  <header class="admin-header">
+    <div class="header-content">
+      <div class="page-title">
+        <h1>Student Management</h1>
+        <div class="breadcrumb">Admin Dashboard / Students</div>
+      </div>
+      <button class="back-button" (click)="navigateBack()">
+        ← Back to Admin Dashboard
+      </button>
     </div>
 
+    <!-- Navigation Menu -->
+    <nav class="admin-nav">
+      <ul>
+        <li><a routerLink="/admin/student-management" routerLinkActive="active">Students</a></li>
+        <li><a routerLink="/admin/payments-details" routerLinkActive="active">Payments</a></li>
+        <li><a routerLink="/admin/profile-management" routerLinkActive="active">Profile Management</a></li>
+        <li><a routerLink="/admin/support" routerLinkActive="active">Support</a></li>
+        <li><a routerLink="/admin/system-settings" routerLinkActive="active">Settings</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <div class="content-container">
     <div class="user-list">
-      <h2>List of Users</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Courses</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users; let i = index ; trackBy: trackByUserId">
-            <td>{{ i + 1 }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.phone }}</td>
-            <td>
-              <ul class="course-list">
-                <li *ngFor="let course of user.courses">{{ course.title }}</li>
-              </ul>
-            </td>
-            <td>
-              <div class="action-buttons">
-                <button class="edit-button" (click)="editUser(user.id)">Edit</button>
-                <button class="delete-button" (click)="deleteUser(user.id)">Delete</button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <h2>Students List</h2>
 
-    <button class="add-user-button" (click)="addUser()">Add New User</button>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Enrolled Courses</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users; let i = index; trackBy: trackByUserId">
+              <td>{{ i + 1 }}</td>
+              <td>
+                <div class="user-info">
+                  <strong>{{ user.name }}</strong>
+                </div>
+              </td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.phone }}</td>
+              <td>
+                <ul class="course-list" *ngIf="user.courses && user.courses.length > 0; else noCourses">
+                  <li *ngFor="let course of user.courses">{{ course.title }}</li>
+                </ul>
+                <ng-template #noCourses>
+                  <span class="no-courses">No courses enrolled</span>
+                </ng-template>
+              </td>
+              <td>
+                <div class="action-buttons">
+                  <button class="edit-button" (click)="editUser(user.id)" title="Edit Student">
+                    Edit
+                  </button>
+                  <button class="delete-button" (click)="deleteUser(user.id)" title="Delete Student">
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Empty State -->
+            <tr *ngIf="users.length === 0">
+              <td colspan="6" class="empty-state">
+                <div style="text-align: center; padding: 2rem; color: #666;">
+                  <h3>No students found</h3>
+                  <p>Start by adding your first student to the system.</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
+
+  <!-- Floating Add Button -->
+  <div class="add-user-section">
+    <button class="add-user-button" (click)="addUser()" title="Add New Student">
+      Add New Student
+    </button>
+  </div>
+</div>
